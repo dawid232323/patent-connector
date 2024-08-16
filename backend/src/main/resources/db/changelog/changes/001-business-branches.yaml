@@ -1,0 +1,45 @@
+databaseChangeLog:
+    - changeSet:
+          id: 001-business-branches
+          author: dawid232323
+          changes:
+              - createSequence:
+                    sequenceName: business_branches_id_seq
+                    startValue: 1
+                    minValue: 1
+                    incrementBy: 1
+              - createTable:
+                    tableName: business_branches
+                    columns:
+                        - column:
+                              name: id
+                              type: bigint
+                              defaultValueSequenceNext: 'business_branches_id_seq'
+                              constraints:
+                                  primaryKey: true
+                        - column:
+                              name: code
+                              type: varchar(50)
+                              constraints:
+                                  nullable: false
+                                  unique: true
+                        - column:
+                              name: display_name
+                              type: varchar(300)
+                              constraints:
+                                  nullable: false
+                        - column:
+                              name: created_at
+                              type: datetime
+                              defaultValueComputed: 'now()'
+                        - column:
+                              name: updated_at
+                              type: datetime
+                        - column:
+                              name: created_by
+                              type: varchar(100)
+                              defaultValue: 'admin'
+                        - column:
+                              name: updated_by
+                              type: varchar(100)
+
