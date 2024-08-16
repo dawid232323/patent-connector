@@ -1,0 +1,101 @@
+databaseChangeLog:
+    - changeSet:
+          id: 002-basic-users
+          author: dawid232323
+          changes:
+              - createSequence:
+                    sequenceName: entrepreneurs_data_id_seq
+                    startValue: 1
+                    minValue: 1
+                    incrementBy: 1
+              - createSequence:
+                    sequenceName: users_id_seq
+                    startValue: 1
+                    minValue: 1
+                    incrementBy: 1
+              - createTable:
+                    tableName: users
+                    columns:
+                        - column:
+                              name: id
+                              type: bigint
+                              defaultValueSequenceNext: 'users_id_seq'
+                              constraints:
+                                  primaryKey: true
+                        - column:
+                              name: password
+                              type: varchar(500)
+                              constraints:
+                                  nullable: false
+                        - column:
+                              name: email
+                              type: varchar(100)
+                              constraints:
+                                  nullable: false
+                        - column:
+                              name: name
+                              type: varchar(300)
+                              constraints:
+                                  nullable: false
+                        - column:
+                              name: last_name
+                              type: varchar(300)
+                              constraints:
+                                  nullable: false
+                        - column:
+                              name: is_active
+                              type: boolean
+                              defaultValueBoolean: false
+                        -   column:
+                                name: created_at
+                                type: datetime
+                                defaultValueComputed: 'now()'
+                        -   column:
+                                name: updated_at
+                                type: datetime
+                        -   column:
+                                name: created_by
+                                type: varchar(100)
+                                defaultValue: 'admin'
+                        -   column:
+                                name: updated_by
+                                type: varchar(100)
+              - createTable:
+                    tableName: entrepreneurs_data
+                    columns:
+                        - column:
+                              name: id
+                              type: bigint
+                              defaultValueSequenceNext: 'entrepreneurs_data_id_seq'
+                              constraints:
+                                  primaryKey: true
+                        - column:
+                              name: users_id
+                              type: bigint
+                              constraints:
+                                  nullable: false
+                                  references: users(id)
+                                  foreignKeyName: entrepreneurs_data_users_id
+                        - column:
+                              name: company_name
+                              type: varchar(500)
+                        - column:
+                              name: nip
+                              type: varchar(20)
+                        - column:
+                              name: regon
+                              type: varchar(15)
+                        -   column:
+                                name: created_at
+                                type: datetime
+                                defaultValueComputed: 'now()'
+                        -   column:
+                                name: updated_at
+                                type: datetime
+                        -   column:
+                                name: created_by
+                                type: varchar(100)
+                                defaultValue: 'admin'
+                        -   column:
+                                name: updated_by
+                                type: varchar(100)
