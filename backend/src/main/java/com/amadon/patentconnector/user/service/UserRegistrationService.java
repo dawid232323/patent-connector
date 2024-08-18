@@ -1,7 +1,7 @@
 package com.amadon.patentconnector.user.service;
 
 import com.amadon.patentconnector.shared.util.hash.HashGenerator;
-import com.amadon.patentconnector.shared.util.token.JWTGenerator;
+import com.amadon.patentconnector.shared.util.token.JWTService;
 import com.amadon.patentconnector.user.entity.User;
 import com.amadon.patentconnector.user.service.dto.CreateUserDto;
 import com.amadon.patentconnector.user.service.registrationPerformer.RegistrationPerformer;
@@ -20,7 +20,7 @@ public class UserRegistrationService
 {
 	private final UserPersistenceService persistenceService;
 	private final List< RegistrationPerformer > registrationPerformers;
-	private final JWTGenerator jwtGenerator;
+	private final JWTService jwtService;
 	private final HashGenerator hashGenerator;
 
 	@Transactional
@@ -56,7 +56,7 @@ public class UserRegistrationService
 	// TODO when email service is introduced mailing should be implemented
 	private void createAndSendMessageWithToken( final User aRegisteredUser )
 	{
-		final String userRegistrationToken = jwtGenerator.generateTokenForUserRegistration( aRegisteredUser.getEmail()
+		final String userRegistrationToken = jwtService.generateTokenForUserRegistration( aRegisteredUser.getEmail()
 				, aRegisteredUser.getSecretKey() );
 		log.warn( "[TEMP] until email messaging is resolved, user registration token is {}", userRegistrationToken );
 	}

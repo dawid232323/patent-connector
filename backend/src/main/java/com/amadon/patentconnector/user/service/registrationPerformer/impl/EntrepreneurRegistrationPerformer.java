@@ -23,7 +23,9 @@ public class EntrepreneurRegistrationPerformer implements RegistrationPerformer
 	{
 		validator.validate( aCreateUserDto );
 		log.info( "User {} passed validation", aCreateUserDto.getEmail() );
-		return userMapper.fromCreateToEntity( aCreateUserDto );
+		final User createdUser = userMapper.fromCreateToEntity( aCreateUserDto );
+		createdUser.getEntrepreneursData().setUser( createdUser );
+		return createdUser;
 	}
 
 	@Override

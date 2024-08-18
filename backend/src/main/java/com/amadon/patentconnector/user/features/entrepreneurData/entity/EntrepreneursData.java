@@ -1,6 +1,7 @@
 package com.amadon.patentconnector.user.features.entrepreneurData.entity;
 
 import com.amadon.patentconnector.shared.entity.Auditable;
+import com.amadon.patentconnector.shared.util.entity.AuditableEntityListener;
 import com.amadon.patentconnector.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table( name = "entrepreneurs_data" )
-@EntityListeners( Auditable.class )
+@EntityListeners( AuditableEntityListener.class )
 public class EntrepreneursData implements Auditable
 {
 	@Id
@@ -22,7 +23,7 @@ public class EntrepreneursData implements Auditable
 	@Column( name = "id", nullable = false )
 	private Long id;
 
-	@OneToOne( fetch = FetchType.LAZY, optional = false )
+	@OneToOne( fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL )
 	@JoinColumn( name = "users_id", nullable = false )
 	private User user;
 
