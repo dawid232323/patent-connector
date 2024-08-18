@@ -5,3 +5,5 @@ spring:
             file: compose.yaml
     application:
         name: backend
+        jwt_secret_key: 'g1LOE{yPeRs>PB'
+        hash_salt: 'MlSn0CDWTaajoF4uytLB5hQBTLdZNXRH'

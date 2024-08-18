@@ -36,6 +36,9 @@ public class User implements Auditable
 	@Column( name = "is_active" )
 	private Boolean isActive;
 
+	@Column( name = "secret_key" )
+	private String secretKey;
+
 	@OneToOne( mappedBy = "user", fetch = FetchType.EAGER )
 	private EntrepreneursData entrepreneursData;
 
