@@ -9,12 +9,14 @@ public record AppEndpoints( )
 	public record UserEndpoints() {
 		public static final String userBase = base + "/users";
 		public static final String entrepreneurRegister = "/register";
+		public static final String setInitialPassword = "/set-initial-password";
 	}
 
 	public static List< String > getExcludedEndpoints()
 	{
 		return List.of(
-			UserEndpoints.userBase.concat( UserEndpoints.entrepreneurRegister )
+			UserEndpoints.userBase.concat( UserEndpoints.entrepreneurRegister ),
+			UserEndpoints.userBase.concat( UserEndpoints.setInitialPassword )
 		);
 	}
 }

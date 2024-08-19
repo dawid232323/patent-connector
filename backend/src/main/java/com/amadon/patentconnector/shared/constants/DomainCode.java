@@ -5,7 +5,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum DomainCode
 {
 	REGISTRATION( "REG" ),
-	USER( "USR" );
+	USER( "USR" ),
+	VALIDATION( "VAL" );
 
 	private final String code;
 

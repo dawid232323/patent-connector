@@ -6,4 +6,9 @@ public class UserRegistrationException extends RuntimeException
 	{
 		super( aMessage );
 	}
+
+	public UserRegistrationException( final String aMessage, final Throwable aCause )
+	{
+		super( aMessage, aCause );
+	}
 }

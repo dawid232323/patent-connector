@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
-import java.time.Instant;
 import java.util.Date;
 import java.util.Map;
 
@@ -13,7 +12,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 class JWTGenerator
 {
-	private final String USER_SECRET_CLAIM_KEY = "USER_SECRET";
+	static final String USER_SECRET_CLAIM_KEY = "USER_SECRET";
 
 	public String generateTokenForUserRegistration( final String aUserEmail, final String aUserSecret,
 													final Key aSigningKey )

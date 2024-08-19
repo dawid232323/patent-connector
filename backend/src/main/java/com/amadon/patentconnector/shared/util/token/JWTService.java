@@ -1,6 +1,5 @@
 package com.amadon.patentconnector.shared.util.token;
 
-import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +28,11 @@ public class JWTService
 	public String generateTokenForUserRegistration( final String aUserEmail, final String aUserSecret )
 	{
 		return tokenGenerator.generateTokenForUserRegistration( aUserEmail, aUserSecret, getSigningKey() );
+	}
+
+	public String getRegisteredUserEmailFromToken( final String aSecretToken )
+	{
+		return tokenValidator.validateAndGetUserEmailFromRegistrationToken( aSecretToken, getSigningKey() );
 	}
 
 	public String getTokenFromAuthorizationHeader( final String aAuthorizationHeader )

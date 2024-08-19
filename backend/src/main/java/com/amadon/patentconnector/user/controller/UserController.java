@@ -3,11 +3,14 @@ package com.amadon.patentconnector.user.controller;
 import com.amadon.patentconnector.shared.constants.AppEndpoints;
 import com.amadon.patentconnector.user.service.UserRegistrationService;
 import com.amadon.patentconnector.user.service.dto.CreateUserDto;
+import com.amadon.patentconnector.user.service.dto.SetPasswordDto;
 import com.amadon.patentconnector.user.service.registrationPerformer.RegistrationType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,5 +26,12 @@ public class UserController
 	public void registerEntrepreneur( @RequestBody final CreateUserDto aCreateUserDto )
 	{
 		registrationService.registerUser( aCreateUserDto, RegistrationType.BASIC_ENTREPRENEUR );
+	}
+
+	@ResponseStatus( HttpStatus.CREATED )
+	@PostMapping( AppEndpoints.UserEndpoints.setInitialPassword )
+	public void setUserInitialPassword( @Valid @RequestBody final SetPasswordDto aInitialPassword )
+	{
+		registrationService.setUserInitialPassword( aInitialPassword );
 	}
 }
