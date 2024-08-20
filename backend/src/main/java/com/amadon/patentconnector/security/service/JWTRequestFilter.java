@@ -1,6 +1,8 @@
-package com.amadon.patentconnector.security;
+package com.amadon.patentconnector.security.service;
 
 import com.amadon.patentconnector.shared.util.token.JWTService;
+import com.amadon.patentconnector.user.entity.User;
+import com.amadon.patentconnector.user.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -26,6 +29,7 @@ import java.util.Objects;
 public class JWTRequestFilter extends OncePerRequestFilter
 {
 	private final JWTService jwtService;
+	private final UserService userService;
 
 	@Override
 	protected void doFilterInternal( final HttpServletRequest aRequest, final HttpServletResponse aResponse,
@@ -52,9 +56,17 @@ public class JWTRequestFilter extends OncePerRequestFilter
 
 	private void setSecurityContextAuthentication( final HttpServletRequest aRequest )
 	{
-		// TODO change when login is introduced
+		final String authenticationHeader = aRequest.getHeader( HttpHeaders.AUTHORIZATION );
+		final String userEmail = jwtService.getUserEmailIfAuthTokenIsValid( authenticationHeader );
+		if ( Objects.isNull( userEmail ) )
+		{
+			return;
+		}
+		final UserDetails userDetails = userService.loadUserByUsername( userEmail );
 		final UsernamePasswordAuthenticationToken authenticationToken = UsernamePasswordAuthenticationToken
-				.authenticated( "adam", "adam", new ArrayList<>() );
+				.authenticated( userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities() );
+		authenticationToken.setAuthenticated( true );
+
 		final WebAuthenticationDetails authenticationDetails =
 				new WebAuthenticationDetailsSource().buildDetails( aRequest );
 

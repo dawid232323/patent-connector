@@ -1,5 +1,6 @@
 package com.amadon.patentconnector.shared.util.token;
 
+import com.amadon.patentconnector.user.entity.User;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,11 @@ public class JWTService
 		tokenValidator = aValidator;
 	}
 
+	public String generateTokenForUserAuthentication( final User aUser, final boolean isRefresh )
+	{
+		return tokenGenerator.generateTokenForAuthentication( aUser, isRefresh, getSigningKey() );
+	}
+
 	public String generateTokenForUserRegistration( final String aUserEmail, final String aUserSecret )
 	{
 		return tokenGenerator.generateTokenForUserRegistration( aUserEmail, aUserSecret, getSigningKey() );
@@ -45,6 +51,12 @@ public class JWTService
 		return aAuthorizationHeader.substring( 7 );
 	}
 
+	public String getUserEmailIfAuthTokenIsValid( final String aAuthorizationHeader )
+	{
+		final String token = getTokenFromAuthorizationHeader( aAuthorizationHeader );
+		return tokenValidator.getUserEmailIfAuthTokenIsValid( token, getSigningKey() );
+	}
+
 	public boolean isAuthorizationTokenValid( final String aAuthorizationHeader )
 	{
 		final String token = getTokenFromAuthorizationHeader( aAuthorizationHeader );
@@ -52,7 +64,7 @@ public class JWTService
 		{
 			return false;
 		}
-		return tokenValidator.isTokenValid( token, getSigningKey() );
+		return tokenValidator.isAuthTokenValid( token, getSigningKey() );
 	}
 
 	private Key getSigningKey()

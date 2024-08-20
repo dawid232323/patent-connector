@@ -6,7 +6,8 @@ public enum DomainCode
 {
 	REGISTRATION( "REG" ),
 	USER( "USR" ),
-	VALIDATION( "VAL" );
+	VALIDATION( "VAL" ),
+	LOGIN( "LOGIN" );
 
 	private final String code;
 
