@@ -1,17 +1,23 @@
 package com.amadon.patentconnector.user.entity;
 
+import com.amadon.patentconnector.researchInstitution.entity.ResearchInstitution;
 import com.amadon.patentconnector.shared.entity.Auditable;
 import com.amadon.patentconnector.shared.util.entity.AuditableEntityListener;
 import com.amadon.patentconnector.user.features.entrepreneurData.entity.EntrepreneursData;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -59,11 +65,34 @@ public class User implements Auditable, UserDetails
 	@Column( name = "updated_by", length = 100 )
 	private String updatedBy;
 
-	// TODO add user roles
+	@Nullable
+	@ManyToOne( fetch = FetchType.LAZY, cascade = CascadeType.ALL )
+	@JoinColumn( name = "research_institution_id", nullable = true )
+	private ResearchInstitution researchInstitution;
+
+	@Getter( AccessLevel.NONE )
+	@Setter( AccessLevel.NONE )
+	@Column( name = "roles" )
+	private String roles;
+
 	@Override
-	public Collection< ? extends GrantedAuthority > getAuthorities()
+	public Collection< UserRole > getAuthorities()
 	{
-		return List.of();
+		if ( Objects.isNull( roles ) )
+		{
+			return List.of();
+		}
+		final List< String > separatedRoles = List.of( roles.split( "," ) );
+		return separatedRoles.stream()
+				.map( UserRole::fromString )
+				.collect( Collectors.toList() );
+	}
+
+	public void setAuthorities( final UserRole... aUserRoles )
+	{
+		this.roles = Arrays.stream( aUserRoles )
+				.map( UserRole::getAuthority )
+				.collect( Collectors.joining( "," ) );
 	}
 
 	@Override

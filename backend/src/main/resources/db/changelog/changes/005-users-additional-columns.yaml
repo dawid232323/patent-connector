@@ -1,0 +1,18 @@
+databaseChangeLog:
+    - changeSet:
+          id: 005-users-additional-columns
+          author: dawid232323
+          changes:
+              - addColumn:
+                    tableName: users
+                    columns:
+                        - column:
+                              name: roles
+                              type: varchar(500)
+                        - column:
+                              name: research_institution_id
+                              type: bigint
+                              constraints:
+                                  nullable: true
+                                  references: research_institutions(id)
+                                  foreignKeyName: users_research_institutions_fk

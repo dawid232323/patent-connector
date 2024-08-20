@@ -1,6 +1,7 @@
 package com.amadon.patentconnector.user.service.registrationPerformer.impl;
 
 import com.amadon.patentconnector.user.entity.User;
+import com.amadon.patentconnector.user.entity.UserRole;
 import com.amadon.patentconnector.user.service.dto.CreateUserDto;
 import com.amadon.patentconnector.user.service.mapper.UserMapper;
 import com.amadon.patentconnector.user.service.registrationPerformer.RegistrationPerformer;
@@ -24,6 +25,7 @@ public class EntrepreneurRegistrationPerformer implements RegistrationPerformer
 		validator.validate( aCreateUserDto );
 		log.info( "User {} passed validation", aCreateUserDto.getEmail() );
 		final User createdUser = userMapper.fromCreateToEntity( aCreateUserDto );
+		createdUser.setAuthorities( UserRole.ENTREPRENEUR );
 		createdUser.getEntrepreneursData().setUser( createdUser );
 		return createdUser;
 	}
