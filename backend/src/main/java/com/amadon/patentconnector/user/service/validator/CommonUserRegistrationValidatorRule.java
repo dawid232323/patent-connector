@@ -1,5 +1,7 @@
 package com.amadon.patentconnector.user.service.validator;
 
-public interface CommonUserRegistrationValidatorRule extends UserRegisterValidationRule
+import com.amadon.patentconnector.user.service.dto.CreateUser;
+
+public interface CommonUserRegistrationValidatorRule extends UserRegisterValidationRule< CreateUser >
 {
 }

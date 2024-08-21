@@ -3,8 +3,10 @@ package com.amadon.patentconnector.user.service;
 import com.amadon.patentconnector.shared.util.hash.HashGenerator;
 import com.amadon.patentconnector.shared.util.token.JWTService;
 import com.amadon.patentconnector.user.entity.User;
-import com.amadon.patentconnector.user.service.dto.CreateUserDto;
+import com.amadon.patentconnector.user.service.dto.CreateUser;
 import com.amadon.patentconnector.user.service.dto.SetPasswordDto;
+import com.amadon.patentconnector.user.service.dto.UserDto;
+import com.amadon.patentconnector.user.service.mapper.UserMapper;
 import com.amadon.patentconnector.user.service.registrationPerformer.RegistrationPerformer;
 import com.amadon.patentconnector.user.service.registrationPerformer.RegistrationType;
 import lombok.RequiredArgsConstructor;
@@ -28,9 +30,10 @@ public class UserRegistrationService
 	private final UserService userService;
 	private final PasswordEncoder passwordEncoder;
 	private final UserPersistenceService userPersistenceService;
+	private final UserMapper userMapper;
 
 	@Transactional
-	public void registerUser( final CreateUserDto aCreateUserDto, final RegistrationType aRegistrationType )
+	public UserDto registerUser( final CreateUser aCreateUserDto, final RegistrationType aRegistrationType )
 	{
 		log.info( "Started registration process for user {}", aCreateUserDto.getEmail() );
 		final RegistrationPerformer registrationPerformer = getRegistrationPerformer( aRegistrationType );
@@ -40,6 +43,7 @@ public class UserRegistrationService
 		persistenceService.save( userToRegister );
 
 		createAndSendMessageWithToken( userToRegister );
+		return userMapper.toDto( userToRegister );
 	}
 
 	@Transactional

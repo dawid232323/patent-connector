@@ -1,6 +1,8 @@
 package com.amadon.patentconnector.researchInstitution.service;
 
+import com.amadon.patentconnector.researchInstitution.entity.ResearchInstitution;
 import com.amadon.patentconnector.researchInstitution.service.dto.ResearchInstitutionDto;
+import com.amadon.patentconnector.researchInstitution.service.exception.ResearchInstitutionNotFoundException;
 import com.amadon.patentconnector.researchInstitution.service.mapper.ResearchInstitutionMapper;
 import com.amadon.patentconnector.researchInstitution.service.repository.ResearchInstitutionRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,5 +26,11 @@ public class ResearchInstitutionService
 				.stream()
 				.map( mapper::fromEntity )
 				.collect( Collectors.toList() );
+	}
+
+	public ResearchInstitution getById( final Long aInstitutionId )
+	{
+		return repository.findById( aInstitutionId )
+				.orElseThrow( ResearchInstitutionNotFoundException::new );
 	}
 }

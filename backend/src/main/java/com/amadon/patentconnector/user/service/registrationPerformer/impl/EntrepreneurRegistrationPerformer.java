@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class EntrepreneurRegistrationPerformer implements RegistrationPerformer
+public class EntrepreneurRegistrationPerformer implements RegistrationPerformer< CreateUserDto >
 {
 	private final EntrepreneurValidationRuleEngine validator;
 	private final UserMapper userMapper;

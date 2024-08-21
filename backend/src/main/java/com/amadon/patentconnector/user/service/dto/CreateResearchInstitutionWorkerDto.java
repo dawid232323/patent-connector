@@ -15,7 +15,7 @@ import static com.amadon.patentconnector.shared.constants.ValidationMessages.Str
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateResearchInstitutionWorkerDto
+public class CreateResearchInstitutionWorkerDto implements CreateUser
 {
 	@Email( message = EMAIL )
 	private String email;
@@ -29,5 +29,5 @@ public class CreateResearchInstitutionWorkerDto
 	private String lastName;
 
 	@NotNull( message = NOT_NULL )
-	private Long aInstitutionId;
+	private Long institutionId;
 }

@@ -17,6 +17,7 @@ public record AppEndpoints( )
 	{
 		public static final String userBase = base + "/users";
 		public static final String entrepreneurRegister = "/register";
+		public static final String researchInstitutionRegister = "/register-research-institution-worker";
 		public static final String setInitialPassword = "/set-initial-password";
 	}
 
@@ -31,6 +32,7 @@ public record AppEndpoints( )
 		return List.of(
 				UserEndpoints.userBase.concat( UserEndpoints.entrepreneurRegister ),
 				UserEndpoints.userBase.concat( UserEndpoints.setInitialPassword ),
+				UserEndpoints.userBase.concat( UserEndpoints.researchInstitutionRegister ),
 				SecurityEndpoints.securityBase.concat( SecurityEndpoints.login ),
 				SecurityEndpoints.securityBase.concat( SecurityEndpoints.refreshToken ),
 				ResearchInstitutionEndpoints.resInstitutionBase.concat( ResearchInstitutionEndpoints.resInstitutionFind.concat( "/**" ) )

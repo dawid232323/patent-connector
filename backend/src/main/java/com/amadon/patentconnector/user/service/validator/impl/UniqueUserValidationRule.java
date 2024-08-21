@@ -2,6 +2,7 @@ package com.amadon.patentconnector.user.service.validator.impl;
 
 import com.amadon.patentconnector.user.entity.User;
 import com.amadon.patentconnector.user.service.UserService;
+import com.amadon.patentconnector.user.service.dto.CreateUser;
 import com.amadon.patentconnector.user.service.dto.CreateUserDto;
 import com.amadon.patentconnector.user.service.exception.UserRegistrationException;
 import com.amadon.patentconnector.user.service.validator.CommonUserRegistrationValidatorRule;
@@ -17,7 +18,7 @@ public class UniqueUserValidationRule implements CommonUserRegistrationValidator
 	private final UserService userService;
 
 	@Override
-	public void validate( final CreateUserDto aCreateUserDto )
+	public void validate( final CreateUser aCreateUserDto )
 	{
 		final Optional< User > existingUser = userService.tryToFindByEmail( aCreateUserDto.getEmail() );
 		if ( existingUser.isPresent() )

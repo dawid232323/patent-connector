@@ -1,0 +1,28 @@
+package com.amadon.patentconnector.user.service.dto;
+
+import com.amadon.patentconnector.researchInstitution.service.dto.ResearchInstitutionDto;
+import com.amadon.patentconnector.user.entity.UserRole;
+import com.amadon.patentconnector.user.features.entrepreneurData.service.dto.CreateEntrepreneursDataDto;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
+
+/**
+ * DTO for {@link com.amadon.patentconnector.user.entity.User}
+ */
+@AllArgsConstructor
+@Getter
+public class UserDto implements Serializable
+{
+	private final Long id;
+	private final String email;
+	private final String name;
+	private final String lastName;
+	private final Boolean isActive;
+	private final CreateEntrepreneursDataDto entrepreneursData;
+	private final ResearchInstitutionDto researchInstitution;
+	private final Collection< UserRole > roles;
+}

@@ -66,7 +66,7 @@ public class User implements Auditable, UserDetails
 	private String updatedBy;
 
 	@Nullable
-	@ManyToOne( fetch = FetchType.LAZY, cascade = CascadeType.ALL )
+	@ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
 	@JoinColumn( name = "research_institution_id", nullable = true )
 	private ResearchInstitution researchInstitution;
 

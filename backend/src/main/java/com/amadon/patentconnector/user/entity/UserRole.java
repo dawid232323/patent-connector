@@ -1,11 +1,10 @@
 package com.amadon.patentconnector.user.entity;
 
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonValue;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Arrays;
 
-@Getter
 public enum UserRole implements GrantedAuthority
 {
 	ENTREPRENEUR( "ENTREPRENEUR" ),
@@ -26,5 +25,10 @@ public enum UserRole implements GrantedAuthority
 						.equals( aAuthority ) )
 				.findFirst()
 				.orElseThrow( IllegalArgumentException::new );
+	}
+
+	@JsonValue
+	public String getAuthority() {
+		return this.authority;
 	}
 }

@@ -8,4 +8,9 @@ import org.mapstruct.*;
 public interface EntrepreneursDataMapper
 {
 	EntrepreneursData toEntityFromCreateDto( CreateEntrepreneursDataDto createEntrepreneursDataDto );
+
+	CreateEntrepreneursDataDto toDto( EntrepreneursData entrepreneursData );
+
+	@BeanMapping( nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE )
+	EntrepreneursData partialUpdate( CreateEntrepreneursDataDto createEntrepreneursDataDto, @MappingTarget EntrepreneursData entrepreneursData );
 }

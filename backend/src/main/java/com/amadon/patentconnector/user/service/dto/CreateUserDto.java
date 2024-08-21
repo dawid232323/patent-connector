@@ -18,7 +18,7 @@ import static com.amadon.patentconnector.shared.constants.ValidationMessages.Str
  */
 @AllArgsConstructor
 @Getter
-public class CreateUserDto implements Serializable
+public class CreateUserDto implements Serializable, CreateUser
 {
 	@Email( message = EMAIL )
 	private final String email;
