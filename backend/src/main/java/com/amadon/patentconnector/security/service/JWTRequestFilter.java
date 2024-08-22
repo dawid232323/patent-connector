@@ -20,7 +20,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Objects;
 
 @Slf4j
@@ -65,7 +64,6 @@ public class JWTRequestFilter extends OncePerRequestFilter
 		final UserDetails userDetails = userService.loadUserByUsername( userEmail );
 		final UsernamePasswordAuthenticationToken authenticationToken = UsernamePasswordAuthenticationToken
 				.authenticated( userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities() );
-		authenticationToken.setAuthenticated( true );
 
 		final WebAuthenticationDetails authenticationDetails =
 				new WebAuthenticationDetailsSource().buildDetails( aRequest );

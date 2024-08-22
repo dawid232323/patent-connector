@@ -5,7 +5,7 @@ import com.amadon.patentconnector.security.service.dto.TokenDto;
 import com.amadon.patentconnector.security.service.exception.LoginException;
 import com.amadon.patentconnector.shared.util.token.JWTService;
 import com.amadon.patentconnector.user.entity.User;
-import com.amadon.patentconnector.user.service.UserService;
+import com.amadon.patentconnector.user.service.repository.UserRepository;
 import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,12 +22,12 @@ import java.util.Objects;
 public class SecurityService
 {
 	private final JWTService jwtService;
-	private final UserService userService;
+	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
 
 	public TokenDto loginUser( final LoginDto aLoginDto )
 	{
-		final User userToLogIn = userService.tryToFindByEmail( aLoginDto.getEmail() )
+		final User userToLogIn = userRepository.findByEmail( aLoginDto.getEmail() )
 				.orElseThrow( () -> new LoginException( "User with email " + aLoginDto.getEmail() + " does not exist" ) );
 
 		validateIfUserCanLogIn( userToLogIn );
@@ -73,7 +73,7 @@ public class SecurityService
 
 	private void validateIfPasswordMatches( final User aUser, final String aPassedPassword )
 	{
-		if ( !passwordEncoder.matches( aUser.getPassword(), aPassedPassword ) )
+		if ( !passwordEncoder.matches( aPassedPassword, aUser.getPassword() ) )
 		{
 			log.warn( "User {} passed wrong password. Comparing {} against {}", aUser.getEmail(), aUser.getPassword(),
 					  aPassedPassword );

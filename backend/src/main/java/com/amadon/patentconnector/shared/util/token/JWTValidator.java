@@ -1,8 +1,8 @@
 package com.amadon.patentconnector.shared.util.token;
 
 import com.amadon.patentconnector.user.entity.User;
-import com.amadon.patentconnector.user.service.UserService;
 import com.amadon.patentconnector.user.service.exception.UserRegistrationException;
+import com.amadon.patentconnector.user.service.repository.UserRepository;
 import io.jsonwebtoken.*;
 import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ import java.util.Date;
 class JWTValidator
 {
 
-	private final UserService userService;
+	private final UserRepository userRepository;
 
 	@Nullable
 	public String getUserEmailIfAuthTokenIsValid( final String aToken, final Key aSigningKey )
@@ -45,7 +45,7 @@ class JWTValidator
 			log.warn( "Found expired token for user {}. Token date is {}", userEmail, parsedClaims.getExpiration() );
 			return false;
 		}
-		final User user = userService.tryToFindByEmail( userEmail )
+		final User user = userRepository.findByEmail( userEmail )
 				.orElseThrow( () -> new UsernameNotFoundException( "Could not find user with " +
 																		   "login " + userEmail ) );
 		if ( !user.getIsActive() )
@@ -74,7 +74,7 @@ class JWTValidator
 			log.warn( "Found expired token for user {}. Token date is {}", userEmail, parsedClaims.getExpiration() );
 			throw new UserRegistrationException( "Given secret token is expired, please contact system admin" );
 		}
-		final User user = userService.tryToFindByEmail( userEmail )
+		final User user = userRepository.findByEmail( userEmail )
 									 .orElseThrow( () -> new UsernameNotFoundException( "Could not find user with " +
 																								"login " + userEmail ) );
 		if ( !user.getSecretKey()

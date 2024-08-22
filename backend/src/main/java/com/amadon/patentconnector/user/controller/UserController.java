@@ -2,6 +2,7 @@ package com.amadon.patentconnector.user.controller;
 
 import com.amadon.patentconnector.shared.constants.AppEndpoints;
 import com.amadon.patentconnector.user.service.UserRegistrationService;
+import com.amadon.patentconnector.user.service.UserService;
 import com.amadon.patentconnector.user.service.dto.CreateResearchInstitutionWorkerDto;
 import com.amadon.patentconnector.user.service.dto.CreateUserDto;
 import com.amadon.patentconnector.user.service.dto.SetPasswordDto;
@@ -22,6 +23,7 @@ import javax.validation.Valid;
 public class UserController
 {
 	private final UserRegistrationService registrationService;
+	private final UserService userService;
 
 	@ResponseBody
 	@PostMapping( AppEndpoints.UserEndpoints.entrepreneurRegister )
@@ -44,5 +46,12 @@ public class UserController
 	public void setUserInitialPassword( @Valid @RequestBody final SetPasswordDto aInitialPassword )
 	{
 		registrationService.setUserInitialPassword( aInitialPassword );
+	}
+
+	@ResponseBody
+	@GetMapping( AppEndpoints.UserEndpoints.myDetails )
+	public UserDto getLoggedUserDetails()
+	{
+		return userService.getLoggedUserDto();
 	}
 }
