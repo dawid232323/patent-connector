@@ -2,12 +2,15 @@ package com.amadon.patentconnector.businessBranch.entity;
 
 import com.amadon.patentconnector.shared.entity.Auditable;
 import com.amadon.patentconnector.shared.util.entity.AuditableEntityListener;
+import com.amadon.patentconnector.user.features.entrepreneurData.entity.EntrepreneursData;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,11 +26,26 @@ public class BusinessBranch implements Auditable
 	@Column( name = "id", nullable = false )
 	private Long id;
 
-	@Column( name = "code", nullable = false, length = 50 )
+	@Column( name = "section", length = 10 )
+	private String section;
+
+	@Column( name = "department", length = 10 )
+	private String department;
+
+	@Column( name = "business_branch_group", length = 20 )
+	private String businessBranchGroup;
+
+	@Column( name = "business_branch_class", length = 20 )
+	private String businessBranchClass;
+
+	@Column( name = "code", length = 50 )
 	private String code;
 
 	@Column( name = "display_name", nullable = false, length = 300 )
 	private String displayName;
+
+	@ManyToMany( mappedBy = "interestedBusinessBranches", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH } )
+	private Set< EntrepreneursData > assignedEntrepreneurs = new HashSet<>();
 
 	@Column( name = "created_at" )
 	private LocalDateTime createdAt;

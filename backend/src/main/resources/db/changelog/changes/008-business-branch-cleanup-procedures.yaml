@@ -1,0 +1,13 @@
+databaseChangeLog:
+    - changeSet:
+          id: 008-business-branch-cleanup-procedures
+          author: dawid232323
+          changes:
+              - createProcedure:
+                    dbms: postgresql
+                    procedureName: clean_table_empty_strings
+                    relativeToChangelogFile: true
+                    path: ../../scripts/clean_table_empty_strings.procedure.sql
+              - sql:
+                    dbms: postgresql
+                    sql: CALL clean_table_empty_strings('business_branches')

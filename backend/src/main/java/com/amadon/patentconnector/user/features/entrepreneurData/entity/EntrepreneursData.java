@@ -1,5 +1,6 @@
 package com.amadon.patentconnector.user.features.entrepreneurData.entity;
 
+import com.amadon.patentconnector.businessBranch.entity.BusinessBranch;
 import com.amadon.patentconnector.shared.entity.Auditable;
 import com.amadon.patentconnector.shared.util.entity.AuditableEntityListener;
 import com.amadon.patentconnector.user.entity.User;
@@ -8,6 +9,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -26,6 +29,14 @@ public class EntrepreneursData implements Auditable
 	@OneToOne( fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL )
 	@JoinColumn( name = "users_id", nullable = false )
 	private User user;
+
+	@ManyToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER )
+	@JoinTable(
+			name = "entrepreneurs_business_branches",
+			joinColumns = @JoinColumn(name = "entrepreneur_data_id"),
+			inverseJoinColumns = @JoinColumn(name = "business_branch_id")
+	)
+	private Set< BusinessBranch > interestedBusinessBranches = new HashSet<>();
 
 	@Column( name = "company_name", length = 500 )
 	private String companyName;

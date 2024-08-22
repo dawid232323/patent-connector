@@ -1,0 +1,66 @@
+databaseChangeLog:
+    - changeSet:
+          id: 006-business-branch-extension
+          author: dawid232323
+          changes:
+              - dropNotNullConstraint:
+                    tableName: business_branches
+                    columnName: code
+              - dropUniqueConstraint:
+                    tableName: business_branches
+                    constraintName: business_branches_code_key
+              - addColumn:
+                    tableName: business_branches
+                    columns:
+                        - column:
+                            name: section
+                            type: varchar(10)
+                            constraints:
+                                nullable: false
+                        - column:
+                              name: department
+                              type: varchar(10)
+                        - column:
+                              name: business_branch_group
+                              type: varchar(20)
+                        - column:
+                              name: business_branch_class
+                              type: varchar(20)
+              - createIndex:
+                    indexName: business_branch_querying_index
+                    tableName: business_branches
+                    columns:
+                        - column:
+                              name: section
+                        - column:
+                              name: code
+              - loadData:
+                    tableName: business_branches
+                    relativeToChangelogFile: true
+                    file: ../../data/pkd_final.psv
+                    separator: "|"
+                    columns:
+                        - column:
+                              name: section
+                              header: sekcja
+                              type: STRING
+                        - column:
+                              name: department
+                              header: dzial
+                              type: STRING
+                        - column:
+                              name: business_branch_group
+                              header: grupa
+                              type: STRING
+                        - column:
+                              name: business_branch_class
+                              header: klasa
+                              type: STRING
+                        - column:
+                              name: code
+                              header: podklasa
+                              type: STRING
+                        - column:
+                              name: display_name
+                              header: nazwa
+                              type: STRING

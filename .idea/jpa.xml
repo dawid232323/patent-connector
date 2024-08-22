@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="JpaBuddyIdeaProjectConfig">
+  <component name="JpaBuddyIdeaProjectConfig" newRepositoryParent="org.springframework.data.jpa.repository.JpaRepository">
     <option name="defaultUnitInitialized" value="true" />
     <option name="reLastEntityCreationPackage" value="src/main/java/com/amadon/patentconnector/researchInstitution/entity" />
     <option name="renamerInitialized" value="true" />
     <option name="reverseEngineeringLastDbConnectionId" value="08bdc69f-e06b-4a42-b35d-3b76eddfc9ce" />
+  </component>
+  <component name="PersistenceUnitSettings">
+    <persistence-units>
+      <persistence-unit name="Default">
+        <packages>
+          <package value="com.amadon.patentconnector" />
+        </packages>
+      </persistence-unit>
+    </persistence-units>
   </component>
 </project>

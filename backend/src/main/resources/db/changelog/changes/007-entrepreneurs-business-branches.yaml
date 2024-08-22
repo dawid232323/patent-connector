@@ -1,0 +1,22 @@
+databaseChangeLog:
+    - changeSet:
+          id: 007-entrepreneurs-business-branches
+          author: dawid232323
+          changes:
+              - createTable:
+                    tableName: entrepreneurs_business_branches
+                    columns:
+                        - column:
+                              name: entrepreneur_data_id
+                              type: bigint
+                              constraints:
+                                  nullable: false
+                                  references: entrepreneurs_data(id)
+                                  foreignKeyName: entrepreneurs_business_branches_entrepreneurs_data_fk
+                        - column:
+                              name: business_branch_id
+                              type: bigint
+                              constraints:
+                                  nullable: false
+                                  references: business_branches(id)
+                                  foreignKeyName: entrepreneurs_business_branches_business_branches_fk

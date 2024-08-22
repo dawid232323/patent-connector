@@ -27,6 +27,12 @@ public record AppEndpoints( )
 		public static final String resInstitutionFind = "/search";
 	}
 
+	public record BusinessBranchEndpoints()
+	{
+		public static final String businessBranchBase = base + "/business-branches";
+		public static final String sectionBusinessBranches = "/section-business-branches";
+	}
+
 	public static List< String > getExcludedEndpoints()
 	{
 		return List.of(
@@ -35,6 +41,7 @@ public record AppEndpoints( )
 				UserEndpoints.userBase.concat( UserEndpoints.researchInstitutionRegister ),
 				SecurityEndpoints.securityBase.concat( SecurityEndpoints.login ),
 				SecurityEndpoints.securityBase.concat( SecurityEndpoints.refreshToken ),
+				BusinessBranchEndpoints.businessBranchBase.concat( BusinessBranchEndpoints.sectionBusinessBranches ),
 				ResearchInstitutionEndpoints.resInstitutionBase.concat( ResearchInstitutionEndpoints.resInstitutionFind.concat( "/**" ) )
 					  );
 	}
