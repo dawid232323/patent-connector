@@ -1,1 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
+
+@use '@angular/material' as mat;
+@use 'sass:map';
+
+@include mat.core();
+
+@import "./styles/variables/light-theme";
+@import "./styles/variables/dark-theme";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+	@include mat.core-theme($dark-theme);
+	@include mat.button-theme($dark-theme);
+
+	@apply bg-primary-dark-background;
+	@apply text-white;
+
+	@media (prefers-color-scheme: light) {
+		// Use the `-color` mixins to only apply color styles without reapplying the same
+		// typography and density styles.
+		@include mat.core-color($light-theme);
+		@include mat.button-color($light-theme);
+
+		@apply bg-white;
+		@apply text-black;
+	}
+}
+
+.accent-progress {
+	@include mat.progress-bar-color($light-theme, $color-variant: secondary);
+}
+
+.button-tertiary {
+	@include mat.button-color($light-theme, $color-variant: secondary);
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+}
