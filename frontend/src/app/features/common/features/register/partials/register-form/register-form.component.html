@@ -1,0 +1,130 @@
+<div class="flex flex-row w-full h-full justify-center items-center">
+
+	<form class="flex flex-col w-full gap-y-3 justify-center items-center" *ngIf="registerForm"
+		  [formGroup]="registerForm">
+		<h3 class="font-bold">Zarejestruj się!</h3>
+		<div class="form-input-row">
+			<mat-form-field class="primary-form-field">
+				<mat-label>Adres email</mat-label>
+				<input matInput formControlName="email"/>
+				<ng-container [ngSwitch]="getControlErrorType(registerForm.get('email')!)">
+					<mat-error *ngSwitchCase="errorCode.REQUIRED">Pole jest wymagane</mat-error>
+					<mat-error *ngSwitchCase="errorCode.EMAIL">Proszę podaj poprawny adres email</mat-error>
+					<mat-error
+						*ngSwitchCase="errorCode.MAX_LENGTH">{{ validationService.getMaxLengthMessage(registerForm.get('email')!) }}
+					</mat-error>
+					<mat-error
+						*ngSwitchCase="errorCode.MIN_LENGTH">{{ validationService.getMinLengthMessage(registerForm.get('email')!) }}
+					</mat-error>
+				</ng-container>
+				<mat-icon matSuffix>alternate_email</mat-icon>
+			</mat-form-field>
+
+			<mat-form-field class="primary-form-field">
+				<mat-label>Powtórz Adres email</mat-label>
+				<input matInput formControlName="repeatEmail"/>
+				<ng-container [ngSwitch]="getControlErrorType(registerForm.get('repeatEmail')!)">
+					<mat-error *ngSwitchCase="errorCode.IDENTITY">Adresy email nie pokrywają się</mat-error>
+				</ng-container>
+				<mat-icon matSuffix>alternate_email</mat-icon>
+			</mat-form-field>
+		</div>
+
+		<div class="form-input-row">
+			<mat-form-field class="primary-form-field">
+				<mat-label>Imię</mat-label>
+				<input matInput appTitleCase formControlName="firstName"/>
+				<ng-container [ngSwitch]="getControlErrorType(registerForm.get('firstName')!)">
+					<mat-error *ngSwitchCase="errorCode.REQUIRED">Pole jest wymagane</mat-error>
+					<mat-error
+						*ngSwitchCase="errorCode.MAX_LENGTH">{{ validationService.getMaxLengthMessage(registerForm.get('firstName')!) }}
+					</mat-error>
+					<mat-error
+						*ngSwitchCase="errorCode.MIN_LENGTH">{{ validationService.getMinLengthMessage(registerForm.get('firstName')!) }}
+					</mat-error>
+				</ng-container>
+				<mat-icon matSuffix>person</mat-icon>
+			</mat-form-field>
+
+			<mat-form-field class="primary-form-field">
+				<mat-label>Nazwisko</mat-label>
+				<input matInput appTitleCase formControlName="lastName"/>
+				<ng-container [ngSwitch]="getControlErrorType(registerForm.get('lastName')!)">
+					<mat-error *ngSwitchCase="errorCode.REQUIRED">Pole jest wymagane</mat-error>
+					<mat-error
+						*ngSwitchCase="errorCode.MAX_LENGTH">{{ validationService.getMaxLengthMessage(registerForm.get('lastName')!) }}
+					</mat-error>
+					<mat-error
+						*ngSwitchCase="errorCode.MIN_LENGTH">{{ validationService.getMinLengthMessage(registerForm.get('lastName')!) }}
+					</mat-error>
+				</ng-container>
+				<mat-icon matSuffix>person</mat-icon>
+			</mat-form-field>
+		</div>
+
+		<div class="form-input-row">
+			<mat-form-field class="primary-form-field">
+				<mat-label>NIP</mat-label>
+				<input matInput formControlName="nip"/>
+				<ng-container [ngSwitch]="getControlErrorType(registerForm.get('nip')!)">
+					<mat-error *ngSwitchCase="errorCode.REQUIRED">Pole jest wymagane</mat-error>
+					<mat-error
+						*ngSwitchCase="errorCode.MAX_LENGTH">{{ validationService.getMaxLengthMessage(registerForm.get('nip')!) }}
+					</mat-error>
+					<mat-error
+						*ngSwitchCase="errorCode.MIN_LENGTH">{{ validationService.getMinLengthMessage(registerForm.get('nip')!) }}
+					</mat-error>
+					<mat-error
+						*ngSwitchCase="errorCode.EXACT_LENGTH">{{ validationService.getExactLengthMessage(registerForm.get('nip')!) }}
+					</mat-error>
+				</ng-container>
+				<mat-icon matSuffix>sell</mat-icon>
+			</mat-form-field>
+
+			<mat-form-field class="primary-form-field">
+				<mat-label>Regon</mat-label>
+				<input matInput formControlName="regon"/>
+				<ng-container [ngSwitch]="getControlErrorType(registerForm.get('regon')!)">
+					<mat-error *ngSwitchCase="errorCode.REQUIRED">Pole jest wymagane</mat-error>
+					<mat-error
+						*ngSwitchCase="errorCode.MAX_LENGTH">{{ validationService.getMaxLengthMessage(registerForm.get('regon')!) }}
+					</mat-error>
+					<mat-error
+						*ngSwitchCase="errorCode.MIN_LENGTH">{{ validationService.getMinLengthMessage(registerForm.get('regon')!) }}
+					</mat-error>
+					<mat-error *ngSwitchCase="errorCode.REGON">Podaj poprawny numer REGON</mat-error>
+				</ng-container>
+				<mat-icon matSuffix>work</mat-icon>
+			</mat-form-field>
+		</div>
+
+		<div class="form-input-row">
+			<mat-form-field class="primary-form-field">
+				<mat-label>Nazwa działalności</mat-label>
+				<input matInput formControlName="companyName"/>
+				<ng-container [ngSwitch]="getControlErrorType(registerForm.get('companyName')!)">
+					<mat-error
+						*ngSwitchCase="errorCode.MAX_LENGTH">{{ validationService.getMaxLengthMessage(registerForm.get('companyName')!) }}
+					</mat-error>
+					<mat-error
+						*ngSwitchCase="errorCode.MIN_LENGTH">{{ validationService.getMinLengthMessage(registerForm.get('companyName')!) }}
+					</mat-error>
+				</ng-container>
+				<mat-icon matSuffix>apartment</mat-icon>
+			</mat-form-field>
+		</div>
+
+		<mat-error *ngIf="formSubmitted && registerForm.hasError(errorCode.AT_LEAST_ONE_REQUIRED)">
+			NIP lub Regon muszą być wypełnione
+		</mat-error>
+
+		<div class="form-input-row">
+			<button mat-flat-button class="w-3/4 button-secondary" (click)="validateAndSubmit()">
+				Zatwierdź
+				<mat-icon matPrefix>save</mat-icon>
+			</button>
+		</div>
+
+	</form>
+
+</div>

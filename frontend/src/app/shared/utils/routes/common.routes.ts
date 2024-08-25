@@ -1,5 +1,5 @@
 import {Routes} from "@angular/router";
-import {RegisterComponent} from "app/features/register/register.component";
+import {RegisterComponent} from "app/features/common/features/register/register.component";
 
 export const COMMON_ROUTES: Routes = [
 	{
