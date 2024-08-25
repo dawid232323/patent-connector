@@ -4,6 +4,7 @@
 @use 'sass:map';
 
 @include mat.core();
+@import "styles/material/material";
 
 @import "./styles/variables/light-theme";
 @import "./styles/variables/dark-theme";

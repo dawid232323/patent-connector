@@ -1,0 +1,23 @@
+@use '@angular/material' as mat;
+
+@import "../variables/dark-theme";
+@import "../variables/light-theme";
+
+.primary-form-field {
+	@apply w-full;
+	@include mat.form-field-color($dark-theme, $color-variant: primary);
+
+	@media (prefers-color-scheme: light) {
+		@apply w-full;
+		@include mat.form-field-color($light-theme, $color-variant: primary);
+	}
+}
+
+.button-secondary {
+	@include mat.button-color($dark-theme, $color-variant: secondary);
+
+	@media (prefers-color-scheme: light) {
+		@include mat.button-color($light-theme, $color-variant: secondary);
+	}
+
+}
