@@ -9,17 +9,20 @@ module.exports = {
 			primary: {
 				'darker-light': '#F4978E',
 				light: '#F8AD9D',
-				dark: '#AB213A',
-				'dark-background': '#25040A'
+				dark: '#26262C',
+				'dark-background': '#131316'
 			},
 			secondary: {
 				light: '#FBC4AB',
-				dark: '#6D1425'
+				dark: '#393A41'
 			},
 			tertiary: {
 				light: '#FFDAB9',
-				dark: '#C17708'
+				dark: '#6A6B70'
 			},
+		},
+		borderRadius: {
+			DEFAULT: '10px'
 		}
 	},
   },
