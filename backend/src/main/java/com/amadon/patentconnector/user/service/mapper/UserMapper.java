@@ -17,6 +17,7 @@ public interface UserMapper
 	User fromCreateToEntity( CreateUserDto createUserDto );
 
 	@Mapping( target = "researchInstitution", ignore = true )
+	@Mapping( source = "firstName", target = "name" )
 	User fromCreateInstitutionWorker( CreateResearchInstitutionWorkerDto aInstitutionWorkerDto );
 
 	User toEntity( UserDto userDto );

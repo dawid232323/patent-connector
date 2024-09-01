@@ -1,11 +1,11 @@
 <div class="flex flex-row w-full h-full justify-center items-center" [ngClass]="{'loading-blur': isLoadingData}">
 	<form class="flex flex-col w-full gap-y-3 justify-center items-center" *ngIf="registerForm"
 		  [formGroup]="registerForm">
-		<h3 class="font-bold">Dołącz jako pracownik uczelni!</h3>
+		<h3 class="py-4">Dołącz jako pracownik uczelni!</h3>
 
 		<div class="form-input-row">
 			<mat-form-field class="primary-form-field">
-				<mat-label>Adres email</mat-label>
+				<mat-label>Uczelniany adres email</mat-label>
 				<input matInput formControlName="email"/>
 				<ng-container [ngSwitch]="getControlErrorType(registerForm.get('email')!)">
 					<mat-error *ngSwitchCase="errorCode.REQUIRED">Pole jest wymagane</mat-error>
@@ -62,9 +62,35 @@
 			</mat-form-field>
 		</div>
 
+		<div class="form-input-row mb-4">
+
+			@switch (availableInstitutionMode) {
+				@case (availableInstitutionResult.SINGLE) {
+					<span class="text-xl">Twoja uczelnia: <span
+						class="italic text-primary-light dark:text-white">{{ getSelectedInstitutionName() }}</span></span>
+				}
+				@case (availableInstitutionResult.MULTIPLE) {
+					<div class="flex flex-col w-full gap-y-3">
+						<span>Znaleźliśmy kilka uczleni odpowiadających twojemu adresowi email. Wybierz swoją!</span>
+						<mat-form-field class="primary-form-field">
+							<mat-select (selectionChange)="handleSelectInstitutionChange($event)"
+										placeholder="Wybierz uczelnię">
+								<mat-option *ngFor="let availableInstitution of availableInstitutions"
+											[value]="availableInstitution.id">
+									{{ availableInstitution.name | titlecase }} {{ availableInstitution.address }}
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+
+				}
+			}
+		</div>
+
 		<div class="form-input-row">
 			<mat-error *ngIf="formSubmitted && registerForm.get('institutionId')?.hasError(errorCode.REQUIRED)">
-				Nie mogliśmy znaleźć instytucji powiązanej z twoim adresem email. Upewnij się że podałeś poprawny adres lub skontakuj się z administracją.
+				Nie mogliśmy znaleźć instytucji powiązanej z twoim adresem email. Upewnij się że podałeś
+				poprawny adres lub skontakuj się z administracją.
 			</mat-error>
 		</div>
 

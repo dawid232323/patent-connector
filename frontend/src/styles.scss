@@ -6,6 +6,7 @@
 @include mat.core();
 @import "styles/material/material";
 @import "styles/utils/animated";
+@import "styles/utils/headings";
 
 @import "./styles/variables/light-theme";
 @import "./styles/variables/dark-theme";
@@ -17,7 +18,15 @@
 @font-face {
 	font-family: 'Oswald';
 	font-style: normal;
-	font-weight: 200 700;
+	font-weight: 400;
+	font-display: swap;
+	src: url(https://fonts.gstatic.com/s/oswald/v53/TK3iWkUHHAIjg752FD8Gl-1PK62t.woff2) format('woff2');
+	unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+	font-family: 'Oswald';
+	font-style: normal;
+	font-weight: 700;
 	font-display: swap;
 	src: url(https://fonts.gstatic.com/s/oswald/v53/TK3iWkUHHAIjg752FD8Gl-1PK62t.woff2) format('woff2');
 	unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
@@ -60,7 +69,8 @@
 }
 
 html {
-	@include mat.core-theme($dark-theme);
+	@include mat.all-component-themes($dark-theme);
+	@include mat.all-component-typographies($dark-theme);
 	@include mat.button-theme($dark-theme);
 
 	@apply bg-primary-dark-background;
@@ -69,7 +79,8 @@ html {
 	@media (prefers-color-scheme: light) {
 		// Use the `-color` mixins to only apply color styles without reapplying the same
 		// typography and density styles.
-		@include mat.core-color($light-theme);
+		@include mat.all-component-themes($light-theme);
+		@include mat.all-component-typographies($light-theme);
 		@include mat.button-color($light-theme);
 
 		@apply bg-white;

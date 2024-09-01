@@ -1,8 +1,9 @@
 <div class="flex flex-row w-full min-h-[94vh]">
 
 	<section id="form-section" class="md:basis-2/3" [@loadingFromSideAnimation]>
-		<app-register-institution-form>
-
+		<app-register-institution-form *ngIf="!hasFinishedWithSuccess"
+									   [isLoadingData]="isLoadingData"
+									   (formSubmit)="handleFormSubmit($event)">
 		</app-register-institution-form>
 		<app-register-success *ngIf="hasFinishedWithSuccess"
 							  [registeredUserEmail]="registeredUserEmail!">
