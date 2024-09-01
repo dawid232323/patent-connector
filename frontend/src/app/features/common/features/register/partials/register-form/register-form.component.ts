@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {ValidationService} from "app/shared/utils/validation/validation.service";
@@ -11,20 +11,23 @@ import {
 } from "app/shared/utils/validation/validators.fn";
 import {
 	CreateEntrepreneurDto,
-	CreateEntrepreneursDataDto
+	EntrepreneursDataDto
 } from "app/features/common/features/register/types/registration.types";
+import {loadingFromSideAnimation} from "app/shared/utils/animations/loading.animation";
 
 @Component({
-  selector: 'app-register-form',
-  templateUrl: './register-form.component.html',
-  styleUrl: './register-form.component.scss'
+	selector: 'app-register-form',
+	templateUrl: './register-form.component.html',
+	styleUrl: './register-form.component.scss',
 })
 export class RegisterFormComponent implements OnInit, OnDestroy {
+
+	@Input() isLoadingData: boolean = false;
 
 	@Output() formSubmit = new EventEmitter<CreateEntrepreneurDto>();
 
 	registerForm!: FormGroup;
-	formSubmitted= false;
+	formSubmitted = false;
 	readonly errorCode = ErrorCode;
 
 	private _subscription: Subscription = new Subscription();

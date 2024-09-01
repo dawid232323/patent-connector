@@ -8,6 +8,7 @@ import {MatInput} from "@angular/material/input";
 import {MatIcon} from "@angular/material/icon";
 import {MatButton, MatFabButton} from "@angular/material/button";
 import {TitleCaseDirective} from "app/shared/directive/title-case.directive";
+import {RegisterSuccessComponent} from "app/shared/features/register-success/register-success.component";
 
 
 @NgModule({
@@ -15,20 +16,21 @@ import {TitleCaseDirective} from "app/shared/directive/title-case.directive";
 		RegisterComponent,
 		RegisterFormComponent
 	],
-	imports: [
-		CommonModule,
-		ReactiveFormsModule,
-		MatFormField,
-		MatInput,
-		MatLabel,
-		MatError,
-		MatIcon,
-		MatSuffix,
-		MatButton,
-		MatFabButton,
-		MatPrefix,
-		TitleCaseDirective
-	],
+  imports: [
+	CommonModule,
+	ReactiveFormsModule,
+	MatFormField,
+	MatInput,
+	MatLabel,
+	MatError,
+	MatIcon,
+	MatSuffix,
+	MatButton,
+	MatFabButton,
+	MatPrefix,
+	TitleCaseDirective,
+	RegisterSuccessComponent
+  ],
 	exports: [
 		RegisterComponent
 	]

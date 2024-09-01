@@ -8,7 +8,6 @@ import lombok.Getter;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * DTO for {@link com.amadon.patentconnector.user.entity.User}
@@ -19,7 +18,7 @@ public class UserDto implements Serializable
 {
 	private final Long id;
 	private final String email;
-	private final String name;
+	private final String firstName;
 	private final String lastName;
 	private final Boolean isActive;
 	private final CreateEntrepreneursDataDto entrepreneursData;

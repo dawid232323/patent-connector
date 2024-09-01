@@ -13,6 +13,7 @@ import org.mapstruct.*;
 		uses = { EntrepreneursDataMapper.class, ResearchInstitutionMapper.class } )
 public interface UserMapper
 {
+	@Mapping( target = "name", source = "firstName" )
 	User fromCreateToEntity( CreateUserDto createUserDto );
 
 	@Mapping( target = "researchInstitution", ignore = true )
@@ -30,6 +31,7 @@ public interface UserMapper
 		}
 	}
 
+	@Mapping( source = "name", target = "firstName" )
 	@Mapping( target = "roles", expression = "java(user.getAuthorities())" )
 	UserDto toDto( User user );
 

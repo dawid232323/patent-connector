@@ -25,7 +25,7 @@ public class CreateUserDto implements Serializable, CreateUser
 
 	@NotBlank( message = NOT_BLANK )
 	@Size( max = 300, message = MAX_300_CHARACTERS )
-	private final String name;
+	private final String firstName;
 
 	@NotBlank( message = NOT_BLANK )
 	@Size( max = 300, message = MAX_300_CHARACTERS )

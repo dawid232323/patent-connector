@@ -22,7 +22,7 @@ public class CreateResearchInstitutionWorkerDto implements CreateUser
 
 	@NotBlank( message = NOT_BLANK )
 	@Size( max = 300, message = MAX_300_CHARACTERS )
-	private String name;
+	private String firstName;
 
 	@NotBlank( message = NOT_BLANK )
 	@Size( max = 300, message = MAX_300_CHARACTERS )

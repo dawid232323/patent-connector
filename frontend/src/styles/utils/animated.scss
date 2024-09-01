@@ -1,0 +1,16 @@
+.loading-blur {
+	@apply blur-md;
+	@apply animate-pulse;
+	@apply pointer-events-none;
+	> * {
+		pointer-events: none !important;
+	}
+
+	> input {
+		pointer-events: none !important;
+	}
+
+	> mat-form-field {
+		pointer-events: none !important;
+	}
+}

@@ -1,4 +1,4 @@
-<div class="flex flex-row w-full h-full justify-center items-center">
+<div class="flex flex-row w-full h-full justify-center items-center" [ngClass]="{'loading-blur': isLoadingData}">
 
 	<form class="flex flex-col w-full gap-y-3 justify-center items-center" *ngIf="registerForm"
 		  [formGroup]="registerForm">
