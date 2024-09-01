@@ -1,0 +1,20 @@
+<div class="flex flex-row w-full min-h-[94vh]">
+
+	<section id="form-section" class="md:basis-2/3" [@loadingFromSideAnimation]>
+		<app-register-institution-form>
+
+		</app-register-institution-form>
+		<app-register-success *ngIf="hasFinishedWithSuccess"
+							  [registeredUserEmail]="registeredUserEmail!">
+		</app-register-success>
+	</section>
+
+	<section id="logo-section" class="hidden md:basis-1/3 md:flex justify-center items-center"
+			 [@loadingFromSideAnimationReversed]>
+		<img id="connect-light" src="/icons/connect.svg" class="dark:hidden w-4/5 h-4/5 drop-shadow-xl shadow-white"
+			 alt="Image that shows connected world">
+		<img id="connect-dark" src="/icons/connect-dark.svg"
+			 class="dark:block hidden w-4/5 h-4/5 drop-shadow-xl shadow-white" alt="Image that shows connected world">
+	</section>
+
+</div>

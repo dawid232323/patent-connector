@@ -1,0 +1,78 @@
+<div class="flex flex-row w-full h-full justify-center items-center" [ngClass]="{'loading-blur': isLoadingData}">
+	<form class="flex flex-col w-full gap-y-3 justify-center items-center" *ngIf="registerForm"
+		  [formGroup]="registerForm">
+		<h3 class="font-bold">Dołącz jako pracownik uczelni!</h3>
+
+		<div class="form-input-row">
+			<mat-form-field class="primary-form-field">
+				<mat-label>Adres email</mat-label>
+				<input matInput formControlName="email"/>
+				<ng-container [ngSwitch]="getControlErrorType(registerForm.get('email')!)">
+					<mat-error *ngSwitchCase="errorCode.REQUIRED">Pole jest wymagane</mat-error>
+					<mat-error *ngSwitchCase="errorCode.EMAIL">Proszę podaj poprawny adres email</mat-error>
+					<mat-error
+						*ngSwitchCase="errorCode.MAX_LENGTH">{{ validationService.getMaxLengthMessage(registerForm.get('email')!) }}
+					</mat-error>
+					<mat-error
+						*ngSwitchCase="errorCode.MIN_LENGTH">{{ validationService.getMinLengthMessage(registerForm.get('email')!) }}
+					</mat-error>
+				</ng-container>
+				<mat-icon matSuffix>alternate_email</mat-icon>
+			</mat-form-field>
+
+			<mat-form-field class="primary-form-field">
+				<mat-label>Powtórz Adres email</mat-label>
+				<input matInput formControlName="repeatEmail"/>
+				<ng-container [ngSwitch]="getControlErrorType(registerForm.get('repeatEmail')!)">
+					<mat-error *ngSwitchCase="errorCode.IDENTITY">Adresy email nie pokrywają się</mat-error>
+				</ng-container>
+				<mat-icon matSuffix>alternate_email</mat-icon>
+			</mat-form-field>
+		</div>
+
+		<div class="form-input-row">
+			<mat-form-field class="primary-form-field">
+				<mat-label>Imię</mat-label>
+				<input matInput appTitleCase formControlName="firstName"/>
+				<ng-container [ngSwitch]="getControlErrorType(registerForm.get('firstName')!)">
+					<mat-error *ngSwitchCase="errorCode.REQUIRED">Pole jest wymagane</mat-error>
+					<mat-error
+						*ngSwitchCase="errorCode.MAX_LENGTH">{{ validationService.getMaxLengthMessage(registerForm.get('firstName')!) }}
+					</mat-error>
+					<mat-error
+						*ngSwitchCase="errorCode.MIN_LENGTH">{{ validationService.getMinLengthMessage(registerForm.get('firstName')!) }}
+					</mat-error>
+				</ng-container>
+				<mat-icon matSuffix>person</mat-icon>
+			</mat-form-field>
+
+			<mat-form-field class="primary-form-field">
+				<mat-label>Nazwisko</mat-label>
+				<input matInput appTitleCase formControlName="lastName"/>
+				<ng-container [ngSwitch]="getControlErrorType(registerForm.get('lastName')!)">
+					<mat-error *ngSwitchCase="errorCode.REQUIRED">Pole jest wymagane</mat-error>
+					<mat-error
+						*ngSwitchCase="errorCode.MAX_LENGTH">{{ validationService.getMaxLengthMessage(registerForm.get('lastName')!) }}
+					</mat-error>
+					<mat-error
+						*ngSwitchCase="errorCode.MIN_LENGTH">{{ validationService.getMinLengthMessage(registerForm.get('lastName')!) }}
+					</mat-error>
+				</ng-container>
+				<mat-icon matSuffix>person</mat-icon>
+			</mat-form-field>
+		</div>
+
+		<div class="form-input-row">
+			<mat-error *ngIf="formSubmitted && registerForm.get('institutionId')?.hasError(errorCode.REQUIRED)">
+				Nie mogliśmy znaleźć instytucji powiązanej z twoim adresem email. Upewnij się że podałeś poprawny adres lub skontakuj się z administracją.
+			</mat-error>
+		</div>
+
+		<div class="form-input-row">
+			<button mat-flat-button class="w-3/4 button-secondary" (click)="validateAndSubmit()">
+				Zatwierdź
+				<mat-icon matPrefix>save</mat-icon>
+			</button>
+		</div>
+	</form>
+</div>
