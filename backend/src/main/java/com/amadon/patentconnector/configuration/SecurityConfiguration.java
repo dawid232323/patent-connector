@@ -5,8 +5,10 @@ import com.amadon.patentconnector.shared.constants.AppEndpoints;
 import com.amadon.patentconnector.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,27 +18,66 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Slf4j
 @EnableWebSecurity
 @EnableScheduling
 @Configuration
 @EnableMethodSecurity
-@RequiredArgsConstructor
 public class SecurityConfiguration
 {
 	private final UserService userService;
 	private final JWTRequestFilter requestFilter;
+	private final List< String > allowedHosts;
+
+	public SecurityConfiguration( @Value( "${spring.application.cors.allowed-origins}" ) final List< String > aAllowedHosts, final UserService aUserService, final JWTRequestFilter aRequestFilter )
+	{
+		allowedHosts = aAllowedHosts;
+		userService = aUserService;
+		requestFilter = aRequestFilter;
+
+	}
 
 	@Bean
 	public SecurityFilterChain securityFilterChain( final HttpSecurity aHttp ) throws Exception
 	{
+		setCorsConfiguration( aHttp );
 		disableCsrf( aHttp );
 		excludeUrlsFromAuthentication( aHttp );
 		setAuthorizedRequestWithStatelessSessions( aHttp );
 		setJWTBeforeFilter( aHttp );
 
 		return aHttp.build();
+	}
+
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource()
+	{
+		final CorsConfiguration corsConfiguration = new CorsConfiguration();
+		corsConfiguration.setAllowedOrigins( allowedHosts );
+		corsConfiguration.setAllowedMethods( Arrays.asList( HttpMethod.GET.name(), HttpMethod.POST.name(),
+															HttpMethod.PUT.name(),
+															HttpMethod.DELETE.name() ) );
+		corsConfiguration.setAllowedHeaders( Arrays.asList( "*" ) );
+		corsConfiguration.setAllowCredentials( true );
+
+		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration( "/**", corsConfiguration );
+
+		return source;
+	}
+
+	private void setCorsConfiguration( final HttpSecurity aSecurity ) throws Exception
+	{
+		log.info( "Setting allowed hosts to: {}", allowedHosts );
+		aSecurity.addFilterBefore( new CorsFilter( corsConfigurationSource() ), CorsFilter.class );
 	}
 
 	private void disableCsrf( final HttpSecurity aHttp ) throws Exception
@@ -48,17 +89,17 @@ public class SecurityConfiguration
 	{
 		AppEndpoints.getExcludedEndpoints()
 				.forEach( endpoint ->
-				{
-					try
-					{
-						aHttp.authorizeHttpRequests( request -> request.requestMatchers( new AntPathRequestMatcher( endpoint ) )
-								.permitAll() );
-						log.info( "Added {} to urls excluded from authentication", endpoint );
-					} catch ( Exception aE )
-					{
-						throw new RuntimeException( aE );
-					}
-				} );
+						  {
+							  try
+							  {
+								  aHttp.authorizeHttpRequests( request -> request.requestMatchers( new AntPathRequestMatcher( endpoint ) )
+										  .permitAll() );
+								  log.info( "Added {} to urls excluded from authentication", endpoint );
+							  } catch ( Exception aE )
+							  {
+								  throw new RuntimeException( aE );
+							  }
+						  } );
 	}
 
 	private void setAuthorizedRequestWithStatelessSessions( final HttpSecurity aHttp ) throws Exception
