@@ -1,0 +1,85 @@
+<div class="flex flex-row w-full min-h-[94vh]">
+
+	<section id="form-section" class="md:basis-2/3" [@loadingFromSideAnimation]>
+		<form *ngIf="setPasswordForm && !hasFinishedWithSuccess" [formGroup]="setPasswordForm"
+			  class="flex flex-row w-full h-full justify-center items-center"
+			  [ngClass]="{'loading-blur': isLoadingData}">
+			<div class="flex flex-col gap-y-6 w-1/2">
+				<h3 class="font-bold">Ustaw swoje hasło!</h3>
+				<mat-form-field class="primary-form-field">
+					<mat-label>Hasło</mat-label>
+					<input matInput formControlName="password" type="password"/>
+					<ng-container [ngSwitch]="getControlErrorType(setPasswordForm.get('password')!)">
+						<mat-error *ngSwitchCase="errorCode.REQUIRED">Pole jest wymagane</mat-error>
+					</ng-container>
+					<mat-icon matSuffix>lock</mat-icon>
+				</mat-form-field>
+				<mat-form-field class="primary-form-field">
+					<mat-label>Powtórz hasło</mat-label>
+					<input matInput formControlName="repeatPassword" type="password"/>
+					<ng-container [ngSwitch]="getControlErrorType(setPasswordForm.get('repeatPassword')!)">
+						<mat-error *ngSwitchCase="errorCode.REQUIRED">Pole jest wymagane</mat-error>
+					</ng-container>
+					<mat-icon matSuffix>lock</mat-icon>
+				</mat-form-field>
+
+				<mat-card>
+					<mat-card-header>
+						<mat-card-title>Twoje hasło powinno:</mat-card-title>
+					</mat-card-header>
+					<mat-card-content class="mt-2">
+						<div class="password-checker-row">
+							<span>Mieć przynajmniej 8 znaków długości</span>
+							<mat-icon *ngIf="hasRequiredLength" class="text-green-500">verified</mat-icon>
+							<mat-icon *ngIf="!hasRequiredLength" class="text-red-500">verified</mat-icon>
+						</div>
+						<div class="password-checker-row">
+							<span>Zawierać przynajmniej jedną cyfrę</span>
+							<mat-icon *ngIf="hasAtLeastOneNumber" class="text-green-500">verified</mat-icon>
+							<mat-icon *ngIf="!hasAtLeastOneNumber" class="text-red-500">verified</mat-icon>
+						</div>
+						<div class="password-checker-row">
+							<span>Zawierać przynajmniej jedną dużą literę</span>
+							<mat-icon *ngIf="hasAtLeastOneCapitalChar" class="text-green-500">verified</mat-icon>
+							<mat-icon *ngIf="!hasAtLeastOneCapitalChar" class="text-red-500">verified</mat-icon>
+						</div>
+						<div class="password-checker-row">
+							<span>Nie zawierać znaków specjalnych</span>
+							<mat-icon *ngIf="hasNoSpecialCharacters" class="text-green-500">verified</mat-icon>
+							<mat-icon *ngIf="!hasNoSpecialCharacters" class="text-red-500">verified</mat-icon>
+						</div>
+						<div class="password-checker-row">
+							<span>Pokrywać się z powtórzonym hasłem</span>
+							<mat-icon *ngIf="passwordsMatch" class="text-green-500">verified</mat-icon>
+							<mat-icon *ngIf="!passwordsMatch" class="text-red-500">verified</mat-icon>
+						</div>
+					</mat-card-content>
+				</mat-card>
+
+				<button mat-flat-button class="w-full button-secondary" [disabled]="setPasswordForm.invalid"
+						(click)="submitPassword()">
+					Zapisz
+					<mat-icon matPrefix>save</mat-icon>
+				</button>
+			</div>
+		</form>
+
+		<div class="flex flex-row w-full h-full justify-center items-center" *ngIf="hasFinishedWithSuccess">
+			<div class="flex flex-col gap-y-3">
+				<h3 class="font-bold">Hasło ustawione pomyślnie
+					<mat-icon class="text-green-500 scale-125">check_circle</mat-icon>
+				</h3>
+				<span>Przejdź do ekranu logowania, aby się zalogować. Znajdziesz go <a class="default-link" routerLink="/login">tutaj</a></span>
+			</div>
+		</div>
+	</section>
+
+	<section id="logo-section" class="hidden md:basis-1/3 md:flex justify-center items-center"
+			 [@loadingFromSideAnimationReversed]>
+		<img id="connect-light" src="/icons/connect.svg" class="dark:hidden w-4/5 h-4/5 drop-shadow-xl shadow-white"
+			 alt="Image that shows connected world">
+		<img id="connect-dark" src="/icons/connect-dark.svg"
+			 class="dark:block hidden w-4/5 h-4/5 drop-shadow-xl shadow-white" alt="Image that shows connected world">
+	</section>
+
+</div>

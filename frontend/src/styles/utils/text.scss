@@ -1,0 +1,7 @@
+.default-link {
+	@apply hover:text-primary-darker-light hover:cursor-pointer underline;
+
+	@media (prefers-color-scheme: light) {
+		@apply hover:text-primary-light hover:cursor-pointer underline;
+	}
+}

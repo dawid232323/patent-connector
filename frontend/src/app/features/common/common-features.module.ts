@@ -16,6 +16,9 @@ import {
 } from './features/register-research-institution-worker/register-research-institution-worker.component';
 import { RegisterInstitutionFormComponent } from './features/register-research-institution-worker/partials/register-institution-form/register-institution-form.component';
 import {MatOption, MatSelect} from "@angular/material/select";
+import { ActivateAccountComponent } from './features/activate-account/activate-account.component';
+import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
+import {RouterLink} from "@angular/router";
 
 
 @NgModule({
@@ -23,7 +26,8 @@ import {MatOption, MatSelect} from "@angular/material/select";
 		RegisterComponent,
 		RegisterFormComponent,
 		RegisterResearchInstitutionWorkerComponent,
-  RegisterInstitutionFormComponent
+  RegisterInstitutionFormComponent,
+  ActivateAccountComponent
 	],
 	imports: [
 		CommonModule,
@@ -41,7 +45,12 @@ import {MatOption, MatSelect} from "@angular/material/select";
 		RegisterSuccessComponent,
 		MatSelect,
 		MatOption,
-		MatHint
+		MatHint,
+		MatCard,
+		MatCardContent,
+		MatCardTitle,
+		MatCardHeader,
+		RouterLink
 	],
 	exports: [
 		RegisterComponent,
