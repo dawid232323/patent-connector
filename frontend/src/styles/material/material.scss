@@ -21,3 +21,8 @@
 	}
 
 }
+
+.cdk-overlay-dark-backdrop {
+	@apply bg-gray-500 #{!important};
+	@apply opacity-50 #{!important};
+}

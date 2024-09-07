@@ -1,0 +1,31 @@
+<span>
+  <span class="flex flex-row items-center space-x-3">
+    <img
+		class="dark:block hidden m-4"
+		ngSrc="/icons/error/error-dark.svg"
+		alt="Image that shows bugs being repaired"
+		height="100"
+		width="100" />
+	  <img
+		  class="dark:hidden block m-4"
+		  ngSrc="/icons/error/error-light.svg"
+		  alt="Image that shows bugs being repaired"
+		  height="100"
+		  width="100" />
+    <span class="font-bold text-2xl">{{ title }}</span>
+  </span>
+</span>
+<mat-dialog-content>
+
+	<div class="flex flex-col space-y-3">
+		<span class="font-bold">{{message}}</span>
+		<span><strong>Identyfikator błędu:</strong> {{uuid}}</span>
+		<span *ngIf="statusCode"><strong>Kod błędu:</strong> {{statusCode}}</span>
+		<span *ngIf="errorCause"><strong>Przyczyna błędu: </strong>{{errorCause}}</span>
+		<span *ngIf="additionalMessage"><strong>Oryginalny opis błędu:</strong> {{additionalMessage}}</span>
+	</div>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+	<button mat-button mat-dialog-close>{{buttonMessage}}</button>
+</mat-dialog-actions>
