@@ -7,10 +7,11 @@ import {
 	ResearchInstitutionWorkerCreateDto
 } from "app/features/common/features/register-research-institution-worker/types/research-institution-registration.types";
 import {User} from "app/shared/types/user.types";
-import {RegisterService} from "app/features/common/features/register/service/register.service";
 import {
 	InstitutionWorkerRegistrationService
 } from "app/features/common/features/register-research-institution-worker/service/institution-worker-registration.service";
+import {ErrorDialogService} from "app/shared/dialog/error-dialog/service/error-dialog.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
 	selector: 'app-register-research-institution-worker',
@@ -24,14 +25,14 @@ export class RegisterResearchInstitutionWorkerComponent {
 	hasFinishedWithSuccess = false;
 	registeredUserEmail?: string;
 
-	constructor(private registerService: InstitutionWorkerRegistrationService) {
+	constructor(private registerService: InstitutionWorkerRegistrationService, private errorService: ErrorDialogService) {
 	}
 
 	handleFormSubmit(createDto: ResearchInstitutionWorkerCreateDto) {
 		this.isLoadingData = true;
 		this.registerService.registerResearchInstitutionWorker(createDto).subscribe({
 			next: (response) => this.onRegisterSuccess(response),
-			error: this.onRegisterFail.bind(this)
+			error: (error: HttpErrorResponse) => this.onRegisterFail(error)
 		});
 	}
 
@@ -41,7 +42,8 @@ export class RegisterResearchInstitutionWorkerComponent {
 		this.isLoadingData = false;
 	}
 
-	private onRegisterFail() {
+	private onRegisterFail(error: HttpErrorResponse) {
 		this.isLoadingData = false;
+		this.errorService.openHttpResponseError(error.error);
 	}
 }
