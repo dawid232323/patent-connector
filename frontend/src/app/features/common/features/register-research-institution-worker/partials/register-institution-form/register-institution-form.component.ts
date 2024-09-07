@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {debounceTime, distinctUntilChanged, filter, Subscription, switchMap} from "rxjs";
+import {debounceTime, distinctUntilChanged, filter, Subscription, switchMap, tap} from "rxjs";
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {identityValidator} from "app/shared/utils/validation/validators.fn";
 import {ValidationService} from "app/shared/utils/validation/validation.service";
@@ -101,6 +101,11 @@ export class RegisterInstitutionFormComponent implements OnInit, OnDestroy {
 		this._subscription.add(
 			this.emailControl?.valueChanges.pipe(
 				distinctUntilChanged(),
+				tap((value) => {
+					if (isNil(value) || value === '') {
+						this.processAvailableInstitutions([]);
+					}
+				}),
 				filter((_) => this.emailControl!.valid),
 				debounceTime(300),
 				switchMap((email) => this.registrationService.findByWorkerEmail(email))
