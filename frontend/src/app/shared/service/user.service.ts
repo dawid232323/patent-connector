@@ -26,6 +26,14 @@ export class UserService {
 			);
 	}
 
+	refreshToken(): Observable<TokenDto> {
+		const refreshToken = this.securityService.refreshToken;
+		return this.apiService.post({}, AppEndpoints.SecurityEndpoints.refreshToken.concat(`/${refreshToken}`))
+			.pipe(
+				map((tokenDto: TokenDto) => this.securityService.refreshUserToken(tokenDto))
+			);
+	}
+
 	getLoggedUserDetails(): Observable<User | null> {
 		return this.securityService.isUserLoggedIn
 			.pipe(

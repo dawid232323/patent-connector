@@ -25,6 +25,11 @@ export class SecurityService {
 		this._isUSerLoggedIn.next(true);
 	}
 
+	refreshUserToken(tokenDto: TokenDto) {
+		this.setTokenPair(tokenDto);
+		return tokenDto;
+	}
+
 	logoutUser() {
 		this.resetTokenPair();
 		this._isUSerLoggedIn.next(false);
