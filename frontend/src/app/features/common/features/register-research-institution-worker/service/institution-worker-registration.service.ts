@@ -7,6 +7,7 @@ import {
 } from "app/features/common/features/register-research-institution-worker/types/research-institution-registration.types";
 import {ResearchInstitution} from "app/shared/types/research-institution.types";
 import {User} from "app/shared/types/user.types";
+import {AppEndpoints} from "app/shared/types/api.types";
 
 @Injectable({
 	providedIn: 'root'
@@ -29,7 +30,7 @@ export class InstitutionWorkerRegistrationService {
 	}
 
 	registerResearchInstitutionWorker(dto: ResearchInstitutionWorkerCreateDto): Observable<User> {
-		return <Observable<User>>this.apiService.post<ResearchInstitutionWorkerCreateDto, User>(dto, 'users/register-research-institution-worker');
+		return <Observable<User>>this.apiService.post<ResearchInstitutionWorkerCreateDto, User>(dto, AppEndpoints.UserEndpoints.researchInstitutionRegister);
 	}
 
 	private getAddressString(institution: ResearchInstitution): string {

@@ -1,4 +1,5 @@
 import {EntrepreneursDataDto} from "app/features/common/features/register/types/registration.types";
+import {ResearchInstitution} from "app/shared/types/research-institution.types";
 
 export enum UserRole {
 	ENTREPRENEUR = 'ENTREPRENEUR',
@@ -14,6 +15,5 @@ export interface User {
 	isActive: boolean;
 	roles: UserRole[];
 	entrepreneursData?: EntrepreneursDataDto;
-	// TODO define when model is introduced
-	researchInstitution?: any;
+	researchInstitution?: ResearchInstitution;
 }

@@ -23,9 +23,6 @@ export class ApiService {
 	}
 
 	private getFinalUrl(resourcePath: string): string {
-		if (resourcePath.startsWith('/')) {
-			return `${environment.apiUrl}${resourcePath}`;
-		}
-		return `${environment.apiUrl}/${resourcePath}`;
+		return resourcePath;
 	}
 }
