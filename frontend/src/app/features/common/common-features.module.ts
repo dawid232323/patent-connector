@@ -19,6 +19,7 @@ import {MatOption, MatSelect} from "@angular/material/select";
 import { ActivateAccountComponent } from './features/activate-account/activate-account.component';
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {RouterLink} from "@angular/router";
+import { LoginComponent } from './features/login/login.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {RouterLink} from "@angular/router";
 		RegisterFormComponent,
 		RegisterResearchInstitutionWorkerComponent,
   RegisterInstitutionFormComponent,
-  ActivateAccountComponent
+  ActivateAccountComponent,
+  LoginComponent
 	],
 	imports: [
 		CommonModule,

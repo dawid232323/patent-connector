@@ -11,7 +11,7 @@ import {
 } from "app/shared/utils/validation/validators.fn";
 import {
 	CreateEntrepreneurDto,
-	EntrepreneursDataDto
+	CreateEntrepreneursDataDto
 } from "app/features/common/features/register/types/registration.types";
 import {loadingFromSideAnimation} from "app/shared/utils/animations/loading.animation";
 

@@ -23,7 +23,7 @@ function isHttpErrorResponse(error: any): error is HttpErrorResponse {
 }
 
 function isErrorResponse(body: any): body is ErrorResponse {
-	return !isNil(body.domainCode) && !isNil(body.status) && !isNil(body.message);
+	return !isNil(body.domainCode) && !isNil(body.status);
 }
 
 function handleHttpErrorResponse(error: HttpErrorResponse, service: ErrorDialogService) {

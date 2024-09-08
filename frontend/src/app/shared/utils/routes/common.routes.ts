@@ -5,6 +5,7 @@ import {
 } from "app/features/common/features/register-research-institution-worker/register-research-institution-worker.component";
 import {ActivateAccountComponent} from "app/features/common/features/activate-account/activate-account.component";
 import {activateAccountGuard} from "app/features/common/features/activate-account/guard/activate-account.guard";
+import {LoginComponent} from "app/features/common/features/login/login.component";
 
 export const COMMON_ROUTES: Routes = [
 	{
@@ -21,5 +22,9 @@ export const COMMON_ROUTES: Routes = [
 		canActivate: [
 			activateAccountGuard
 		]
+	},
+	{
+		path: 'login',
+		component: LoginComponent
 	}
 ]
