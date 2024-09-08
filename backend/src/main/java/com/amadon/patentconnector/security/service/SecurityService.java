@@ -9,12 +9,14 @@ import com.amadon.patentconnector.user.service.repository.UserRepository;
 import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -34,6 +36,15 @@ public class SecurityService
 		validateIfPasswordMatches( userToLogIn, aLoginDto.getPassword() );
 
 		return generateTokenPair( userToLogIn );
+	}
+
+	public TokenDto refreshToken( final String aRefreshToken )
+	{
+		final String userEmail = Optional.ofNullable( jwtService.getUserEmailFromTokenIfIsValid( aRefreshToken ) )
+				.orElseThrow( () -> new AccessDeniedException( "Token is invalid or expired" ) );
+		final User user = userRepository.findByEmail( userEmail )
+				.orElseThrow( () -> new LoginException( "User with email " + userEmail + " does not exist" ) );
+		return generateTokenPair( user );
 	}
 
 	public boolean isUserAuthenticated()

@@ -3,6 +3,7 @@ package com.amadon.patentconnector.shared.util.token;
 import com.amadon.patentconnector.user.entity.User;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -57,6 +58,12 @@ public class JWTService
 		return tokenValidator.getUserEmailIfAuthTokenIsValid( token, getSigningKey() );
 	}
 
+	@Nullable
+	public String getUserEmailFromTokenIfIsValid( final String aToken )
+	{
+		return tokenValidator.getUserEmailIfAuthTokenIsValid( aToken, getSigningKey() );
+	}
+
 	public boolean isAuthorizationTokenValid( final String aAuthorizationHeader )
 	{
 		final String token = getTokenFromAuthorizationHeader( aAuthorizationHeader );
@@ -65,6 +72,11 @@ public class JWTService
 			return false;
 		}
 		return tokenValidator.isAuthTokenValid( token, getSigningKey() );
+	}
+
+	public boolean isRefreshTokenValid( final String aToken )
+	{
+		return tokenValidator.isAuthTokenValid( aToken, getSigningKey() );
 	}
 
 	private Key getSigningKey()

@@ -17,13 +17,14 @@ import java.util.Map;
 class JWTGenerator
 {
 	static final String USER_SECRET_CLAIM_KEY = "USER_SECRET";
+	static final String USER_ROLES = "ROLES";
 	private static final Duration tokenDuration = Duration.ofMinutes( 5 );
 	private static final Duration refreshTokenDuration = Duration.ofHours( 10 );
 
 	public String generateTokenForAuthentication( final User aUser, final boolean isRefresh, final Key aSigningKey )
 	{
-		//TODO when roles are introduced add user roles to claims
-		final Map< String, Object > claimsMap = Map.of( USER_SECRET_CLAIM_KEY, aUser.getSecretKey() );
+		final Map< String, Object > claimsMap = Map.of( USER_SECRET_CLAIM_KEY, aUser.getSecretKey(), USER_ROLES,
+														aUser.getAuthorities() );
 		final Date expirationDate = getExpirationDate( isRefresh );
 		return generateToken( claimsMap, aUser.getEmail(), expirationDate, aSigningKey );
 	}
@@ -57,8 +58,10 @@ class JWTGenerator
 		final LocalDateTime now = LocalDateTime.now();
 		if ( isRefresh )
 		{
-			return Date.from( now.plus( refreshTokenDuration ).toInstant( ZoneOffset.UTC ) );
+			return Date.from( now.plus( refreshTokenDuration )
+									  .toInstant( ZoneOffset.UTC ) );
 		}
-		return Date.from( now.plus( tokenDuration ).toInstant( ZoneOffset.UTC ) );
+		return Date.from( now.plus( tokenDuration )
+								  .toInstant( ZoneOffset.UTC ) );
 	}
 }

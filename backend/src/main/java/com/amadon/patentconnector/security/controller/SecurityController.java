@@ -23,4 +23,11 @@ public class SecurityController
 	{
 		return securityService.loginUser( aLoginDto );
 	}
+
+	@ResponseBody
+	@PostMapping( AppEndpoints.SecurityEndpoints.refreshToken + "/{refreshToken}" )
+	public TokenDto refreshToken( @PathVariable( "refreshToken" ) final String aRefreshToken )
+	{
+		return securityService.refreshToken( aRefreshToken );
+	}
 }

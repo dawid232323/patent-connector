@@ -41,7 +41,7 @@ public record AppEndpoints( )
 				UserEndpoints.userBase.concat( UserEndpoints.setInitialPassword ),
 				UserEndpoints.userBase.concat( UserEndpoints.researchInstitutionRegister ),
 				SecurityEndpoints.securityBase.concat( SecurityEndpoints.login ),
-				SecurityEndpoints.securityBase.concat( SecurityEndpoints.refreshToken ),
+				SecurityEndpoints.securityBase.concat( SecurityEndpoints.refreshToken.concat( "/**" ) ),
 				BusinessBranchEndpoints.businessBranchBase.concat( BusinessBranchEndpoints.sectionBusinessBranches ),
 				ResearchInstitutionEndpoints.resInstitutionBase.concat( ResearchInstitutionEndpoints.resInstitutionFind.concat( "/**" ) )
 					  );
