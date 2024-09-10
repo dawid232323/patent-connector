@@ -1,5 +1,6 @@
 package com.amadon.patentconnector.businessBranch.service;
 
+import com.amadon.patentconnector.businessBranch.entity.BusinessBranch;
 import com.amadon.patentconnector.businessBranch.service.dto.BusinessBranchDto;
 import com.amadon.patentconnector.businessBranch.service.mapper.BusinessBranchMapper;
 import com.amadon.patentconnector.businessBranch.service.repository.BusinessBranchRepository;
@@ -24,5 +25,10 @@ public class BusinessBranchService
 				.stream()
 				.map( businessBranchMapper::toDto )
 				.collect( Collectors.toList() );
+	}
+
+	public List< BusinessBranch > getBusinessBranchesByIdIn( final List< Long > aIds )
+	{
+		return businessBranchRepository.findAllByIdIn( aIds );
 	}
 }

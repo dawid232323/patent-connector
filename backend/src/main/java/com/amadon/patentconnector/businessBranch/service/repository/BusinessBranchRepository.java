@@ -16,4 +16,6 @@ public interface BusinessBranchRepository extends JpaRepository< BusinessBranch,
 			"and busBran.code is null " +
 			"and busBran.businessBranchGroup is null order by busBran.section, busBran.displayName" )
 	List< BusinessBranch > resolveAllSectionBusinessBranches();
+
+	List< BusinessBranch > findAllByIdIn( List< Long > aBusinessBranchesIds );
 }

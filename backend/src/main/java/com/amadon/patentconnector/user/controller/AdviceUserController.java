@@ -3,6 +3,8 @@ package com.amadon.patentconnector.user.controller;
 import com.amadon.patentconnector.shared.constants.DomainCode;
 import com.amadon.patentconnector.shared.constants.ReasonMessages;
 import com.amadon.patentconnector.shared.exception.AppErrorResponse;
+import com.amadon.patentconnector.user.service.exception.RoleMismatchException;
+import com.amadon.patentconnector.user.service.exception.UserNotFoundException;
 import com.amadon.patentconnector.user.service.exception.UserRegistrationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -47,6 +49,40 @@ public class AdviceUserController
 				.message( aE.getMessage() )
 				.domainCode( DomainCode.USER )
 				.errorCause( ReasonMessages.USER_DOES_NOT_EXIST )
+				.uuid( errorUUID )
+				.originalExceptionMessage( aE.getMessage() )
+				.build();
+	}
+
+	@ResponseBody
+	@ResponseStatus( HttpStatus.BAD_REQUEST )
+	@ExceptionHandler( UserNotFoundException.class )
+	public AppErrorResponse handleUserNotFoundException( final UserNotFoundException aE )
+	{
+		final String errorUUID = UUID.randomUUID().toString();
+		log.error( "UserNotFoundException uid: {} Original exception is:", errorUUID, aE );
+		return AppErrorResponse.builder()
+				.status( HttpStatus.BAD_REQUEST )
+				.message( aE.getMessage() )
+				.domainCode( DomainCode.USER )
+				.errorCause( ReasonMessages.USER_DOES_NOT_EXIST )
+				.uuid( errorUUID )
+				.originalExceptionMessage( aE.getMessage() )
+				.build();
+	}
+
+	@ResponseBody
+	@ResponseStatus( HttpStatus.BAD_REQUEST )
+	@ExceptionHandler( RoleMismatchException.class )
+	public AppErrorResponse handleRoleMismatchException( final RoleMismatchException aE )
+	{
+		final String errorUUID = UUID.randomUUID().toString();
+		log.error( "RoleMismatchException uid: {} Original exception is:", errorUUID, aE );
+		return AppErrorResponse.builder()
+				.status( HttpStatus.BAD_REQUEST )
+				.message( aE.getMessage() )
+				.domainCode( DomainCode.USER )
+				.errorCause( ReasonMessages.ROLE_MISMATCH )
 				.uuid( errorUUID )
 				.originalExceptionMessage( aE.getMessage() )
 				.build();

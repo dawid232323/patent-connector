@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -53,5 +54,13 @@ public class UserController
 	public UserDto getLoggedUserDetails()
 	{
 		return userService.getLoggedUserDto();
+	}
+
+	@ResponseBody
+	@PutMapping( AppEndpoints.UserEndpoints.updateBusinessBranches + "/{userId}" )
+	public UserDto updateUserBusinessBranches( @PathVariable( "userId" ) final Long aUserId,
+											   @RequestBody final List< Long > aBusinessBranchesIds )
+	{
+		return userService.updateUserBusinessBranches( aBusinessBranchesIds, aUserId );
 	}
 }

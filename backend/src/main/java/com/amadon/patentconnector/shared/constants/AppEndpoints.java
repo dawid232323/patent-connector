@@ -20,6 +20,7 @@ public record AppEndpoints( )
 		public static final String researchInstitutionRegister = "/register-research-institution-worker";
 		public static final String setInitialPassword = "/set-initial-password";
 		public static final String myDetails = "/me";
+		public static final String updateBusinessBranches = "update-business-branches";
 	}
 
 	public record ResearchInstitutionEndpoints( )
