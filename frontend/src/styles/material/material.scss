@@ -22,6 +22,16 @@
 
 }
 
+.button-tertiary {
+	@include mat.button-theme($dark-theme, $color-variant: tertiary);
+	@include mat.button-color($dark-theme, $color-variant: tertiary);
+
+	@media (prefers-color-scheme: light) {
+		@include mat.button-color($light-theme, $color-variant: tertiary);
+		@include mat.button-theme($light-theme, $color-variant: tertiary);
+	}
+}
+
 .cdk-overlay-dark-backdrop {
 	@apply bg-gray-500 #{!important};
 	@apply opacity-50 #{!important};

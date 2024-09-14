@@ -1,0 +1,33 @@
+<div class="flex flex-row w-full min-h-[94vh]">
+
+	<section id="form-section" class="md:basis-2/3 flex flex-col gap-y-6 justify-center items-center" [@loadingFromSideAnimation]>
+
+		<div class="flex flex-col items-center justify-center">
+			<h3 class="font-bold">Wybierz główne gałęzie swoich zainteresowań</h3>
+			<h4>Będziemy je wykorzystywać w celu lepszych rekomendacji</h4>
+		</div>
+
+		<div id="chip-container" class="flex justify-center items-center flex-wrap gap-y-6 gap-x-3 mx-4">
+			@for (branch of businessBranches; track $index) {
+				<app-business-branch-chip [businessBranch]="branch"
+										  [isBranchSelected]="isBranchSelected(branch.id)"
+										  (selectionChange)="onSelectionChanged(branch.id)">
+				</app-business-branch-chip>
+			}
+		</div>
+
+		<div class="flex flex-row  w-full justify-center items-center">
+			<button mat-flat-button class="w-2/3" [disabled]="!canSubmit()">Zatwierdź</button>
+		</div>
+
+	</section>
+
+	<section id="logo-section" class="hidden md:basis-1/3 md:flex justify-center items-center"
+			 [@loadingFromSideAnimationReversed]>
+		<img id="connect-light" src="/icons/connect.svg" class="dark:hidden w-4/5 h-4/5 drop-shadow-xl shadow-white"
+			 alt="Image that shows connected world">
+		<img id="connect-dark" src="/icons/connect-dark.svg"
+			 class="dark:block hidden w-4/5 h-4/5 drop-shadow-xl shadow-white" alt="Image that shows connected world">
+	</section>
+
+</div>

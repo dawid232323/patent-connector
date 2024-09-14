@@ -12,7 +12,7 @@ export class ApiService {
 	constructor(private httpClient: HttpClient) {
 	}
 
-	get<T, K>(resourcePath: string, options?: any | ApiOptions): Observable<any> {
+	get<K>(resourcePath: string, options?: any | ApiOptions): Observable<any> {
 		const url = this.getFinalUrl(resourcePath);
 		return <Observable<HttpResponse<K>>>this.httpClient.get<K>(url, options);
 	}

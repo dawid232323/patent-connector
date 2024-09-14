@@ -93,10 +93,6 @@ html {
 	@include mat.progress-bar-color($light-theme, $color-variant: secondary);
 }
 
-.button-tertiary {
-	@include mat.button-color($light-theme, $color-variant: secondary);
-}
-
 html, body {
 	font-family: Oswald, "Helvetica Neue", sans-serif !important;
 	height: 100%;

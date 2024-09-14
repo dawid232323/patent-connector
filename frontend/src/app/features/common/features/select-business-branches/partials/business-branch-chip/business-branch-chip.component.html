@@ -1,0 +1,5 @@
+<div class="bg-primary-light dark:bg-primary-dark p-2 rounded-[15px] hover:cursor-pointer hover:scale-110 relative"
+	 [ngClass]="{'branch-selected': isBranchSelected}"
+	 (click)="selectionChange.emit()">
+	<span class="text-sm">{{ businessBranch.displayName | titlecase }}</span>
+</div>

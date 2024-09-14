@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
 
 	private handleLoginSuccess(user: User) {
 		if (this.shouldRedirectToInterestCollection(user)) {
-			// TODO implement
+			return this.router.navigate(['/select-business-branches']);
 		}
 		if (this.shouldNotRedirectToDefault()) {
 			return this.router.navigate(this.activatedRoute.snapshot.queryParams[LoginComponent.NEXT_QUERY_PARAM]);

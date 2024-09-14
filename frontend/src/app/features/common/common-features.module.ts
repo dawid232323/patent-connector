@@ -14,12 +14,18 @@ import {RegisterSuccessComponent} from "app/shared/features/register-success/reg
 import {
 	RegisterResearchInstitutionWorkerComponent
 } from './features/register-research-institution-worker/register-research-institution-worker.component';
-import { RegisterInstitutionFormComponent } from './features/register-research-institution-worker/partials/register-institution-form/register-institution-form.component';
+import {
+	RegisterInstitutionFormComponent
+} from './features/register-research-institution-worker/partials/register-institution-form/register-institution-form.component';
 import {MatOption, MatSelect} from "@angular/material/select";
-import { ActivateAccountComponent } from './features/activate-account/activate-account.component';
+import {ActivateAccountComponent} from './features/activate-account/activate-account.component';
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {RouterLink} from "@angular/router";
-import { LoginComponent } from './features/login/login.component';
+import {LoginComponent} from './features/login/login.component';
+import {
+	SelectBusinessBranchesComponent
+} from "app/features/common/features/select-business-branches/select-business-branches.component";
+import { BusinessBranchChipComponent } from './features/select-business-branches/partials/business-branch-chip/business-branch-chip.component';
 
 
 @NgModule({
@@ -27,9 +33,11 @@ import { LoginComponent } from './features/login/login.component';
 		RegisterComponent,
 		RegisterFormComponent,
 		RegisterResearchInstitutionWorkerComponent,
-  RegisterInstitutionFormComponent,
-  ActivateAccountComponent,
-  LoginComponent
+		RegisterInstitutionFormComponent,
+		ActivateAccountComponent,
+		LoginComponent,
+		SelectBusinessBranchesComponent,
+  BusinessBranchChipComponent
 	],
 	imports: [
 		CommonModule,
@@ -56,7 +64,8 @@ import { LoginComponent } from './features/login/login.component';
 	],
 	exports: [
 		RegisterComponent,
-		RegisterResearchInstitutionWorkerComponent
+		RegisterResearchInstitutionWorkerComponent,
+		SelectBusinessBranchesComponent
 	]
 })
 export class CommonFeaturesModule {
