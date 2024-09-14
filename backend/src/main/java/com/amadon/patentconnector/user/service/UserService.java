@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -65,7 +66,7 @@ public class UserService implements UserDetailsService
 				.orElseThrow( () -> new UserNotFoundException( aUserId ) );
 		checkIfUserHasDesiredRoles( userToUpdate, UserRole.ENTREPRENEUR );
 		final Set< BusinessBranch > businessBranches =
-				Set.copyOf( businessBranchService.getBusinessBranchesByIdIn( aBusinessBranchesIds ) );
+				new HashSet<>( businessBranchService.getBusinessBranchesByIdIn( aBusinessBranchesIds ) );
 		userToUpdate.getEntrepreneursData()
 				.setInterestedBusinessBranches( businessBranches );
 		return userMapper.toDto( userRepository.save( userToUpdate ) );

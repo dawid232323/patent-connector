@@ -22,6 +22,11 @@ export class ApiService {
 		return <Observable<HttpResponse<K>>>this.httpClient.post<K>(url, body, options);
 	}
 
+	put<T, K=T>(resourcePath: string, body: T, options?: any | ApiOptions): Observable<any> {
+		const url = this.getFinalUrl(resourcePath);
+		return <Observable<K>>this.httpClient.put<K>(url, body, options);
+	}
+
 	private getFinalUrl(resourcePath: string): string {
 		return resourcePath;
 	}

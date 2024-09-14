@@ -6,6 +6,7 @@ import {User} from "app/shared/types/user.types";
 import {LoginDto, TokenDto} from "app/shared/types/security.types";
 import {AppEndpoints} from "app/shared/types/api.types";
 import {isNil} from "lodash";
+import {HttpEvent, HttpResponse} from "@angular/common/http";
 
 @Injectable({
 	providedIn: 'root'
@@ -39,6 +40,11 @@ export class UserService {
 			.pipe(
 				switchMap((isUserLoggedIn) => isUserLoggedIn ? this.resolveUserDetails() : of(null))
 			);
+	}
+
+	updateSelectedBusinessBranches(userId: number, selectedBranches: number[]): Observable<User> {
+		const url = `${AppEndpoints.UserEndpoints.updateBusinessBranches}/${userId}`;
+		return this.apiService.put<number[], User>(url, selectedBranches);
 	}
 
 	private resolveUserDetails(): Observable<User> {
