@@ -5,8 +5,7 @@ import com.amadon.patentconnector.shared.entity.Auditable;
 import com.amadon.patentconnector.shared.util.entity.AuditableEntityListener;
 import com.amadon.patentconnector.user.entity.User;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -15,6 +14,9 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table( name = "entrepreneurs_data" )
 @EntityListeners( AuditableEntityListener.class )
 public class EntrepreneursData implements Auditable
@@ -46,6 +48,10 @@ public class EntrepreneursData implements Auditable
 
 	@Column( name = "regon", length = 15 )
 	private String regon;
+
+	@Column( name = "recommendation_agreement" )
+	@Builder.Default
+	private Boolean recommendationAgreement = false;
 
 	@Column( name = "created_at" )
 	private LocalDateTime createdAt;

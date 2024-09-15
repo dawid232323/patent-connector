@@ -21,4 +21,6 @@ public class CreateEntrepreneursDataDto implements Serializable
 	private final String nip;
 
 	private final String regon;
+
+	private final Boolean recommendationAgreement;
 }

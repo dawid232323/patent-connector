@@ -1,0 +1,12 @@
+databaseChangeLog:
+    - changeSet:
+          id: 009-recommendation-agreement
+          author: dawid232323
+          changes:
+              - addColumn:
+                    tableName: entrepreneurs_data
+                    columns:
+                        - column:
+                              name: recommendation_agreement
+                              type: boolean
+                              defaultValueBoolean: false

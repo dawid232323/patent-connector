@@ -13,5 +13,6 @@ public class EntrepreneursDataDto
 	private final String companyName;
 	private final String nip;
 	private final String regon;
+	private final Boolean recommendationAgreement;
 	private final List< BusinessBranchDto > interestBranches;
 }
