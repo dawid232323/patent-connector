@@ -50,6 +50,7 @@ public class SecurityConfiguration
 	{
 		setCorsConfiguration( aHttp );
 		disableCsrf( aHttp );
+		setExceptionHandling( aHttp );
 		excludeUrlsFromAuthentication( aHttp );
 		setAuthorizedRequestWithStatelessSessions( aHttp );
 		setJWTBeforeFilter( aHttp );
@@ -112,5 +113,11 @@ public class SecurityConfiguration
 	private void setJWTBeforeFilter( final HttpSecurity aHttp )
 	{
 		aHttp.addFilterBefore( requestFilter, UsernamePasswordAuthenticationFilter.class );
+	}
+
+	private void setExceptionHandling( final HttpSecurity aSecurity ) throws Exception
+	{
+		aSecurity.exceptionHandling( request -> request.authenticationEntryPoint( new AppAuthenticationEntryPoint() ) )
+				.exceptionHandling( request -> request.accessDeniedHandler( new AppAccessDeniedHandler() ) );
 	}
 }

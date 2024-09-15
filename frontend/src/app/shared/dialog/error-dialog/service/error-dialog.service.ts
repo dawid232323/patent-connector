@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {MatDialog, MatDialogConfig, MatDialogRef} from "@angular/material/dialog";
 import {DomainCode, domainCodeTitle, ErrorResponse} from "app/shared/types/error.types";
 import {ErrorDialogComponent} from "app/shared/dialog/error-dialog/error-dialog.component";
 import {ErrorDialogData} from "app/shared/dialog/error-dialog/types/error-dialog.types";
@@ -18,21 +18,24 @@ export class ErrorDialogService {
 	openHttpResponseError(errorResponse: ErrorResponse): MatDialogRef<ErrorDialogComponent> {
 		const initialData = this.getDialogDataFromHttpError(errorResponse);
 		return this.dialog.open(ErrorDialogComponent, {
-			data: initialData
+			data: initialData,
+			...this.resolveMatDialogConfig()
 		});
 	}
 
 	openDefaultErrorResponse(error: HttpErrorResponse): MatDialogRef<ErrorDialogComponent> {
 		const initialData = this.getDialogDataFromHttpErrorResponse(error);
 		return this.dialog.open(ErrorDialogComponent, {
-			data: initialData
+			data: initialData,
+			...this.resolveMatDialogConfig()
 		});
 	}
 
 	openApplicationError(error: Error) {
 		const initialData = this.getDialogDataFromAppError(error);
 		return this.dialog.open(ErrorDialogComponent, {
-			data: initialData
+			data: initialData,
+			...this.resolveMatDialogConfig()
 		});
 	}
 
@@ -79,5 +82,12 @@ export class ErrorDialogService {
 			return 'Popraw dane i spróbuj jeszcze raz';
 		}
 		return undefined;
+	}
+
+	private resolveMatDialogConfig(): MatDialogConfig<any> {
+		return {
+			minHeight: '10vh',
+			minWidth: '70vh'
+		}
 	}
 }
