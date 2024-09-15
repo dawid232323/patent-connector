@@ -114,6 +114,10 @@
 			</mat-form-field>
 		</div>
 
+		<div class="form-input-row">
+			<mat-checkbox class="checkbox-secondary" formControlName="recommendationAgreement">{{ recommendationAgreementMessage }}</mat-checkbox>
+		</div>
+
 		<mat-error *ngIf="formSubmitted && registerForm.hasError(errorCode.AT_LEAST_ONE_REQUIRED)">
 			NIP lub Regon muszą być wypełnione
 		</mat-error>

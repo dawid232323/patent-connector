@@ -71,6 +71,8 @@
 
 html {
 	@include mat.all-component-themes($dark-theme);
+	@include mat.checkbox-theme($dark-theme);
+	@include mat.checkbox-color($dark-theme, $color-variant: secondary);
 	@include mat.all-component-typographies($dark-theme);
 	@include mat.button-theme($dark-theme);
 
@@ -83,6 +85,8 @@ html {
 		@include mat.all-component-themes($light-theme);
 		@include mat.all-component-typographies($light-theme);
 		@include mat.button-color($light-theme);
+		@include mat.checkbox-theme($light-theme);
+		@include mat.checkbox-color($light-theme, $color-variant: secondary);
 
 		@apply bg-white;
 		@apply text-black;

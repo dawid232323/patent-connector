@@ -19,7 +19,7 @@ export const identityValidator = (relevantFieldName: string): ValidatorFn => {
 export const exactLengthValidator = (exactLength: number): ValidatorFn => {
 	return (control: AbstractControl): ValidationErrors | null => {
 		const value = control.value;
-		if (isNil(value)) {
+		if (isNil(value) || value === '') {
 			return null;
 		}
 		if (String(value).length !== exactLength) {
@@ -32,7 +32,7 @@ export const exactLengthValidator = (exactLength: number): ValidatorFn => {
 export const regonValidator = (): ValidatorFn => {
 	return (control: AbstractControl): ValidationErrors | null => {
 		const value = control.value;
-		if (isNil(value)) {
+		if (isNil(value) || value === '') {
 			return null;
 		}
 		const valueLength = String(value)?.length || 0;

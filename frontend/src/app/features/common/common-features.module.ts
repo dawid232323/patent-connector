@@ -26,6 +26,7 @@ import {
 	SelectBusinessBranchesComponent
 } from "app/features/common/features/select-business-branches/select-business-branches.component";
 import { BusinessBranchChipComponent } from './features/select-business-branches/partials/business-branch-chip/business-branch-chip.component';
+import {MatCheckbox} from "@angular/material/checkbox";
 
 
 @NgModule({
@@ -39,29 +40,30 @@ import { BusinessBranchChipComponent } from './features/select-business-branches
 		SelectBusinessBranchesComponent,
   BusinessBranchChipComponent
 	],
-	imports: [
-		CommonModule,
-		ReactiveFormsModule,
-		MatFormField,
-		MatInput,
-		MatLabel,
-		MatError,
-		MatIcon,
-		MatSuffix,
-		MatButton,
-		MatFabButton,
-		MatPrefix,
-		TitleCaseDirective,
-		RegisterSuccessComponent,
-		MatSelect,
-		MatOption,
-		MatHint,
-		MatCard,
-		MatCardContent,
-		MatCardTitle,
-		MatCardHeader,
-		RouterLink
-	],
+  imports: [
+	CommonModule,
+	ReactiveFormsModule,
+	MatFormField,
+	MatInput,
+	MatLabel,
+	MatError,
+	MatIcon,
+	MatSuffix,
+	MatButton,
+	MatFabButton,
+	MatPrefix,
+	TitleCaseDirective,
+	RegisterSuccessComponent,
+	MatSelect,
+	MatOption,
+	MatHint,
+	MatCard,
+	MatCardContent,
+	MatCardTitle,
+	MatCardHeader,
+	RouterLink,
+	MatCheckbox
+  ],
 	exports: [
 		RegisterComponent,
 		RegisterResearchInstitutionWorkerComponent,

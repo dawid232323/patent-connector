@@ -36,3 +36,15 @@
 	@apply bg-gray-500 #{!important};
 	@apply opacity-50 #{!important};
 }
+
+.mat-accent.mat-mdc-checkbox {
+	@include mat.checkbox-theme($dark-theme, $color-variant: secondary);
+	@include mat.checkbox-color($dark-theme, $color-variant: secondary);
+}
+
+@media (prefers-color-scheme: light) {
+	.mat-accent.mat-mdc-checkbox {
+		@include mat.checkbox-theme($light-theme, $color-variant: secondary);
+		@include mat.checkbox-color($light-theme, $color-variant: secondary);
+	}
+}

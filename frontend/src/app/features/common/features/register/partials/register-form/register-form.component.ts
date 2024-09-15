@@ -9,11 +9,8 @@ import {
 	identityValidator,
 	regonValidator
 } from "app/shared/utils/validation/validators.fn";
-import {
-	CreateEntrepreneurDto,
-	CreateEntrepreneursDataDto
-} from "app/features/common/features/register/types/registration.types";
-import {loadingFromSideAnimation} from "app/shared/utils/animations/loading.animation";
+import {CreateEntrepreneurDto} from "app/features/common/features/register/types/registration.types";
+import {recommendationAgreementMessage} from "app/features/common/features/register/types/registration-messages.types";
 
 @Component({
 	selector: 'app-register-form',
@@ -29,6 +26,7 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
 	registerForm!: FormGroup;
 	formSubmitted = false;
 	readonly errorCode = ErrorCode;
+	readonly recommendationAgreementMessage: string = recommendationAgreementMessage();
 
 	private _subscription: Subscription = new Subscription();
 
@@ -65,7 +63,8 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
 			lastName: [null, [...this.validationService.getTextualValidators({required: true})]],
 			nip: [null, [exactLengthValidator(10)]],
 			regon: [null, [regonValidator()]],
-			companyName: [null, [...this.validationService.getTextualValidators()]]
+			companyName: [null, [...this.validationService.getTextualValidators()]],
+			recommendationAgreement: [null]
 		}, {validators: [atLeastOneFieldRequired('nip', 'regon')]});
 	}
 
@@ -89,7 +88,8 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
 			entrepreneursData: {
 				nip: formValue['nip'] || null,
 				regon: formValue['regon'] || null,
-				companyName: formValue['companyName'] || null
+				companyName: formValue['companyName'] || null,
+				recommendationAgreement: formValue['recommendationAgreement'] || false
 			}
 		};
 	}
