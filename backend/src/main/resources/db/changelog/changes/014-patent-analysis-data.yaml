@@ -1,0 +1,40 @@
+databaseChangeLog:
+    - changeSet:
+          author: dawid232323
+          id: 014-patent-analysis-data
+          changes:
+              - createSequence:
+                    sequenceName: patent_analysis_data_id_seq
+                    startValue: 1
+                    minValue: 1
+                    incrementBy: 1
+              - createTable:
+                    tableName: patent_analysis_data
+                    columns:
+                        - column:
+                              name: id
+                              type: bigint
+                              defaultValueSequenceNext: patent_analysis_data_id_seq
+                              constraints:
+                                  primaryKey: true
+                        - column:
+                              name: patent_id
+                              type: bigint
+                              constraints:
+                                  foreignKeyName: patent_analysis_data_patents_fk
+                                  references: patents(id)
+              - createTable:
+                    tableName: patent_analysis_business_branches
+                    columns:
+                        - column:
+                              name: patent_analysis_id
+                              type: bigint
+                              constraints:
+                                  foreignKeyName: patent_analysis_data_fk
+                                  references: patent_analysis_data(id)
+                        - column:
+                              name: business_branch_id
+                              type: bigint
+                              constraints:
+                                  foreignKeyName: patent_analysis_business_branches_fk
+                                  references: business_branches(id)

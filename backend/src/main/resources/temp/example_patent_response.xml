@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <pl-patent-document lang="pl" country="PL" doc-number="445000" kind="A1" date-publ="20240520">
+        <bibliographic-data>
+            <publication-reference>
+                <document-id>
+                    <country>PL</country>
+                    <doc-number>445000</doc-number>
+                    <kind>A1</kind>
+                    <date>20240520</date>
+                </document-id>
+            </publication-reference>
+            <classification-ipc>
+                <edition>8</edition>
+                <main-classification>A47B 17/00</main-classification>
+                <further-classification>A47B 83/00</further-classification>
+                <further-classification>A47B 97/00</further-classification>
+            </classification-ipc>
+            <classification-cpc>
+                <main-classification>A47B 17/00</main-classification>
+            </classification-cpc>
+            <classifications-ipcr>
+                <classification-ipcr>
+                    <ipc-version-indicator>
+                        <date>200601</date>
+                    </ipc-version-indicator>
+                    <section>A</section>
+                    <class>47</class>
+                    <subclass>B</subclass>
+                    <main-group>17</main-group>
+                    <subgroup>00</subgroup>
+                </classification-ipcr>
+                <classification-ipcr>
+                    <ipc-version-indicator>
+                        <date>200601</date>
+                    </ipc-version-indicator>
+                    <section>A</section>
+                    <class>47</class>
+                    <subclass>B</subclass>
+                    <main-group>83</main-group>
+                    <subgroup>00</subgroup>
+                </classification-ipcr>
+                <classification-ipcr>
+                    <ipc-version-indicator>
+                        <date>200601</date>
+                    </ipc-version-indicator>
+                    <section>A</section>
+                    <class>47</class>
+                    <subclass>B</subclass>
+                    <main-group>97</main-group>
+                    <subgroup>00</subgroup>
+                </classification-ipcr>
+            </classifications-ipcr>
+            <application-reference>
+                <document-id>
+                    <country>PL</country>
+                    <doc-number>445000</doc-number>
+                    <kind>A1</kind>
+                    <date>20230525</date>
+                </document-id>
+                <other-documents>
+                    <other-doc>
+                        <document-uri>https://api-ewyszukiwarka.pue.uprp.gov.pl/api/pwp/P.445000/file/E1018866CE2873P1/DESC1</document-uri>
+                        <document-code>DESC1</document-code>
+                    </other-doc>
+                    <other-doc>
+                        <document-uri>https://api-ewyszukiwarka.pue.uprp.gov.pl/api/pwp/P.445000/file/E1018866CF24E6P1/DRAW1</document-uri>
+                        <document-code>DRAW1</document-code>
+                    </other-doc>
+                    <other-doc>
+                        <document-uri>https://api-ewyszukiwarka.pue.uprp.gov.pl/api/pwp/P.445000/file/E1018866CEA638P1/CLMS1</document-uri>
+                        <document-code>CLMS1</document-code>
+                    </other-doc>
+                    <other-doc>
+                        <document-uri>https://api-ewyszukiwarka.pue.uprp.gov.pl/api/pwp/P.445000/file/E1018E51A8FDB7P1/CLMSAMD</document-uri>
+                        <document-code>CLMSAMD</document-code>
+                    </other-doc>
+                    <other-doc>
+                        <document-uri>https://api-ewyszukiwarka.pue.uprp.gov.pl/api/pwp/P.445000/file/E1018D174CEDC6P1/RAPORT1</document-uri>
+                        <document-code>RAPORT1</document-code>
+                    </other-doc>
+                    <other-doc>
+                        <document-uri>https://api-ewyszukiwarka.pue.uprp.gov.pl/shared-storage/P.445000/44500001.jpg</document-uri>
+                        <document-code>IMG</document-code>
+                    </other-doc>
+                    <other-doc>
+                        <document-uri>https://api-ewyszukiwarka.pue.uprp.gov.pl/api/collection/a511fd13c8ef410f7500313ee2a2a24f</document-uri>
+                        <document-code>A1</document-code>
+                    </other-doc>
+                    <other-doc>
+                        <document-uri>https://api-ewyszukiwarka.pue.uprp.gov.pl/api/collection/f13b3acdf81573d7956c60195b85d36e</document-uri>
+                        <document-code>ABS_A</document-code>
+                    </other-doc>
+                </other-documents>
+            </application-reference>
+            <parties>
+                <applicants>
+                    <applicant sequence="1" designation="all" app-type="applicant">
+                        <addressbook lang="pl">
+                            <name>KUROWSKA KAMILA</name>
+                            <address>
+                                <city>Jastrzębie-Zdrój</city>
+                                <country>PL</country>
+                            </address>
+                        </addressbook>
+                        <addressbook lang="en">
+                            <name>KUROWSKA KAMILA</name>
+                            <address>
+                                <city>Jastrzębie-Zdrój</city>
+                                <country>PL</country>
+                            </address>
+                        </addressbook>
+                        <nationality>
+                            <country>-</country>
+                        </nationality>
+                        <residence>
+                            <country>-</country>
+                        </residence>
+                        <designated-states>
+                            <country>PL</country>
+                        </designated-states>
+                    </applicant>
+                </applicants>
+                <agents>
+                    <agent sequence="1" rep-type="attorney">
+                        <addressbook>
+                            <last-name>Tomaszewski</last-name>
+                            <first-name>Ogólne / Bartłomiej</first-name>
+                            <orgname>ul. Kwiatkowskiego 1/12&#13;
+                                03-984 Warszawa</orgname>
+                            <address>
+                                <city>WARSZAWA</city>
+                                <postcode>03-984</postcode>
+                                <country>PL</country>
+                            </address>
+                        </addressbook>
+                    </agent>
+                </agents>
+                <inventors>
+                    <inventor sequence="1">
+                        <addressbook lang="pl">
+                            <last-name>KUROWSKA</last-name>
+                            <first-name>KAMILA</first-name>
+                            <address>
+                                <city>Jastrzębie-Zdrój</city>
+                                <country>PL</country>
+                            </address>
+                        </addressbook>
+                        <addressbook lang="en">
+                            <last-name>KUROWSKA</last-name>
+                            <first-name>KAMILA</first-name>
+                            <address>
+                                <city>Jastrzębie-Zdrój</city>
+                                <country>PL</country>
+                            </address>
+                        </addressbook>
+                    </inventor>
+                </inventors>
+            </parties>
+            <invention-title lang="pl">Biurko sensoryczne</invention-title>
+            <invention-title lang="en"/>
+            <assignees>
+                <assignee>
+                    <addressbook lang="pl">
+                        <name name-type="natural">KUROWSKA KAMILA</name>
+                        <address>
+                            <city>Jastrzębie-Zdrój</city>
+                            <country>PL</country>
+                        </address>
+                    </addressbook>
+                    <addressbook lang="en">
+                        <name name-type="natural">KUROWSKA KAMILA</name>
+                        <address>
+                            <city>Jastrzębie-Zdrój</city>
+                            <country>PL</country>
+                        </address>
+                    </addressbook>
+                </assignee>
+            </assignees>
+            <dates-of-public-availability>
+                <unexamined-printed-without-grant>
+                    <document-id>
+                        <country>PL</country>
+                        <doc-number>21/2024</doc-number>
+                        <date>20240520</date>
+                    </document-id>
+                </unexamined-printed-without-grant>
+            </dates-of-public-availability>
+        </bibliographic-data>
+        <description lang="pl">
+            <p num="001">-</p>
+        </description>
+        <claims lang="pl">
+            <claim num="001">
+                <claim-text>-</claim-text>
+            </claim>
+        </claims>
+        <abstract lang="pl">
+            <p num="001">Przedmiotem zgłoszenia jest biurko sensoryczne mające przeznaczenie rehabilitacyjne, medyczne, diagnostyczne zwłaszcza dla dzieci z zaburzeniami układu ruchu i układu nerwowego w szczególności ADHD, nadpobudliwości, autyzmu, zespołu Aspergera. Biurko sensoryczne, posiadające blat wsparty na nogach, charakteryzuje się tym, że powierzchnie zewnętrzne blatu (2) i/lub szuflad (5) oraz korzystnie dolna łącząca podstawy nóg (7) poprzeczka (6) zaopatrzone są w odczuwalne zmysłem dotyku i wzroku detale, korzystnie dociskowe bulwy i/lub masujące wypustki i/lub perforacje.</p>
+        </abstract>
+        <search-report-data>
+            <srep-citations>
+                <citation>
+                    <patcit>
+                        <document-id>
+                            <country>US</country>
+                            <doc-number>2012001527</doc-number>
+                            <kind>A1</kind>
+                            <pub-date>20120105</pub-date>
+                            <name/>
+                        </document-id>
+                        <text>CHOPPLA GULSHAN PREM [US], skrót, rysunki</text>
+                    </patcit>
+                    <category>Y</category>
+                    <rel-claims>1-7</rel-claims>
+                </citation>
+                <citation>
+                    <patcit>
+                        <document-id>
+                            <country>CN</country>
+                            <doc-number>216259092</doc-number>
+                            <kind>U</kind>
+                            <pub-date>20220412</pub-date>
+                            <name/>
+                        </document-id>
+                        <text>UNIVERSITY OF SCIENCE AND TECHNOLOGY BEIJING, skrót, rysunki</text>
+                    </patcit>
+                    <category>Y</category>
+                    <rel-claims>1-7</rel-claims>
+                </citation>
+                <citation>
+                    <patcit>
+                        <document-id>
+                            <country>CN</country>
+                            <doc-number>215723349</doc-number>
+                            <kind>U</kind>
+                            <pub-date>20220201</pub-date>
+                            <name/>
+                        </document-id>
+                        <text>GUIZHOU GREY WHALE TECH DEVELOPMENT CO LTD, skrót, rysunki</text>
+                    </patcit>
+                    <category>Y</category>
+                    <rel-claims>1-7</rel-claims>
+                </citation>
+            </srep-citations>
+        </search-report-data>
+        <pl-office-specific-data>
+            <source>SOPRANO</source>
+            <timestamp>2024-05-21:00:28:02</timestamp>
+            <begin-date>2024-05-20</begin-date>
+            <end-date>2024-05-20</end-date>
+            <status>
+                <status-id>100</status-id>
+                <status-description>Postępowanie w toku</status-description>
+                <code>NO_STATUS_5</code>
+            </status>
+            <extidappli>P.445000</extidappli>
+            <extidpatent/>
+            <cntrenew>0</cntrenew>
+            <gazette-reference>
+                <gazette-num>BUP 21/2024</gazette-num>
+                <gazette-nosect>2</gazette-nosect>
+                <kind>A1</kind>
+                <date>20240520</date>
+                <gazette-uri>https://api-ewyszukiwarka.pue.uprp.gov.pl/api/bup-or-wup/bup21_2024.pdf</gazette-uri>
+            </gazette-reference>
+            <related-applications/>
+            <comments/>
+        </pl-office-specific-data>
+    </pl-patent-document>
+</root>

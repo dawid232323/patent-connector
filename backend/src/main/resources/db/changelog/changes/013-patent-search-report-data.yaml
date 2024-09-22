@@ -1,0 +1,75 @@
+databaseChangeLog:
+    - changeSet:
+          id: 013-patent-search-report-data
+          author: dawid232323
+          changes:
+              - createSequence:
+                    sequenceName: patent_search_report_data_id_seq
+                    startValue: 1
+                    minValue: 1
+                    incrementBy: 1
+              - createSequence:
+                    sequenceName: patent_citations_id_seq
+                    startValue: 1
+                    minValue: 1
+                    incrementBy: 1
+              - createTable:
+                    tableName: patent_search_report_data
+                    columns:
+                        - column:
+                              name: id
+                              type: bigint
+                              defaultValueSequenceNext: patent_search_report_data_id_seq
+                              constraints:
+                                  primaryKey: true
+                        - column:
+                              name: patent_id
+                              type: bigint
+                              constraints:
+                                  nullable: false
+                                  references: patents(id)
+                                  foreignKeyName: patent_search_report_data_patents_fk
+                        - column:
+                              name: created_at
+                              type: datetime
+                        - column:
+                              name: updated_at
+                              type: datetime
+              - createTable:
+                    tableName: patent_citations
+                    columns:
+                        - column:
+                              name: id
+                              type: bigint
+                              constraints:
+                                  primaryKey: true
+                        - column:
+                              name: search_report_data_id
+                              type: bigint
+                              constraints:
+                                  foreignKeyName: patent_citations_patent_search_report_data_fk
+                                  references: patent_search_report_data(id)
+                        - column:
+                              name: document_country
+                              type: varchar(30)
+                        - column:
+                              name: document_number
+                              type: varchar(30)
+                        - column:
+                              name: document_kind
+                              type: varchar(30)
+                        - column:
+                              name: document_publication_date
+                              type: varchar(30)
+                        - column:
+                              name: document_name
+                              type: varchar(200)
+                        - column:
+                              name: citation_text
+                              type: text
+                        - column:
+                              name: citation_category
+                              type: varchar(10)
+                        - column:
+                              name: rel_claims
+                              type: varchar(100)

@@ -1,0 +1,293 @@
+databaseChangeLog:
+    - changeSet:
+          id: 012-patent-bibliographic-data
+          author: dawid232323
+          changes:
+              - createSequence:
+                    sequenceName: patent_bibliographic_data_id_seq
+                    startValue: 1
+                    minValue: 1
+                    incrementBy: 1
+              - createSequence:
+                    sequenceName: classifications_ipcr_id_seq
+                    startValue: 1
+                    minValue: 1
+                    incrementBy: 1
+              - createSequence:
+                    sequenceName: application_references_id_seq
+                    startValue: 1
+                    minValue: 1
+                    incrementBy: 1
+              - createSequence:
+                    sequenceName: other_patent_documents_id_seq
+                    startValue: 1
+                    minValue: 1
+                    incrementBy: 1
+              - createSequence:
+                    sequenceName: dates_of_public_availability_id_seq
+                    startValue: 1
+                    minValue: 1
+                    incrementBy: 1
+              - createTable:
+                    tableName: patent_bibliographic_data
+                    columns:
+                        - column:
+                              name: id
+                              type: bigint
+                              defaultValueSequenceNext: patent_bibliographic_data_id_seq
+                              constraints:
+                                  primaryKey: true
+                        - column:
+                              name: patent_id
+                              type: bigint
+                              constraints:
+                                  nullable: false
+                                  references: patents(id)
+                                  foreignKeyName: patent_bibliographic_data_patents_fk
+                        - column:
+                              name: publication_document_country
+                              type: varchar(10)
+                        - column:
+                              name: publication_document_number
+                              type: varchar(50)
+                        - column:
+                              name: publication_document_kind
+                              type: varchar(50)
+                        - column:
+                              name: publication_document_date
+                              type: varchar(30)
+                        - column:
+                              name: ipc_classification_edition
+                              type: varchar(10)
+                        - column:
+                              name: ipc_main_classification
+                              type: varchar(50)
+                        - column:
+                              name: ipc_further_classifications
+                              type: text
+                        - column:
+                              name: cpc_classification_edition
+                              type: varchar(10)
+                        - column:
+                              name: cpc_main_classification
+                              type: varchar(50)
+                        - column:
+                              name: cpc_further_classification
+                              type: text
+                        - column:
+                              name: invention_title
+                              type: text
+                        - column:
+                              name: invention_title_eng
+                              type: text
+                        - column:
+                              name: claims
+                              type: text
+                        - column:
+                              name: created_at
+                              type: datetime
+                        - column:
+                              name: updated_at
+                              type: datetime
+              - createTable:
+                    tableName: classifications_ipcr
+                    columns:
+                        - column:
+                              name: id
+                              type: bigint
+                              defaultValueSequenceNext: classifications_ipcr_id_seq
+                              constraints:
+                                  primaryKey: true
+                        - column:
+                              name: bibliographic_data_id
+                              type: bigint
+                              constraints:
+                                  nullable: false
+                                  references: patent_bibliographic_data(id)
+                                  foreignKeyName: classifications_ipcr_patent_bibliographic_data_fk
+                        - column:
+                              name: ipc_version_indicator_date
+                              type: date
+                        - column:
+                              name: ipcr_section
+                              type: varchar(10)
+                        - column:
+                              name: ipcr_class
+                              type: varchar(50)
+                        - column:
+                              name: ipcr_subclass
+                              type: varchar(50)
+                        - column:
+                              name: ipcr_main_group
+                              type: varchar(50)
+                        - column:
+                              name: ipcr_subgroup
+                              type: varchar(50)
+                        - column:
+                              name: created_at
+                              type: datetime
+                        - column:
+                              name: updated_at
+                              type: datetime
+              - createTable:
+                    tableName: application_references
+                    columns:
+                        - column:
+                              name: id
+                              type: bigint
+                              defaultValueSequenceNext: application_references_id_seq
+                              constraints:
+                                  primaryKey: true
+                        - column:
+                              name: bibliographic_data_id
+                              type: bigint
+                              constraints:
+                                  nullable: false
+                                  references: patent_bibliographic_data(id)
+                                  foreignKeyName: application_references_patent_bibliographic_data_fk
+                        - column:
+                              name: document_country_id
+                              type: varchar(50)
+                        - column:
+                              name: document_number
+                              type: varchar(100)
+                        - column:
+                              name: document_kind
+                              type: varchar(100)
+                        - column:
+                              name: document_date
+                              type: varchar(30)
+                        - column:
+                              name: created_at
+                              type: datetime
+                        - column:
+                              name: updated_at
+                              type: datetime
+              - createTable:
+                    tableName: other_patent_documents
+                    columns:
+                        - column:
+                              name: id
+                              type: bigint
+                              defaultValueSequenceNext: other_patent_documents_id_seq
+                              constraints:
+                                  primaryKey: true
+                        - column:
+                              name: application_reference_id
+                              type: bigint
+                              constraints:
+                                  nullable: false
+                                  references: application_references(id)
+                                  foreignKeyName: other_patent_documents_application_references_fk
+                        - column:
+                              name: document_code
+                              type: varchar(50)
+                              constraints:
+                                  nullable: false
+                        - column:
+                              name: document_uri
+                              type: text
+                              constraints:
+                                  nullable: false
+                        - column:
+                              name: created_at
+                              type: datetime
+                        - column:
+                              name: updated_at
+                              type: datetime
+              - createTable:
+                    tableName: patent_bibliographic_data_applicants
+                    columns:
+                        - column:
+                              name: bibliographic_data_id
+                              type: bigint
+                              constraints:
+                                  references: patent_bibliographic_data(id)
+                                  foreignKeyName: patent_bibliographic_data_applicants_bibliographic_data_fk
+                        - column:
+                              name: applicant_id
+                              type: bigint
+                              constraints:
+                                  references: patent_address_books(id)
+                                  foreignKeyName: patent_bibliographic_data_applicants_fk
+              - addPrimaryKey:
+                    tableName: patent_bibliographic_data_applicants
+                    columnNames: "bibliographic_data_id,applicant_id"
+              - createTable:
+                    tableName: patent_bibliographic_data_agents
+                    columns:
+                        - column:
+                              name: bibliographic_data_id
+                              type: bigint
+                              constraints:
+                                  foreignKeyName: agents_bibliographic_data_fk
+                                  references: patent_bibliographic_data(id)
+                        - column:
+                              name: agent_id
+                              type: bigint
+                              constraints:
+                                  foreignKeyName: agents_address_book_fk
+                                  references: patent_address_books(id)
+              - addPrimaryKey:
+                    tableName: patent_bibliographic_data_agents
+                    columnNames: "bibliographic_data_id,agent_id"
+              - createTable:
+                    tableName: patent_bibliographic_data_inventors
+                    columns:
+                        - column:
+                              name: bibliographic_data_id
+                              type: bigint
+                              constraints:
+                                  foreignKeyName: inventors_bibliographic_data_fk
+                                  references: patent_bibliographic_data(id)
+                        - column:
+                              name: inventor_id
+                              type: bigint
+                              constraints:
+                                  foreignKeyName: inventors_address_book_fk
+                                  references: patent_address_books(id)
+              - addPrimaryKey:
+                    tableName: patent_bibliographic_data_inventors
+                    columnNames: "bibliographic_data_id,inventor_id"
+              - createTable:
+                    tableName: patent_bibliographic_data_assignees
+                    columns:
+                        - column:
+                              name: bibliographic_data_id
+                              type: bigint
+                              constraints:
+                                  foreignKeyName: assignees_bibliographic_data_fk
+                                  references: patent_bibliographic_data(id)
+                        - column:
+                              name: assignee_id
+                              type: bigint
+                              constraints:
+                                  foreignKeyName: assignees_address_book_fk
+                                  references: patent_address_books(id)
+              - addPrimaryKey:
+                    tableName: patent_bibliographic_data_assignees
+                    columnNames: "bibliographic_data_id,assignee_id"
+              - createTable:
+                    tableName: dates_of_public_availability
+                    columns:
+                        - column:
+                              name: id
+                              type: bigint
+                              defaultValueSequenceNext: dates_of_public_availability_id_seq
+                              constraints:
+                                  primaryKey: true
+                        - column:
+                              name: bibliographic_data_id
+                              type: bigint
+                              constraints:
+                                  foreignKeyName: dates_of_public_availability_patent_bibliographic_data_fk
+                                  references: patent_bibliographic_data(id)
+                        - column:
+                              name: unexamined_printed_without_grant_document_country
+                              type: varchar(10)
+                        - column:
+                              name: unexamined_printed_without_grant_document_number
+                              type: varchar(50)
+                        - column:
+                              name: unexamined_printed_without_grant_document_date
+                              type: varchar(50)
