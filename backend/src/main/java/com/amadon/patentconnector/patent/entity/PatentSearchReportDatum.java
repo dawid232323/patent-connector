@@ -23,7 +23,7 @@ public class PatentSearchReportDatum
 	@Column( name = "id", nullable = false )
 	private Long id;
 
-	@ManyToOne( fetch = FetchType.LAZY, optional = false )
+	@OneToOne( fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL )
 	@JoinColumn( name = "patent_id", nullable = false )
 	private Patent patent;
 
@@ -33,7 +33,7 @@ public class PatentSearchReportDatum
 	@Column( name = "updated_at" )
 	private LocalDateTime updatedAt;
 
-	@OneToMany( mappedBy = "searchReportData" )
+	@OneToMany( mappedBy = "searchReportData", cascade = CascadeType.ALL )
 	private Set< PatentCitation > patentCitations = new LinkedHashSet<>();
 
 }

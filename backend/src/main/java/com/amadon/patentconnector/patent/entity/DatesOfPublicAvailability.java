@@ -17,7 +17,7 @@ public class DatesOfPublicAvailability
 	@Column( name = "id", nullable = false )
 	private Long id;
 
-	@ManyToOne( fetch = FetchType.LAZY )
+	@OneToOne( fetch = FetchType.LAZY )
 	@JoinColumn( name = "bibliographic_data_id" )
 	private PatentBibliographicDatum bibliographicData;
 

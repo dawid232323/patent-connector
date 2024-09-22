@@ -20,7 +20,7 @@ public class ClassificationsIpcr
 	@Column( name = "id", nullable = false )
 	private Long id;
 
-	@ManyToOne( fetch = FetchType.LAZY, optional = false )
+	@OneToOne( fetch = FetchType.LAZY, optional = false )
 	@JoinColumn( name = "bibliographic_data_id", nullable = false )
 	private PatentBibliographicDatum bibliographicData;
 

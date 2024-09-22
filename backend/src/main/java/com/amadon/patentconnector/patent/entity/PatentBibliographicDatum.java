@@ -23,9 +23,18 @@ public class PatentBibliographicDatum
 	@Column( name = "id", nullable = false )
 	private Long id;
 
-	@ManyToOne( fetch = FetchType.LAZY, optional = false )
+	@OneToOne( fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL )
 	@JoinColumn( name = "patent_id", nullable = false )
 	private Patent patent;
+
+	@OneToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "bibliographicData" )
+	private ApplicationReference applicationReference;
+
+	@OneToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "bibliographicData" )
+	private ClassificationsIpcr classificationsIpcr;
+
+	@OneToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "bibliographicData" )
+	private DatesOfPublicAvailability datesOfPublicAvailability;
 
 	@Column( name = "publication_document_country", length = 10 )
 	private String publicationDocumentCountry;
@@ -72,24 +81,24 @@ public class PatentBibliographicDatum
 	@Column( name = "updated_at" )
 	private Instant updatedAt;
 
-	@ManyToMany
+	@ManyToMany( cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH } )
 	@JoinTable( name = "patent_bibliographic_data_agents", joinColumns = @JoinColumn( name = "bibliographic_data_id" ),
 			inverseJoinColumns = @JoinColumn( name = "agent_id" ) )
 	private Set< PatentAddressBook > agents = new LinkedHashSet<>();
 
-	@ManyToMany
+	@ManyToMany( cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH } )
 	@JoinTable( name = "patent_bibliographic_data_applicants", joinColumns = @JoinColumn( name =
 			"bibliographic_data_id" ),
 			inverseJoinColumns = @JoinColumn( name = "applicant_id" ) )
 	private Set< PatentAddressBook > applicants = new LinkedHashSet<>();
 
-	@ManyToMany
+	@ManyToMany( cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH } )
 	@JoinTable( name = "patent_bibliographic_data_assignees", joinColumns = @JoinColumn( name = "bibliographic_data_id"
 	),
 			inverseJoinColumns = @JoinColumn( name = "assignee_id" ) )
 	private Set< PatentAddressBook > assignees = new LinkedHashSet<>();
 
-	@ManyToMany
+	@ManyToMany( cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH } )
 	@JoinTable( name = "patent_bibliographic_data_inventors", joinColumns = @JoinColumn( name = "bibliographic_data_id"
 	),
 			inverseJoinColumns = @JoinColumn( name = "inventor_id" ) )

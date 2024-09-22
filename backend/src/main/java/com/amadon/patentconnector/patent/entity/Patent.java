@@ -22,6 +22,15 @@ public class Patent
 	@Column( name = "id", nullable = false )
 	private Long id;
 
+	@OneToOne( mappedBy = "patent", fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+	private PatentAnalysisDatum patentAnalysisData;
+
+	@OneToOne( mappedBy = "patent", fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+	private PatentBibliographicDatum bibliographicData;
+
+	@OneToOne( mappedBy = "patent", fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+	private PatentSearchReportDatum searchReportData;
+
 	@Column( name = "title", length = 500 )
 	private String title;
 

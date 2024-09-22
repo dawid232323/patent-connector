@@ -23,11 +23,11 @@ public class PatentAnalysisDatum
 	@Column( name = "id", nullable = false )
 	private Long id;
 
-	@ManyToOne( fetch = FetchType.LAZY )
+	@OneToOne( fetch = FetchType.LAZY, cascade = CascadeType.ALL )
 	@JoinColumn( name = "patent_id" )
 	private Patent patent;
 
-	@ManyToMany
+	@ManyToMany( cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH } )
 	@JoinTable( name = "patent_analysis_business_branches",
 			joinColumns = @JoinColumn( name = "patent_analysis_id" ),
 			inverseJoinColumns = @JoinColumn( name = "business_branch_id" ) )

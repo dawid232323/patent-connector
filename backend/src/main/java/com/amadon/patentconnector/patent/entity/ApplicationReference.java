@@ -21,7 +21,7 @@ public class ApplicationReference
 	@Column( name = "id", nullable = false )
 	private Long id;
 
-	@ManyToOne( fetch = FetchType.LAZY, optional = false )
+	@OneToOne( fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL )
 	@JoinColumn( name = "bibliographic_data_id", nullable = false )
 	private PatentBibliographicDatum bibliographicData;
 
@@ -43,7 +43,7 @@ public class ApplicationReference
 	@Column( name = "updated_at" )
 	private LocalDateTime updatedAt;
 
-	@OneToMany( mappedBy = "applicationReference" )
+	@OneToMany( mappedBy = "applicationReference", cascade = CascadeType.ALL )
 	private Set< OtherPatentDocument > otherPatentDocuments = new LinkedHashSet<>();
 
 }
