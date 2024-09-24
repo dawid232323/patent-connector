@@ -1,5 +1,6 @@
 package com.amadon.patentconnector.patent.entity;
 
+import com.amadon.patentconnector.shared.util.entity.AuditableEntityListener;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table( name = "patent_address_books" )
+@EntityListeners( AuditableEntityListener.class )
 public class PatentAddressBook
 {
 	@Id

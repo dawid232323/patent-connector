@@ -1,5 +1,6 @@
 package com.amadon.patentconnector.patent.entity;
 
+import com.amadon.patentconnector.shared.util.entity.AuditableEntityListener;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table( name = "classifications_ipcr" )
+@EntityListeners( AuditableEntityListener.class )
 public class ClassificationsIpcr
 {
 	@Id

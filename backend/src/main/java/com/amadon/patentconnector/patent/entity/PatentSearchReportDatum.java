@@ -1,5 +1,6 @@
 package com.amadon.patentconnector.patent.entity;
 
+import com.amadon.patentconnector.shared.util.entity.AuditableEntityListener;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,6 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table( name = "patent_search_report_data" )
+@EntityListeners( AuditableEntityListener.class )
 public class PatentSearchReportDatum
 {
 	@Id

@@ -1,5 +1,6 @@
 package com.amadon.patentconnector.patent.entity;
 
+import com.amadon.patentconnector.shared.util.entity.AuditableEntityListener;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table( name = "dates_of_public_availability" )
+@EntityListeners( AuditableEntityListener.class )
 public class DatesOfPublicAvailability
 {
 	@Id
