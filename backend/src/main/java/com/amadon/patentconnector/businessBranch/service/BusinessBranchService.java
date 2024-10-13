@@ -31,4 +31,9 @@ public class BusinessBranchService
 	{
 		return businessBranchRepository.findAllByIdIn( aIds );
 	}
+
+	public List< BusinessBranch > getBusinessBranchesForCodes( final List< String > aBranchCodes )
+	{
+		return businessBranchRepository.resolveAllBranchesByCodeIn( aBranchCodes );
+	}
 }

@@ -4,6 +4,7 @@ import com.amadon.patentconnector.businessBranch.entity.BusinessBranch;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -16,6 +17,9 @@ public interface BusinessBranchRepository extends JpaRepository< BusinessBranch,
 			"and busBran.code is null " +
 			"and busBran.businessBranchGroup is null order by busBran.section, busBran.displayName" )
 	List< BusinessBranch > resolveAllSectionBusinessBranches();
+
+	@Query( "select busBran from BusinessBranch busbran where trim(busbran.code) in :branchCodes " )
+	List< BusinessBranch > resolveAllBranchesByCodeIn( @Param( "branchCodes" ) List< String > aBranchCodes );
 
 	List< BusinessBranch > findAllByIdIn( List< Long > aBusinessBranchesIds );
 }

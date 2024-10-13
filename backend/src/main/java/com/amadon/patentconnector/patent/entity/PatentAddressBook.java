@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -65,10 +67,34 @@ public class PatentAddressBook
 	@Column( name = "designated_states", length = 300 )
 	private String designatedStates;
 
+	@ManyToMany( mappedBy = "agents", cascade = CascadeType.ALL )
+	private Set< PatentBibliographicDatum > bibliographicDataAgents = new HashSet<>();
+
+	@ManyToMany( mappedBy = "applicants", cascade = CascadeType.ALL )
+	private Set< PatentBibliographicDatum > bibliographicDataApplicants = new HashSet<>();
+
+	@ManyToMany( mappedBy = "assignees", cascade = CascadeType.ALL )
+	private Set< PatentBibliographicDatum > bibliographicDataAssignees = new HashSet<>();
+
+	@ManyToMany( mappedBy = "inventors", cascade = CascadeType.ALL )
+	private Set< PatentBibliographicDatum > bibliographicDataInventors = new HashSet<>();
+
 	@Column( name = "created_at" )
 	private LocalDateTime createdAt;
 
 	@Column( name = "updated_at" )
 	private LocalDateTime updatedAt;
+
+	public void addBibliographicDataMember( final PatentBibliographicDatum aBibliographicDatum, final AddressBookTypeEnum aTypeEnum )
+	{
+		switch ( aTypeEnum )
+		{
+			case AGENT -> getBibliographicDataAgents().add( aBibliographicDatum );
+			case ASSIGNEE -> getBibliographicDataAssignees().add( aBibliographicDatum );
+			case INVENTOR -> getBibliographicDataInventors().add( aBibliographicDatum );
+			case APPLICANT -> getBibliographicDataApplicants().add( aBibliographicDatum );
+			case null, default -> throw new IllegalArgumentException( "Bibliographic data member type must not be null" );
+		}
+	}
 
 }

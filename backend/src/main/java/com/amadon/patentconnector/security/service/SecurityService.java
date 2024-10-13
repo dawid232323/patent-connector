@@ -9,6 +9,7 @@ import com.amadon.patentconnector.user.service.repository.UserRepository;
 import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,12 +21,23 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class SecurityService
 {
 	private final JWTService jwtService;
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
+	private final String adminKey;
+
+	public SecurityService( final JWTService aJwtService,
+							final UserRepository aUserRepository,
+							final PasswordEncoder aPasswordEncoder,
+							@Value( "${spring.application.admin-key}" ) final String aAdminKey )
+	{
+		jwtService = aJwtService;
+		userRepository = aUserRepository;
+		passwordEncoder = aPasswordEncoder;
+		adminKey = aAdminKey;
+	}
 
 	public TokenDto loginUser( final LoginDto aLoginDto )
 	{
@@ -68,6 +80,14 @@ public class SecurityService
 		return String.valueOf( SecurityContextHolder.getContext()
 									   .getAuthentication()
 									   .getPrincipal() );
+	}
+
+	public void validateAdminKey( final String aAdminKey )
+	{
+		if ( !aAdminKey.equals( adminKey ) )
+		{
+			throw new AccessDeniedException( "Admin key is not valid" );
+		}
 	}
 
 	private void validateIfUserCanLogIn( final User aUser )

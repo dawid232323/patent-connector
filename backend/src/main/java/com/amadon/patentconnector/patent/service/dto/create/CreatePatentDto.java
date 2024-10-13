@@ -1,6 +1,7 @@
 package com.amadon.patentconnector.patent.service.dto.create;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 
 import java.io.Serializable;
@@ -10,8 +11,8 @@ import java.time.LocalDate;
 /**
  * DTO for {@link com.amadon.patentconnector.patent.entity.Patent}
  */
+@Data
 @AllArgsConstructor
-@Getter
 public class CreatePatentDto implements Serializable
 {
 	private final CreatePatentAnalysisDatumDto patentAnalysisData;
