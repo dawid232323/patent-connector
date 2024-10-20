@@ -15,7 +15,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table( name = "patent_analysis_data" )
-@EntityListeners( AuditableEntityListener.class )
 public class PatentAnalysisDatum
 {
 	@Id

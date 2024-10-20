@@ -11,7 +11,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table( name = "patent_citations" )
-@EntityListeners( AuditableEntityListener.class )
 public class PatentCitation
 {
 	@Id

@@ -2,6 +2,7 @@ package com.amadon.patentconnector.patent.service.dto.create;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,16 +10,17 @@ import java.util.List;
 /**
  * DTO for {@link com.amadon.patentconnector.patent.entity.PatentCitation}
  */
-@AllArgsConstructor
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreatePatentCitationDto implements Serializable
 {
-	private final String documentCountry;
-	private final String documentNumber;
-	private final String documentKind;
-	private final String documentPublicationDate;
-	private final String documentName;
-	private final String citationText;
-	private final String citationCategory;
-	private final List< String > relClaims;
+	private String documentCountry;
+	private String documentNumber;
+	private String documentKind;
+	private String documentPublicationDate;
+	private String documentName;
+	private String citationText;
+	private String citationCategory;
+	private List< String > relClaims;
 }

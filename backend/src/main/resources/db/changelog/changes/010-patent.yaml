@@ -31,7 +31,7 @@ databaseChangeLog:
                               type: varchar(100)
                         - column:
                               name: patent_timestamp
-                              type: timestamp
+                              type: datetime
                         - column:
                               name: begin_date
                               type: date

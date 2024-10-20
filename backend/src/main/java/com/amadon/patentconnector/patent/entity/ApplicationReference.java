@@ -15,7 +15,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table( name = "application_references" )
-@EntityListeners( AuditableEntityListener.class )
 public class ApplicationReference
 {
 	@Id

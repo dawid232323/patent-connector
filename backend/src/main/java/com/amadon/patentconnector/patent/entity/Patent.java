@@ -1,5 +1,6 @@
 package com.amadon.patentconnector.patent.entity;
 
+import com.amadon.patentconnector.shared.entity.Auditable;
 import com.amadon.patentconnector.shared.util.entity.AuditableEntityListener;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table( name = "patents" )
 @EntityListeners( AuditableEntityListener.class )
-public class Patent
+public class Patent implements Auditable
 {
 	@Id
 	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "patents_id_gen" )
@@ -46,7 +47,7 @@ public class Patent
 	private String source;
 
 	@Column( name = "patent_timestamp" )
-	private Instant patentTimestamp;
+	private LocalDateTime patentTimestamp;
 
 	@Column( name = "begin_date" )
 	private LocalDate beginDate;
@@ -93,4 +94,27 @@ public class Patent
 	@Column( name = "updated_at" )
 	private LocalDateTime updatedAt;
 
+	@Override
+	public String getCreatedBy()
+	{
+		return "";
+	}
+
+	@Override
+	public void setCreatedBy( final String aCreatedBy )
+	{
+
+	}
+
+	@Override
+	public String getUpdatedBy()
+	{
+		return "";
+	}
+
+	@Override
+	public void setUpdatedBy( final String aUpdatedBy )
+	{
+
+	}
 }

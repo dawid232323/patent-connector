@@ -15,7 +15,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table( name = "patent_address_books" )
-@EntityListeners( AuditableEntityListener.class )
 public class PatentAddressBook
 {
 	@Id
@@ -67,15 +66,19 @@ public class PatentAddressBook
 	@Column( name = "designated_states", length = 300 )
 	private String designatedStates;
 
+	@Builder.Default
 	@ManyToMany( mappedBy = "agents", cascade = CascadeType.ALL )
 	private Set< PatentBibliographicDatum > bibliographicDataAgents = new HashSet<>();
 
+	@Builder.Default
 	@ManyToMany( mappedBy = "applicants", cascade = CascadeType.ALL )
 	private Set< PatentBibliographicDatum > bibliographicDataApplicants = new HashSet<>();
 
+	@Builder.Default
 	@ManyToMany( mappedBy = "assignees", cascade = CascadeType.ALL )
 	private Set< PatentBibliographicDatum > bibliographicDataAssignees = new HashSet<>();
 
+	@Builder.Default
 	@ManyToMany( mappedBy = "inventors", cascade = CascadeType.ALL )
 	private Set< PatentBibliographicDatum > bibliographicDataInventors = new HashSet<>();
 

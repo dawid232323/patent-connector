@@ -21,7 +21,7 @@ public class OtherPatentDocument
 	@Column( name = "id", nullable = false )
 	private Long id;
 
-	@ManyToOne( fetch = FetchType.LAZY, optional = false )
+	@ManyToOne( fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL )
 	@JoinColumn( name = "application_reference_id", nullable = false )
 	private ApplicationReference applicationReference;
 

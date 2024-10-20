@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table( name = "dates_of_public_availability" )
-@EntityListeners( AuditableEntityListener.class )
 public class DatesOfPublicAvailability
 {
 	@Id

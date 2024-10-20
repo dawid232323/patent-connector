@@ -86,13 +86,15 @@ public class PatentBibliographicDataComponentCreator
 				.stream()
 				.map( this::resolveOtherPatentDocument )
 				.collect( Collectors.toSet() );
-		return ApplicationReference.builder()
+		final ApplicationReference applicationReference = ApplicationReference.builder()
 				.documentCountryId( aReferenceDto.getDocumentCountryId() )
 				.documentNumber( aReferenceDto.getDocumentNumber() )
 				.documentKind( aReferenceDto.getDocumentKind() )
 				.documentDate( aReferenceDto.getDocumentDate() )
 				.otherPatentDocuments( patentDocuments )
 				.build();
+		patentDocuments.forEach( document -> document.setApplicationReference( applicationReference ) );
+		return applicationReference;
 	}
 
 	private OtherPatentDocument resolveOtherPatentDocument( final CreateOtherPatentDocumentDto aDocumentDto )

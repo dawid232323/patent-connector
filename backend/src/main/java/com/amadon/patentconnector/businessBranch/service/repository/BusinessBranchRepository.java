@@ -18,7 +18,7 @@ public interface BusinessBranchRepository extends JpaRepository< BusinessBranch,
 			"and busBran.businessBranchGroup is null order by busBran.section, busBran.displayName" )
 	List< BusinessBranch > resolveAllSectionBusinessBranches();
 
-	@Query( "select busBran from BusinessBranch busbran where trim(busbran.code) in :branchCodes " )
+	@Query( "select busBran from BusinessBranch busBran where trim(busBran.code) in :branchCodes " )
 	List< BusinessBranch > resolveAllBranchesByCodeIn( @Param( "branchCodes" ) List< String > aBranchCodes );
 
 	List< BusinessBranch > findAllByIdIn( List< Long > aBusinessBranchesIds );

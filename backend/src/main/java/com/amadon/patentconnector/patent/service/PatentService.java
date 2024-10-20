@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class PatentService
 			}
 
 		}
-		log.info( "Successfully created {} patent entries", aCreatePatentDtos.size() );
+		log.info( "Successfully created {} patent entries", createdPatents );
 		if ( aCreatePatentDtos.size() > createdPatents )
 		{
 			log.warn( "Missed {} entries. Please refer to earlier logs for more details", aCreatePatentDtos.size() - createdPatents );

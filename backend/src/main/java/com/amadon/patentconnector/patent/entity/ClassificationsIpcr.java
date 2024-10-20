@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table( name = "classifications_ipcr" )
-@EntityListeners( AuditableEntityListener.class )
 public class ClassificationsIpcr
 {
 	@Id

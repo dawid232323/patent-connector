@@ -15,7 +15,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table( name = "patent_bibliographic_data" )
-@EntityListeners( AuditableEntityListener.class )
 public class PatentBibliographicDatum
 {
 	@Id
@@ -83,23 +82,27 @@ public class PatentBibliographicDatum
 	@Column( name = "updated_at" )
 	private Instant updatedAt;
 
+	@Builder.Default
 	@ManyToMany( cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH } )
 	@JoinTable( name = "patent_bibliographic_data_agents", joinColumns = @JoinColumn( name = "bibliographic_data_id" ),
 			inverseJoinColumns = @JoinColumn( name = "agent_id" ) )
 	private Set< PatentAddressBook > agents = new LinkedHashSet<>();
 
+	@Builder.Default
 	@ManyToMany( cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH } )
 	@JoinTable( name = "patent_bibliographic_data_applicants", joinColumns = @JoinColumn( name =
 			"bibliographic_data_id" ),
 			inverseJoinColumns = @JoinColumn( name = "applicant_id" ) )
 	private Set< PatentAddressBook > applicants = new LinkedHashSet<>();
 
+	@Builder.Default
 	@ManyToMany( cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH } )
 	@JoinTable( name = "patent_bibliographic_data_assignees", joinColumns = @JoinColumn( name = "bibliographic_data_id"
 	),
 			inverseJoinColumns = @JoinColumn( name = "assignee_id" ) )
 	private Set< PatentAddressBook > assignees = new LinkedHashSet<>();
 
+	@Builder.Default
 	@ManyToMany( cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH } )
 	@JoinTable( name = "patent_bibliographic_data_inventors", joinColumns = @JoinColumn( name = "bibliographic_data_id"
 	),

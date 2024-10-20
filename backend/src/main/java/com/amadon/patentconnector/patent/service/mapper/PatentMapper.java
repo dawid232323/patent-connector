@@ -9,7 +9,8 @@ import org.mapstruct.*;
 public interface PatentMapper
 {
 	@Mapping( target = "patentAnalysisData", ignore = true )
-	@Mapping( target = "bibliographicData", ignore = true )
+//	@Mapping( target = "bibliographicData", ignore = true )
 	@Mapping( target = "searchReportData", ignore = true )
+	@Mapping( target = "patentTimestamp", ignore = true )
 	Patent fromCreateDto( CreatePatentDto aCreatePatentDto );
 }
