@@ -1,0 +1,54 @@
+databaseChangeLog:
+    - changeSet:
+          author: dawid232323
+          id: 015-invention-demand
+          changes:
+              - createSequence:
+                    sequenceName: invention_demand_id_seq
+                    startValue: 1
+                    incrementBy: 1
+              - createTable:
+                    tableName: invention_demands
+                    columns:
+                        - column:
+                              name: id
+                              type: bigint
+                              defaultValueSequenceNext: invention_demand_id_seq
+                              constraints:
+                                  primaryKey: true
+                        - column:
+                              name: issuer_id
+                              type: bigint
+                              constraints:
+                                  nullable: false
+                                  references: users(id)
+                                  foreignKeyName: invention_demands_issuer_id_fk
+                        - column:
+                              name: recipient_id
+                              type: bigint
+                              constraints:
+                                  nullable: false
+                                  references: users(id)
+                                  foreignKeyName: invention_demands_recipient_id_fk
+                        - column:
+                              name: demand_content
+                              type: text
+                              constraints:
+                                  nullable: false
+              - createTable:
+                    tableName: invention_demands_business_branches
+                    columns:
+                        - column:
+                              name: invention_demand_id
+                              type: bigint
+                              constraints:
+                                  nullable: false
+                                  references: invention_demands(id)
+                                  foreignKeyName: inv_demands_fk
+                        - column:
+                              name: business_branches_id
+                              type: bigint
+                              constraints:
+                                  nullable: false
+                                  references: business_branches(id)
+                                  foreignKeyName: business_branches_fk

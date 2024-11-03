@@ -1,6 +1,7 @@
 package com.amadon.patentconnector.researchInstitution.controller;
 
 import com.amadon.patentconnector.researchInstitution.service.ResearchInstitutionService;
+import com.amadon.patentconnector.researchInstitution.service.dto.RegisteredInstitutionDto;
 import com.amadon.patentconnector.researchInstitution.service.dto.ResearchInstitutionDto;
 import com.amadon.patentconnector.shared.constants.AppEndpoints;
 import jakarta.websocket.server.PathParam;
@@ -25,5 +26,11 @@ public class ResearchInstitutionController
 	public List< ResearchInstitutionDto > findResearchInstitution( @PathVariable( "email" ) final String aUserEmail )
 	{
 		return institutionService.findByMatchingEmails( aUserEmail );
+	}
+
+	@GetMapping( value = AppEndpoints.ResearchInstitutionEndpoints.registeredResInstitution )
+	public List< RegisteredInstitutionDto > getRegisteredInstitution()
+	{
+		return institutionService.findRegistered();
 	}
 }

@@ -27,6 +27,7 @@ public record AppEndpoints( )
 	{
 		public static final String resInstitutionBase = base + "/research-institutions";
 		public static final String resInstitutionFind = "/search";
+		public static final String registeredResInstitution = "registered-research-institution";
 	}
 
 	public record BusinessBranchEndpoints()
@@ -39,6 +40,10 @@ public record AppEndpoints( )
 		public static final String patentBase = base + "/patents";
 		public static final String uploadPatents = "/upload";
 		public static final String patentFind = "/search";
+	}
+
+	public record InventionDemandEndpoints( ) {
+		public static final String inventionDemandBase = base + "/invention-demands";
 	}
 
 	public static List< String > getExcludedEndpoints()

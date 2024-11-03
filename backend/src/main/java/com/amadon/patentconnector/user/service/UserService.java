@@ -17,7 +17,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -53,6 +52,12 @@ public class UserService implements UserDetailsService
 		}
 		return tryToFindByEmail( email ).orElseThrow( () -> new UsernameNotFoundException( "Couldn't find user with " +
 																								   "username " + email ) );
+	}
+
+	public User getUserById( final Long aUserId )
+	{
+		return this.userRepository.findById( aUserId )
+				.orElseThrow( () -> new UsernameNotFoundException( "Couldn't find user with user with id " + aUserId ) );
 	}
 
 	public UserDto getLoggedUserDto()
