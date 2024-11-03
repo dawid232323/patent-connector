@@ -38,6 +38,7 @@ public record AppEndpoints( )
 	public record PatentEndpoints() {
 		public static final String patentBase = base + "/patents";
 		public static final String uploadPatents = "/upload";
+		public static final String patentFind = "/search";
 	}
 
 	public static List< String > getExcludedEndpoints()
@@ -50,7 +51,8 @@ public record AppEndpoints( )
 				SecurityEndpoints.securityBase.concat( SecurityEndpoints.refreshToken.concat( "/**" ) ),
 				BusinessBranchEndpoints.businessBranchBase.concat( BusinessBranchEndpoints.sectionBusinessBranches ),
 				ResearchInstitutionEndpoints.resInstitutionBase.concat( ResearchInstitutionEndpoints.resInstitutionFind.concat( "/**" ) ),
-				PatentEndpoints.patentBase.concat( PatentEndpoints.uploadPatents )
+				PatentEndpoints.patentBase.concat( PatentEndpoints.uploadPatents ),
+				PatentEndpoints.patentBase.concat( PatentEndpoints.patentFind )
 					  );
 	}
 }

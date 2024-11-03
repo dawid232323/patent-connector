@@ -1,11 +1,16 @@
 package com.amadon.patentconnector.patent.controller;
 
+import com.amadon.patentconnector.patent.entity.Patent;
 import com.amadon.patentconnector.patent.service.PatentService;
+import com.amadon.patentconnector.patent.service.dto.PatentSearchQueryDto;
+import com.amadon.patentconnector.patent.service.dto.PatentSearchResultDto;
 import com.amadon.patentconnector.patent.service.dto.create.CreatePatentDto;
 import com.amadon.patentconnector.patent.service.mapper.PatentMapper;
 import com.amadon.patentconnector.security.service.SecurityService;
 import com.amadon.patentconnector.shared.constants.AppEndpoints;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -31,5 +36,13 @@ public class PatentController
 	{
 		securityService.validateAdminKey( aAdminKey );
 		return patentService.createPatents( aCreatePatentDtos );
+	}
+
+	// TODO change return type to PatentDto when it is created
+	@ResponseBody
+	@GetMapping( AppEndpoints.PatentEndpoints.patentFind )
+	public Page< PatentSearchResultDto > findPatents( @ModelAttribute final PatentSearchQueryDto aSearchQueryDto, final Pageable aPage )
+	{
+		return patentService.findPatents( aSearchQueryDto, aPage );
 	}
 }

@@ -5,16 +5,21 @@ import com.amadon.patentconnector.patent.entity.PatentAnalysisDatum;
 import com.amadon.patentconnector.patent.entity.PatentBibliographicDatum;
 import com.amadon.patentconnector.patent.entity.PatentSearchReportDatum;
 import com.amadon.patentconnector.patent.service.componentCreator.PatentComponentCreator;
+import com.amadon.patentconnector.patent.service.dto.PatentSearchQueryDto;
+import com.amadon.patentconnector.patent.service.dto.PatentSearchResultDto;
 import com.amadon.patentconnector.patent.service.dto.create.CreatePatentAnalysisDatumDto;
 import com.amadon.patentconnector.patent.service.dto.create.CreatePatentBibliographicDatumDto;
 import com.amadon.patentconnector.patent.service.dto.create.CreatePatentDto;
 import com.amadon.patentconnector.patent.service.dto.create.CretaePatentSearchReportDatumDto;
 import com.amadon.patentconnector.patent.service.mapper.PatentMapper;
+import com.amadon.patentconnector.shared.service.specification.SpecificationProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,12 +33,13 @@ public class PatentService
 	private final PatentComponentCreator< CreatePatentAnalysisDatumDto, PatentAnalysisDatum > analysisCreator;
 	private final PatentComponentCreator< CreatePatentBibliographicDatumDto, PatentBibliographicDatum > bibliographicCreator;
 	private final PatentComponentCreator< CretaePatentSearchReportDatumDto, PatentSearchReportDatum > searchReportCreator;
+	private final SpecificationProvider< PatentSearchQueryDto, Patent > specificationProvider;
 
 	public List< Object > createPatents( final List< CreatePatentDto > aCreatePatentDtos )
 	{
 		log.info( "Started patent creation process for {} entries", aCreatePatentDtos.size() );
 		int createdPatents = 0;
-		for ( final CreatePatentDto createPatentDto: aCreatePatentDtos )
+		for ( final CreatePatentDto createPatentDto : aCreatePatentDtos )
 		{
 			try
 			{
@@ -50,9 +56,18 @@ public class PatentService
 		log.info( "Successfully created {} patent entries", createdPatents );
 		if ( aCreatePatentDtos.size() > createdPatents )
 		{
-			log.warn( "Missed {} entries. Please refer to earlier logs for more details", aCreatePatentDtos.size() - createdPatents );
+			log.warn( "Missed {} entries. Please refer to earlier logs for more details",
+					  aCreatePatentDtos.size() - createdPatents );
 		}
 		return new ArrayList<>();
+	}
+
+	public Page< PatentSearchResultDto > findPatents( final PatentSearchQueryDto aPatentSearchQueryDto,
+													  final Pageable aPage )
+	{
+		final Specification< Patent > specification = specificationProvider.getSpecification( aPatentSearchQueryDto );
+		return patentRepository.findAll( specification, aPage )
+				.map( patentMapper::toPatentSearchResultDto );
 	}
 
 	private Patent createPatent( final CreatePatentDto aCreatePatentDto )
@@ -60,9 +75,12 @@ public class PatentService
 		log.info( "Creating patent with title {}", aCreatePatentDto.getTitle() );
 
 		final Patent patent = patentMapper.fromCreateDto( aCreatePatentDto );
-		final PatentAnalysisDatum patentAnalysisDatum = analysisCreator.resolvePatentComponent( aCreatePatentDto.getPatentAnalysisData() );
-		final PatentBibliographicDatum bibliographicDatum = bibliographicCreator.resolvePatentComponent( aCreatePatentDto.getBibliographicData() );
-		final PatentSearchReportDatum searchReportDatum = searchReportCreator.resolvePatentComponent( aCreatePatentDto.getSearchReportData() );
+		final PatentAnalysisDatum patentAnalysisDatum =
+				analysisCreator.resolvePatentComponent( aCreatePatentDto.getPatentAnalysisData() );
+		final PatentBibliographicDatum bibliographicDatum =
+				bibliographicCreator.resolvePatentComponent( aCreatePatentDto.getBibliographicData() );
+		final PatentSearchReportDatum searchReportDatum =
+				searchReportCreator.resolvePatentComponent( aCreatePatentDto.getSearchReportData() );
 
 		patent.setPatentAnalysisData( patentAnalysisDatum );
 		patentAnalysisDatum.setPatent( patent );
