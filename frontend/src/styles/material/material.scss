@@ -22,6 +22,17 @@
 
 }
 
+.fab-secondary {
+	@include mat.fab-theme($dark-theme, $color-variant: secondary);
+	@include mat.fab-color($dark-theme, $color-variant: secondary);
+
+	@media (prefers-color-scheme: light) {
+		@include mat.fab-theme($light-theme, $color-variant: secondary);
+		@include mat.fab-color($light-theme, $color-variant: secondary);
+	}
+
+}
+
 .button-tertiary {
 	@include mat.button-theme($dark-theme, $color-variant: tertiary);
 	@include mat.button-color($dark-theme, $color-variant: tertiary);

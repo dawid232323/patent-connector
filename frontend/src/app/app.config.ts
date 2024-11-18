@@ -1,4 +1,10 @@
-import {ApplicationConfig, ErrorHandler, provideZoneChangeDetection} from '@angular/core';
+import {
+	ApplicationConfig,
+	ErrorHandler,
+	importProvidersFrom,
+	ImportProvidersSource,
+	provideZoneChangeDetection
+} from '@angular/core';
 import {provideRouter} from '@angular/router';
 
 import {routes} from './app.routes';
@@ -7,6 +13,11 @@ import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptors
 import {httpInterceptor} from "app/shared/interceptor/http.interceptor";
 import {globalErrorHandler} from "app/shared/handler/error.handler";
 import {HttpErrorInterceptor} from "app/shared/interceptor/http-error.interceptor";
+import {PatentModule} from "app/features/patent/patent.module";
+
+const appModules: ImportProvidersSource[] = [
+	PatentModule
+];
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -20,6 +31,7 @@ export const appConfig: ApplicationConfig = {
 			withInterceptorsFromDi()
 		),
 		{ provide: ErrorHandler, useFactory: globalErrorHandler },
-		{ provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
+		{ provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+		importProvidersFrom(appModules)
 	]
 };

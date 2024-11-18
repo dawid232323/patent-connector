@@ -17,6 +17,6 @@ public interface ResearchInstitutionRepository extends JpaRepository< ResearchIn
 	@Query( "select ri from ResearchInstitution ri where SUBSTRING(ri.email, LOCATE('@', ri.email) + 1) = SUBSTRING(:email, LOCATE('@', :email) + 1)" )
 	List< ResearchInstitution > findByMatchingEmails( @Param( "email" ) String aUserEmail );
 
-	@Query( "select ri from ResearchInstitution ri left join fetch ri.users where ri.users.size > 0" )
+	@Query( "select ri from ResearchInstitution ri left join fetch ri.users where ri.users IS NOT EMPTY" )
 	List< ResearchInstitution > findRegistered();
 }

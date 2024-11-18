@@ -1,0 +1,36 @@
+<mat-card>
+	<mat-card-header>
+		<mat-card-title class="px-8">Znajdź patent dla siebie</mat-card-title>
+		<mat-icon matSuffix class="px-8 mt-[.25rem] hover:cursor-pointer hover:text-red-900" (click)="panelClosed.emit()">close</mat-icon>
+	</mat-card-header>
+	<mat-card-content *ngIf="filterForm">
+		<form [formGroup]="filterForm" class="p-8">
+			<section>
+				<mat-form-field class="primary-form-field">
+					<label>Nazwa patentu</label>
+					<input formControlName="title" matInput />
+				</mat-form-field>
+			</section>
+			<section>
+				<mat-form-field class="primary-form-field">
+					<label>Data obowiązywania</label>
+					<input matInput [matDatepicker]="picker" formControlName="dateFrom">
+					<mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+					<mat-datepicker #picker></mat-datepicker>
+				</mat-form-field>
+			</section>
+			<section class="max-h-[30rem] overflow-y-scroll">
+				@for (branch of businessBranches; track branch.id) {
+					<p>
+						<mat-checkbox [formControlName]="branch.id">
+							{{branch.displayName}}
+						</mat-checkbox>
+					</p>
+				}
+			</section>
+		</form>
+	</mat-card-content>
+	<mat-card-actions align="end">
+		<button mat-raised-button class="button-secondary">Szukaj<mat-icon matIconSuffix>search</mat-icon></button>
+	</mat-card-actions>
+</mat-card>

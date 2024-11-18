@@ -1,4 +1,4 @@
-import { trigger, style, animate, transition } from '@angular/animations';
+import {trigger, style, animate, transition, state} from '@angular/animations';
 
 export const loadingFromSideAnimation = trigger('loadingFromSideAnimation', [
 	transition(':enter', [
@@ -28,4 +28,10 @@ export const loadingFromSideAnimationReversed = trigger('loadingFromSideAnimatio
 			transform: 'translateX(0)'
 		}))
 	])
+]);
+
+export const slideInOutAnimation  = trigger('slideInOut', [
+		state('in', style({ transform: 'translateX(0%)', opacity: 1 })),
+		state('out', style({ transform: 'translateX(-100%)', opacity: 0 })),
+		transition('in <=> out', animate('500ms ease-in-out')),
 ]);
