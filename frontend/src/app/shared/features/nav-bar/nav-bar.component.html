@@ -1,6 +1,17 @@
-<div class="flex w-full bg-primary-light dark:bg-primary-dark h-[50px] rounded-b shadow-2xl">
-	<div class="flex flex-row w-1/2 gap-x-2 items-center">
-		<span class="px-4 py-2 text-xl">PatentConnector</span>
+<div class="flex w-full bg-primary-light dark:bg-primary-dark h-[60px] rounded-b shadow-2xl justify-between">
+
+	<div class="flex flex-row w-1/2 gap-x-2 items-end pb-1">
+		<span class="px-4 py-2 text-3xl">PatentConnector</span>
+		<a class="nav-item" routerLink="patents/listing">Wyszukiwarka Patentów</a>
 	</div>
 
+	<div class="flex flex-row w-1/2 gap-x-2 items-end pb-1 justify-end">
+		<ng-container *ngIf="!(isUserLoggedIn$ | async); else loggedUser">
+			<a class="nav-item" [routerLink]="resolveLoginLink()">Zaloguj się</a>
+			<a class="nav-item" routerLink="register">Zarejestruj się</a>
+		</ng-container>
+		<ng-template #loggedUser>
+			<span class="nav-item" (click)="logout()">Wyloguj się</span>
+		</ng-template>
+	</div>
 </div>

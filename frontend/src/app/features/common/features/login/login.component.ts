@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
 			return this.router.navigate(['/select-business-branches']);
 		}
 		if (this.shouldNotRedirectToDefault()) {
-			return this.router.navigate(this.activatedRoute.snapshot.queryParams[LoginComponent.NEXT_QUERY_PARAM]);
+			return this.router.navigateByUrl(this.activatedRoute.snapshot.queryParams[LoginComponent.NEXT_QUERY_PARAM]);
 		}
 		return this.router.navigate(['/']);
 	}
