@@ -2,7 +2,14 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {PatentListingComponent} from './features/patent-listing/patent-listing.component';
 import {FilterPanelComponent} from './features/patent-listing/partials/filter-panel/filter-panel.component';
-import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
+import {
+	MatCard,
+	MatCardActions,
+	MatCardContent,
+	MatCardHeader,
+	MatCardModule,
+	MatCardTitle
+} from "@angular/material/card";
 import {MatFormField, MatInput, MatInputModule} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatDatepicker, MatDatepickerModule} from "@angular/material/datepicker";
@@ -11,12 +18,21 @@ import {MatFormFieldModule, MatHint, MatLabel} from "@angular/material/form-fiel
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatIcon} from "@angular/material/icon";
 import {MatButton, MatFabButton, MatMiniFabButton} from "@angular/material/button";
+import {
+	PatentListingParamsService
+} from "app/features/patent/features/patent-listing/service/patent-listing-params.service";
+import {PatentListingService} from "app/features/patent/features/patent-listing/service/patent-listing.service";
+import { PatentCardComponent } from './features/patent-listing/partials/patent-card/patent-card.component';
+import {MatChipsModule} from "@angular/material/chips";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 
 @NgModule({
 	declarations: [
 		PatentListingComponent,
-		FilterPanelComponent
+		FilterPanelComponent,
+  PatentCardComponent
 	],
 	imports: [
 		CommonModule,
@@ -36,13 +52,19 @@ import {MatButton, MatFabButton, MatMiniFabButton} from "@angular/material/butto
 		MatFabButton,
 		MatMiniFabButton,
 		MatCardActions,
-		MatButton
+		MatButton,
+		MatCardModule,
+		MatChipsModule,
+		MatPaginatorModule,
+		MatProgressBarModule
 	],
 	exports: [
 		PatentListingComponent
 	],
 	providers: [
-		MatDatepickerModule
+		MatDatepickerModule,
+		PatentListingParamsService,
+		PatentListingService
 	]
 })
 export class PatentModule {

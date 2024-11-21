@@ -7,6 +7,12 @@ export interface ApiOptions {
 	headers?: Headers;
 }
 
+export interface PagedResult <T> {
+	number: number,
+	size: number,
+	totalElements?: number,
+	content: T[]
+}
 
 export class AppEndpoints {
 	private static readonly base: string = environment.apiUrl;
@@ -36,6 +42,11 @@ export class AppEndpoints {
 		public static readonly sectionBusinessBranches: string = `${this.businessBranchBase}/section-business-branches`;
 	};
 
+	public static PatentEndpoints = class {
+		public static readonly patentsBase: string = `${AppEndpoints.base}/patents`;
+		public static readonly patentsSearch: string = `${this.patentsBase}/search`;
+	}
+
 	public static getExcludedEndpoints(): string[] {
 		return [
 			AppEndpoints.UserEndpoints.entrepreneurRegister,
@@ -44,7 +55,8 @@ export class AppEndpoints {
 			AppEndpoints.SecurityEndpoints.login,
 			AppEndpoints.SecurityEndpoints.refreshToken,
 			AppEndpoints.BusinessBranchEndpoints.sectionBusinessBranches,
-			AppEndpoints.ResearchInstitutionEndpoints.resInstitutionFind
+			AppEndpoints.ResearchInstitutionEndpoints.resInstitutionFind,
+			AppEndpoints.PatentEndpoints.patentsSearch
 		];
 	}
 }

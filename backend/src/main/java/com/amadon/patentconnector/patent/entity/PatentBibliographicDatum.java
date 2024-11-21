@@ -24,7 +24,7 @@ public class PatentBibliographicDatum
 	@Column( name = "id", nullable = false )
 	private Long id;
 
-	@OneToOne( fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL )
+	@OneToOne( fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL )
 	@JoinColumn( name = "patent_id", nullable = false )
 	private Patent patent;
 

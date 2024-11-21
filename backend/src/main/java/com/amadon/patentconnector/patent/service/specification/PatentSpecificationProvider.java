@@ -42,6 +42,15 @@ public class PatentSpecificationProvider implements SpecificationProvider< Paten
 		return baseSpecification;
 	}
 
+	@Override
+	public Specification< Patent > noSpec()
+	{
+		return (( root, query, criteriaBuilder ) -> {
+			root.fetch( "bibliographicData" );
+			return criteriaBuilder.conjunction();
+		});
+	}
+
 	private Specification< Patent > withTitleLike( final String aTitle )
 	{
 		return ( root, query, cb ) ->

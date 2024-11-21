@@ -1,7 +1,9 @@
 export interface PatentSearchQuery {
-	title: string;
-	businessBranchesIds: number[];
-	dateCreated: Date;
+	number: number;
+	size: number;
+	title?: string;
+	businessBranchesIds?: number[];
+	dateCreated?: Date;
 }
 
 export interface PatentSearchResult {

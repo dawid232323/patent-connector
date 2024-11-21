@@ -1,21 +1,41 @@
 <div class="flex flex-row w-full min-h-[94vh] p-4">
 	<div class="absolute flex max-w-[30%]">
-		<app-filter-panel class="transform w-full transition-transform ease-in-out duration-300"
+		<app-filter-panel class="transform w-full transition-transform ease-in-out duration-300 z-50"
 						  [ngClass]="{'hidden': sidePanelHidden}"
 						  [@slideInOut]="showSidePanel ? 'in' : 'out'"
 						  [businessBranches]="businessBranches"
 						  (@slideInOut.start)="handlePanelAnimationStart()"
 						  (@slideInOut.done)="handlePanelAnimationDone()"
-						  (panelClosed)="showSidePanel = !showSidePanel">
+						  (panelClosed)="showSidePanel = !showSidePanel"
+						  (searchClicked)="handleFilterChange()">
 		</app-filter-panel>
 		@if (showPanelButton) {
-			<button mat-mini-fab class="relative transition ease-in-out duration-200 transform top-16 fab-secondary" (click)="showSidePanel = !showSidePanel">
+			<button mat-mini-fab class="relative transition ease-in-out duration-200 transform top-16 fab-secondary"
+					(click)="showSidePanel = !showSidePanel">
 				<mat-icon>filter_alt</mat-icon>
 			</button>
 		}
 	</div>
-	<div class="flex w-full justify-center">
-		lista
+	<div class="flex flex-col w-full items-center mt-16" [ngClass]="{'justify-start': !isLoadingData, 'justify-center': isLoadingData}">
+		@if (isLoadingData) {
+			<mat-progress-bar mode="indeterminate" class="w-1/2"></mat-progress-bar>
+		} @else {
+			<div class="w-1/2 justify-start flex">
+				<h1 class="text-5xl p-2">Wyniki wyszukiwania:</h1>
+			</div>
+			<div class="flex flex-wrap w-1/2 justify-start m-2">
+				@for (patent of patents; track patent.id) {
+					<app-patent-card class="w-full 2xl:w-1/2 p-2 transition ease-in-out duration-200 hover:scale-105 hover:z-10 z-0"
+									 [patent]="patent">
+					</app-patent-card>
+				}
+			</div>
+			<mat-paginator class="w-1/2 !rounded"
+						   [length]="totalElements"
+						   [pageSize]="currentPageSize"
+						   [pageSizeOptions]="availablePageSizes"
+						   (page)="handlePageEvent($event)">
+			</mat-paginator>
+		}
 	</div>
-
 </div>

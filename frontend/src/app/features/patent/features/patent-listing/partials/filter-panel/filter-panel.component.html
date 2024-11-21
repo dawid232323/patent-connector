@@ -31,6 +31,9 @@
 		</form>
 	</mat-card-content>
 	<mat-card-actions align="end">
-		<button mat-raised-button class="button-secondary">Szukaj<mat-icon matIconSuffix>search</mat-icon></button>
+		<button mat-raised-button class="button-secondary" (click)="handleSearch()">
+			Szukaj
+			<mat-icon matIconSuffix>search</mat-icon>
+		</button>
 	</mat-card-actions>
 </mat-card>
