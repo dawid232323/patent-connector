@@ -26,9 +26,11 @@ public class PatentSearchReportComponentCreator
 				.stream()
 				.map( this::resolveCitation )
 				.collect( Collectors.toSet() );
-		return PatentSearchReportDatum.builder()
+		final PatentSearchReportDatum searchReportDatum = PatentSearchReportDatum.builder()
 				.patentCitations( citations )
 				.build();
+		citations.forEach( citation -> citation.setSearchReportData( searchReportDatum ) );
+		return searchReportDatum;
 	}
 
 	private PatentCitation resolveCitation( final CreatePatentCitationDto aCitationDto )

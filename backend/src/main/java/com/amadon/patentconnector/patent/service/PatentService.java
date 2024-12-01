@@ -5,6 +5,7 @@ import com.amadon.patentconnector.patent.entity.PatentAnalysisDatum;
 import com.amadon.patentconnector.patent.entity.PatentBibliographicDatum;
 import com.amadon.patentconnector.patent.entity.PatentSearchReportDatum;
 import com.amadon.patentconnector.patent.service.componentCreator.PatentComponentCreator;
+import com.amadon.patentconnector.patent.service.dto.PatentDto;
 import com.amadon.patentconnector.patent.service.dto.PatentSearchQueryDto;
 import com.amadon.patentconnector.patent.service.dto.PatentSearchResultDto;
 import com.amadon.patentconnector.patent.service.dto.create.CreatePatentAnalysisDatumDto;
@@ -13,6 +14,7 @@ import com.amadon.patentconnector.patent.service.dto.create.CreatePatentDto;
 import com.amadon.patentconnector.patent.service.dto.create.CretaePatentSearchReportDatumDto;
 import com.amadon.patentconnector.patent.service.mapper.PatentMapper;
 import com.amadon.patentconnector.shared.service.specification.SpecificationProvider;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -22,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -35,17 +38,17 @@ public class PatentService
 	private final PatentComponentCreator< CretaePatentSearchReportDatumDto, PatentSearchReportDatum > searchReportCreator;
 	private final SpecificationProvider< PatentSearchQueryDto, Patent > specificationProvider;
 
-	public List< Object > createPatents( final List< CreatePatentDto > aCreatePatentDtos )
+	public List< PatentDto > createPatents( final List< CreatePatentDto > aCreatePatentDtos )
 	{
 		log.info( "Started patent creation process for {} entries", aCreatePatentDtos.size() );
-		int createdPatents = 0;
+		final List<Patent> createdPatents = new ArrayList<>();
 		for ( final CreatePatentDto createPatentDto : aCreatePatentDtos )
 		{
 			try
 			{
 				final Patent createdPatent = createPatent( createPatentDto );
 				patentRepository.save( createdPatent );
-				createdPatents += 1;
+				createdPatents.add( createdPatent );
 				log.info( "Successfully created patent {}", createdPatent.getTitle() );
 			} catch ( Exception e )
 			{
@@ -54,12 +57,14 @@ public class PatentService
 
 		}
 		log.info( "Successfully created {} patent entries", createdPatents );
-		if ( aCreatePatentDtos.size() > createdPatents )
+		if ( aCreatePatentDtos.size() > createdPatents.size() )
 		{
 			log.warn( "Missed {} entries. Please refer to earlier logs for more details",
-					  aCreatePatentDtos.size() - createdPatents );
+					  aCreatePatentDtos.size() - createdPatents.size() );
 		}
-		return new ArrayList<>();
+		return createdPatents.stream()
+				.map( patentMapper::fromEntityToDto )
+				.collect( Collectors.toList() );
 	}
 
 	public Page< PatentSearchResultDto > findPatents( final PatentSearchQueryDto aPatentSearchQueryDto,
@@ -68,6 +73,13 @@ public class PatentService
 		final Specification< Patent > specification = specificationProvider.getSpecification( aPatentSearchQueryDto );
 		return patentRepository.findAll( specification, aPage )
 				.map( patentMapper::toPatentSearchResultDto );
+	}
+
+	public PatentDto getPatent( final Long id )
+	{
+		log.info( "Going to retrieve patent with id {}", id );
+		log.warn( patentRepository.findById( id ).get().getStatusId() );
+		return patentMapper.fromEntityToDto( patentRepository.getPatent( id ) );
 	}
 
 	private Patent createPatent( final CreatePatentDto aCreatePatentDto )

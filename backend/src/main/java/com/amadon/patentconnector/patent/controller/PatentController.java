@@ -2,6 +2,7 @@ package com.amadon.patentconnector.patent.controller;
 
 import com.amadon.patentconnector.patent.entity.Patent;
 import com.amadon.patentconnector.patent.service.PatentService;
+import com.amadon.patentconnector.patent.service.dto.PatentDto;
 import com.amadon.patentconnector.patent.service.dto.PatentSearchQueryDto;
 import com.amadon.patentconnector.patent.service.dto.PatentSearchResultDto;
 import com.amadon.patentconnector.patent.service.dto.create.CreatePatentDto;
@@ -27,22 +28,27 @@ public class PatentController
 	private final PatentService patentService;
 	private final SecurityService securityService;
 
-	// TODO change return type to PatentDto when it is created
 	@ResponseBody
 	@ResponseStatus( HttpStatus.CREATED )
 	@PostMapping( AppEndpoints.PatentEndpoints.uploadPatents )
-	public List< Object > createPatents( @RequestHeader( name = "X-Admin-Key" ) final String aAdminKey,
-										 @RequestBody final List< CreatePatentDto > aCreatePatentDtos )
+	public List< PatentDto > createPatents( @RequestHeader( name = "X-Admin-Key" ) final String aAdminKey,
+											@RequestBody final List< CreatePatentDto > aCreatePatentDtos )
 	{
 		securityService.validateAdminKey( aAdminKey );
 		return patentService.createPatents( aCreatePatentDtos );
 	}
 
-	// TODO change return type to PatentDto when it is created
 	@ResponseBody
 	@GetMapping( AppEndpoints.PatentEndpoints.patentFind )
 	public Page< PatentSearchResultDto > findPatents( @ModelAttribute final PatentSearchQueryDto aSearchQueryDto, final Pageable aPage )
 	{
 		return patentService.findPatents( aSearchQueryDto, aPage );
+	}
+
+	@ResponseBody
+	@GetMapping( "/{patentId}" )
+	public PatentDto getPatent( @PathVariable final Long patentId )
+	{
+		return patentService.getPatent( patentId );
 	}
 }

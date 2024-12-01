@@ -2,6 +2,7 @@ package com.amadon.patentconnector.patent.service.mapper;
 
 
 import com.amadon.patentconnector.patent.entity.Patent;
+import com.amadon.patentconnector.patent.service.dto.PatentDto;
 import com.amadon.patentconnector.patent.service.dto.PatentSearchResultDto;
 import com.amadon.patentconnector.patent.service.dto.create.CreatePatentDto;
 import org.mapstruct.*;
@@ -21,4 +22,11 @@ public interface PatentMapper
 	@Mapping( target = "dateFrom", source = "beginDate" )
 	@Mapping( target = "patentAbstract", source = "abstractField" )
 	PatentSearchResultDto toPatentSearchResultDto( Patent patent );
+
+	@Mapping( target = "title", ignore = true )
+	@Mapping( target = "businessBranches", ignore = true )
+	@Mapping( target = "citations", ignore = true )
+	@Mapping( target = "patentNumber", ignore = true )
+	@Mapping( target = "documents", ignore = true )
+	PatentDto fromEntityToDto( Patent patent );
 }

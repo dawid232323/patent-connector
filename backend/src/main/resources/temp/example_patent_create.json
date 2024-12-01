@@ -1,0 +1,191 @@
+[
+  {
+    "patentAnalysisData": {
+      "businessBranchesCodes": ["01.44.Z", "10.39.Z", "11.05.Z"]
+    },
+    "searchReportData": {
+      "patentCitations": [
+        {
+          "documentCountry": "US",
+          "documentNumber": "2012001527",
+          "documentKind": "A1",
+          "documentPublicationDate": "20120105",
+          "documentName": null,
+          "citationText": "CHOPPLA GULSHAN PREM [US], skrót, rysunki",
+          "citationCategory": "Y",
+          "relClaims": ["1-7"]
+        },
+        {
+          "documentCountry": "CN",
+          "documentNumber": "216259092",
+          "documentKind": "U",
+          "documentPublicationDate": "20220412",
+          "documentName": null,
+          "citationText": "UNIVERSITY OF SCIENCE AND TECHNOLOGY BEIJING, skrót, rysunki",
+          "citationCategory": "Y",
+          "relClaims": ["1-7"]
+        },
+        {
+          "documentCountry": "CN",
+          "documentNumber": "215723349",
+          "documentKind": "U",
+          "documentPublicationDate": "20220201",
+          "documentName": null,
+          "citationText": "GUIZHOU GREY WHALE TECH DEVELOPMENT CO LTD, skrót, rysunki",
+          "citationCategory": "Y",
+          "relClaims": ["1-7"]
+        }
+      ]
+    },
+    "title": null,
+    "description": "-",
+    "abstractField": "Przedmiotem zgłoszenia jest biurko sensoryczne mające przeznaczenie rehabilitacyjne, medyczne, diagnostyczne zwłaszcza dla dzieci z zaburzeniami układu ruchu i układu nerwowego w szczególności ADHD, nadpobudliwości, autyzmu, zespołu Aspergera. Biurko sensoryczne, posiadające blat wsparty na nogach, charakteryzuje się tym, że powierzchnie zewnętrzne blatu (2) i/lub szuflad (5) oraz korzystnie dolna łącząca podstawy nóg (7) poprzeczka (6) zaopatrzone są w odczuwalne zmysłem dotyku i wzroku detale, korzystnie dociskowe bulwy i/lub masujące wypustki i/lub perforacje.",
+    "source": "SOPRANO",
+    "patentTimestamp": "2024-05-21:00:28:02",
+    "beginDate": "2024-05-20",
+    "endDate": "2024-05-20",
+    "statusId": "100",
+    "statusDescription": "Postępowanie w toku",
+    "statusCode": "NO_STATUS_5",
+    "extidappli": "P.445000",
+    "extidpatent": null,
+    "cntrenew": "0",
+    "gazetteNumber": "BUP 21/2024",
+    "gazetteNoSpec": "2",
+    "gazetteKind": "A1",
+    "gazetteDate": "2024-05-20",
+    "gazetteUri": "https://api-ewyszukiwarka.pue.uprp.gov.pl/api/bup-or-wup/bup21_2024.pdf",
+    "bibliographicData": {
+      "publicationDocumentCountry": "PL",
+      "publicationDocumentNumber": "445000",
+      "publicationDocumentKind": "A1",
+      "publicationDocumentDate": "20240520",
+      "ipcClassificationEdition": "8",
+      "ipcMainClassification": "A47B 17/00",
+      "ipcFurtherClassifications": "A47B 83/00, A47B 97/00",
+      "cpcClassificationEdition": null,
+      "cpcMainClassification": "A47B 17/00",
+      "cpcFurtherClassification": null,
+      "inventionTitle": "Biurko sensoryczne",
+      "inventionTitleEng": null,
+      "claims": null,
+      "applicationReference": {
+        "documentCountryId": "PL",
+        "documentNumber": "445000",
+        "documentKind": "A1",
+        "documentDate": "20230525",
+        "otherPatentDocuments": [
+          {
+            "documentCode": "DESC1",
+            "documentUri": "https://api-ewyszukiwarka.pue.uprp.gov.pl/api/pwp/P.445000/file/E1018866CE2873P1/DESC1"
+          },
+          {
+            "documentCode": "DRAW1",
+            "documentUri": "https://api-ewyszukiwarka.pue.uprp.gov.pl/api/pwp/P.445000/file/E1018866CF24E6P1/DRAW1"
+          },
+          {
+            "documentCode": "CLMS1",
+            "documentUri": "https://api-ewyszukiwarka.pue.uprp.gov.pl/api/pwp/P.445000/file/E1018866CEA638P1/CLMS1"
+          },
+          {
+            "documentCode": "CLMSAMD",
+            "documentUri": "https://api-ewyszukiwarka.pue.uprp.gov.pl/api/pwp/P.445000/file/E1018E51A8FDB7P1/CLMSAMD"
+          },
+          {
+            "documentCode": "RAPORT1",
+            "documentUri": "https://api-ewyszukiwarka.pue.uprp.gov.pl/api/pwp/P.445000/file/E1018D174CEDC6P1/RAPORT1"
+          },
+          {
+            "documentCode": "RAPORT1",
+            "documentUri": "https://api-ewyszukiwarka.pue.uprp.gov.pl/api/pwp/P.445000/file/E1018D174CEDC6P1/RAPORT1"
+          },
+          {
+            "documentCode": "IMG",
+            "documentUri": "https://api-ewyszukiwarka.pue.uprp.gov.pl/shared-storage/P.445000/44500001.jpg"
+          },
+          {
+            "documentCode": "A1",
+            "documentUri": "https://api-ewyszukiwarka.pue.uprp.gov.pl/api/collection/a511fd13c8ef410f7500313ee2a2a24f"
+          },
+          {
+            "documentCode": "ABS_A",
+            "documentUri": "https://api-ewyszukiwarka.pue.uprp.gov.pl/api/collection/f13b3acdf81573d7956c60195b85d36e"
+          }
+        ]
+      },
+      "datesOfPublicAvailability": {
+        "unexaminedPrintedWithoutGrantDocumentCountry": "PL",
+        "unexaminedPrintedWithoutGrantDocumentNumber": "21/2024",
+        "unexaminedPrintedWithoutGrantDocumentDate;": "20240520"
+      },
+      "agents": [
+        {
+          "name": null,
+          "firstName": "Ogólne / Bartłomiej",
+          "lastName": "Tomaszewski",
+          "organisationName": "ul. Kwiatkowskiego 1/12&#1303-984 Warszawa",
+          "addressPostalCode": "03-984",
+          "addressCity": "Warszawa",
+          "addressTownship": null,
+          "addressCounty": null,
+          "addressState": null,
+          "addressCountry": "PL",
+          "nationalityCountry": null,
+          "residenceCountry": null,
+          "designatedStates": null
+        }
+      ],
+      "applicants": [
+        {
+          "name": "KUROWSKA KAMILA",
+          "firstName": null,
+          "lastName": null,
+          "organisationName": null,
+          "addressPostalCode": null,
+          "addressCity": "Jastrzębie-Zdrój",
+          "addressTownship": null,
+          "addressCounty": null,
+          "addressState": null,
+          "addressCountry": "PL",
+          "nationalityCountry": null,
+          "residenceCountry": null,
+          "designatedStates": null
+        }
+      ],
+      "assignees": [
+        {
+          "name": "KUROWSKA KAMILA",
+          "firstName": null,
+          "lastName": null,
+          "organisationName": null,
+          "addressPostalCode": null,
+          "addressCity": "Jastrzębie-Zdrój",
+          "addressTownship": null,
+          "addressCounty": null,
+          "addressState": null,
+          "addressCountry": "PL",
+          "nationalityCountry": null,
+          "residenceCountry": null,
+          "designatedStates": null
+        }
+      ],
+      "inventors": [
+        {
+          "name": null,
+          "firstName": "KAMILA",
+          "lastName": "KUROWSKA",
+          "organisationName": null,
+          "addressPostalCode": null,
+          "addressCity": "Jastrzębie-Zdrój",
+          "addressTownship": null,
+          "addressCounty": null,
+          "addressState": null,
+          "addressCountry": "PL",
+          "nationalityCountry": null,
+          "residenceCountry": null,
+          "designatedStates": null
+        }
+      ]
+    }
+  }
+]

@@ -57,7 +57,8 @@ public record AppEndpoints( )
 				BusinessBranchEndpoints.businessBranchBase.concat( BusinessBranchEndpoints.sectionBusinessBranches ),
 				ResearchInstitutionEndpoints.resInstitutionBase.concat( ResearchInstitutionEndpoints.resInstitutionFind.concat( "/**" ) ),
 				PatentEndpoints.patentBase.concat( PatentEndpoints.uploadPatents ),
-				PatentEndpoints.patentBase.concat( PatentEndpoints.patentFind )
+				PatentEndpoints.patentBase.concat( PatentEndpoints.patentFind ),
+				PatentEndpoints.patentBase.concat( "/**" )
 					  );
 	}
 }

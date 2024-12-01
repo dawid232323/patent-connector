@@ -2,6 +2,7 @@ package com.amadon.patentconnector.shared.exception;
 
 import com.amadon.patentconnector.shared.constants.DomainCode;
 import com.amadon.patentconnector.shared.constants.ReasonMessages;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -45,6 +46,23 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler
 				.uuid( uuid )
 				.originalExceptionMessage( causeError )
 				.errorTitle( "Unexpected error" )
+				.build();
+	}
+
+	@ResponseBody
+	@ResponseStatus( HttpStatus.NOT_FOUND )
+	@ExceptionHandler( EntityNotFoundException.class )
+	public AppErrorResponse handleEntityNotFound( final EntityNotFoundException e )
+	{
+		final String uuid = UUID.randomUUID()
+				.toString();
+		log.error( "Could not find entity with given id and uuid {}", uuid, e );
+		return AppErrorResponse.builder()
+				.domainCode( DomainCode.ENTITY )
+				.errorCause( ReasonMessages.ENTITY_NOT_FOUND )
+				.status( HttpStatus.NOT_FOUND )
+				.message( e.getMessage() )
+				.uuid( uuid )
 				.build();
 	}
 

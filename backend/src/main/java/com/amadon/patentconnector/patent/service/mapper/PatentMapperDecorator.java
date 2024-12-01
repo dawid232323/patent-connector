@@ -4,8 +4,11 @@ import com.amadon.patentconnector.businessBranch.entity.BusinessBranch;
 import com.amadon.patentconnector.patent.entity.Patent;
 import com.amadon.patentconnector.patent.entity.PatentAnalysisDatum;
 import com.amadon.patentconnector.patent.entity.PatentBibliographicDatum;
+import com.amadon.patentconnector.patent.service.dto.PatentDto;
 import com.amadon.patentconnector.patent.service.dto.PatentSearchResultDto;
 import com.amadon.patentconnector.patent.service.dto.create.CreatePatentDto;
+import com.amadon.patentconnector.patent.service.dto.partials.PatentCitationDto;
+import com.amadon.patentconnector.patent.service.dto.partials.PatentDocumentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -36,6 +39,18 @@ abstract class PatentMapperDecorator implements PatentMapper
 		return resultDto;
 	}
 
+	@Override
+	public PatentDto fromEntityToDto( final Patent patent )
+	{
+		final PatentDto resultDto = mapperDelegate.fromEntityToDto( patent );
+		resultDto.setBusinessBranches( getBusinessBranchesNames( patent ) );
+		resultDto.setTitle( getName( patent ) );
+		resultDto.setDocuments( getPatentDocuments( patent ) );
+		resultDto.setCitations( getPatentCitations( patent ) );
+		resultDto.setPatentNumber( patent.getExtidappli() );
+		return resultDto;
+	}
+
 	private String getName( final Patent patent )
 	{
 		if ( Objects.nonNull( patent.getTitle() ) )
@@ -56,6 +71,33 @@ abstract class PatentMapperDecorator implements PatentMapper
 		return analysisDatum.getBusinessBranches()
 				.stream()
 				.map( BusinessBranch::getDisplayName )
+				.toList();
+	}
+
+	private List< PatentDocumentDto > getPatentDocuments( final Patent aPatent )
+	{
+		final PatentBibliographicDatum bibliographicData = aPatent.getBibliographicData();
+		return bibliographicData.getApplicationReference()
+				.getOtherPatentDocuments()
+				.stream()
+				.map( document -> PatentDocumentDto.builder()
+						.documentCode( document.getDocumentCode() )
+						.documentUri( document.getDocumentUri() )
+						.build() )
+				.toList();
+	}
+
+	private List< PatentCitationDto > getPatentCitations( final Patent aPatent )
+	{
+		return aPatent.getSearchReportData()
+				.getPatentCitations()
+				.stream()
+				.map( citation -> PatentCitationDto.builder()
+						.citationText( citation.getCitationText() )
+						.documentName( citation.getDocumentName() )
+						.documentNumber( citation.getDocumentNumber() )
+						.publicationDate( citation.getDocumentPublicationDate() )
+						.build() )
 				.toList();
 	}
 }

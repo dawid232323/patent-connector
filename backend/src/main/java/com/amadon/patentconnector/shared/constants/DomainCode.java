@@ -8,6 +8,7 @@ public enum DomainCode
 	USER( "USR" ),
 	VALIDATION( "VAL" ),
 	LOGIN( "LOGIN" ),
+	ENTITY( "ENTITY" ),
 	UNRECOGNISED( "UNRECOGNISED" );
 
 	private final String code;
