@@ -29,6 +29,17 @@ export interface PatentDocument {
 	documentUri: string;
 }
 
+export interface PatentAddressBook {
+	name?: string;
+	firstName?: string;
+	lastName?: string;
+	organisationName?: string;
+	postalCode?: string;
+	country?: string;
+	city?: string;
+	nationality?: string;
+}
+
 export interface Patent {
 	title: string;
 	description: string;
@@ -40,4 +51,8 @@ export interface Patent {
 	statusDescription: string;
 	patentNumber: string;
 	documents: PatentDocument[];
+	agents: PatentAddressBook[];
+	applicants: PatentAddressBook[];
+	assignees: PatentAddressBook[];
+	inventors: PatentAddressBook[];
 }

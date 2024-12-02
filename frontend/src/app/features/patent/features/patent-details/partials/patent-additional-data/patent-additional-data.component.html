@@ -47,6 +47,30 @@
 		</table>
 	</mat-expansion-panel>
 
+	<app-patent-address-book-details *ngIf="patent.agents.length"
+									 [data]="patent.agents"
+									 sectionTitle="Agenci"
+									 sectionSubtitle="Osoby pośredniczące">
+	</app-patent-address-book-details>
+
+	<app-patent-address-book-details *ngIf="patent.applicants.length"
+									 [data]="patent.applicants"
+									 sectionTitle="Wnioskujący"
+									 sectionSubtitle="Osoby składające wniosek patentowy">
+	</app-patent-address-book-details>
+
+	<app-patent-address-book-details *ngIf="patent.assignees.length"
+									 [data]="patent.assignees"
+									 sectionTitle="Przypisani"
+									 sectionSubtitle="Osoby odpowiedzialne za patent">
+	</app-patent-address-book-details>
+
+	<app-patent-address-book-details *ngIf="patent.inventors.length"
+									 [data]="patent.inventors"
+									 sectionTitle="Wynalazcy"
+									 sectionSubtitle="Osoby odpowiedzialne za opracownaie patentu">
+	</app-patent-address-book-details>
+
 	<mat-expansion-panel *ngIf="patent.documents.length">
 		<mat-expansion-panel-header>
 			<mat-panel-title>Dodatkowe Dokumenty</mat-panel-title>

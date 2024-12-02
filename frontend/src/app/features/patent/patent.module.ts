@@ -36,6 +36,7 @@ import {MatDividerModule} from "@angular/material/divider";
 import { PatentAdditionalDataComponent } from './features/patent-details/partials/patent-additional-data/patent-additional-data.component';
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatListModule} from "@angular/material/list";
+import { PatentAddressBookDetailsComponent } from './features/patent-details/partials/patent-address-book-details/patent-address-book-details.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import {MatListModule} from "@angular/material/list";
 		PatentCardComponent,
 		PatentDetailsComponent,
 		PatentBasicDataComponent,
-  PatentAdditionalDataComponent
+  PatentAdditionalDataComponent,
+  PatentAddressBookDetailsComponent
 	],
 	imports: [
 		CommonModule,

@@ -1,0 +1,34 @@
+<mat-expansion-panel>
+	<mat-expansion-panel-header>
+		<mat-panel-title>{{sectionTitle}}</mat-panel-title>
+		<mat-panel-description *ngIf="sectionSubtitle">{{sectionSubtitle}}</mat-panel-description>
+	</mat-expansion-panel-header>
+	<table class="table-auto w-full border-separate border-spacing-y-3">
+		<thead class="text-left">
+		<tr>
+			<th>Nazwa</th>
+			<th>Imię</th>
+			<th>Nazwisko</th>
+			<th>Nazwa organizacji</th>
+			<th>Kod pocztowy</th>
+			<th>Kraj</th>
+			<th>Miasto</th>
+			<th>Narodowość</th>
+		</tr>
+		</thead>
+		<tbody>
+			@for (address of data; track $index) {
+				<tr>
+					<td>{{getDetail(address.name) | titlecase}}</td>
+					<td>{{getDetail(address.firstName) | titlecase}}</td>
+					<td>{{getDetail(address.lastName) | titlecase}}</td>
+					<td>{{getDetail(address.organisationName) | titlecase}}</td>
+					<td>{{getDetail(address.postalCode)}}</td>
+					<td>{{getDetail(address.country) | titlecase}}</td>
+					<td>{{getDetail(address.city) | titlecase}}</td>
+					<td>{{getDetail(address.nationality) | titlecase}}</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</mat-expansion-panel>
