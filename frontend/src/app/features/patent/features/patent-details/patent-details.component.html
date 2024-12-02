@@ -1,1 +1,26 @@
-<p>patent-details works!</p>
+<div class="flex flex-col w-full justify-center p-10 space-y-6">
+	<div class="flex space-x-2 w-1/6 hover:text-tertiary-light dark:hover:text-tertiary-dark">
+		<mat-icon class="hover:text-tertiary-light dark:hover:text-tertiary-dark" routerLink="/patents/listing">
+			arrow_back
+		</mat-icon>
+		<a routerLink="/patents/listing" class="hover:text-tertiary-light dark:hover:text-tertiary-dark">Powrót do
+			wyszukiwarki</a>
+	</div>
+	<div class="grid grid-cols-3 w-full space-x-3">
+		<div id="basic-data" class="col-span-1">
+
+			<app-patent-basic-data [patent]="patent"
+								   class="flex h-full min-h-screen">
+			</app-patent-basic-data>
+
+		</div>
+		<div id="additional-data" class="col-span-2">
+
+			<app-patent-additional-data [patent]="patent">
+
+			</app-patent-additional-data>
+
+		</div>
+	</div>
+</div>
+

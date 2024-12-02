@@ -1,0 +1,40 @@
+<mat-card class="w-full">
+	<mat-card-header>
+		<mat-card-title class="px-8 !text-4xl !font-bold">{{patent.title}}</mat-card-title>
+	</mat-card-header>
+	<mat-card-content>
+		<div class="px-8 py-4">
+
+			<ul class="details-list">
+				<h3>Dane podstawowe</h3>
+				<li>
+					<span>Numer patentu: </span>
+					<span class="font-bold">{{getDetail(patent.patentNumber)}}</span>
+				</li>
+				<li>
+					<span>Data rozpoczęcia: </span>
+					<span class="font-bold">{{getDetail(patent.beginDate)}}</span>
+				</li>
+				<li>
+					<span>Data zakończenia: </span>
+					<span class="font-bold">{{getDetail(patent.endDate)}}</span>
+				</li>
+				<li>
+					<span>Status: </span>
+					<span class="font-bold">{{getDetail(patent.statusDescription)}}</span>
+				</li>
+			</ul>
+
+			<mat-divider class="!mb-4 !mt-6"></mat-divider>
+
+			<ul class="details-list">
+				<h3>Gałęzie przemysłu</h3>
+				@for (businessBranch of patent.businessBranches; track $index) {
+					<li>
+						<span>{{businessBranch | titlecase}}</span>
+					</li>
+				}
+			</ul>
+		</div>
+	</mat-card-content>
+</mat-card>

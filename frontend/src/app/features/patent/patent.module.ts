@@ -10,9 +10,9 @@ import {
 	MatCardModule,
 	MatCardTitle
 } from "@angular/material/card";
-import {MatFormField, MatInput, MatInputModule} from "@angular/material/input";
+import {MatInputModule} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
-import {MatDatepicker, MatDatepickerModule} from "@angular/material/datepicker";
+import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatFormFieldModule, MatHint, MatLabel} from "@angular/material/form-field";
 import {MatCheckboxModule} from "@angular/material/checkbox";
@@ -29,6 +29,13 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {PatentService} from "app/features/patent/service/patent.service";
 import {PatentDetailsComponent} from './features/patent-details/patent-details.component';
 import {RouterLink} from "@angular/router";
+import {
+	PatentBasicDataComponent
+} from "app/features/patent/features/patent-details/partials/patent-basic-data/patent-basic-data.component";
+import {MatDividerModule} from "@angular/material/divider";
+import { PatentAdditionalDataComponent } from './features/patent-details/partials/patent-additional-data/patent-additional-data.component';
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatListModule} from "@angular/material/list";
 
 
 @NgModule({
@@ -36,7 +43,9 @@ import {RouterLink} from "@angular/router";
 		PatentListingComponent,
 		FilterPanelComponent,
 		PatentCardComponent,
-		PatentDetailsComponent
+		PatentDetailsComponent,
+		PatentBasicDataComponent,
+  PatentAdditionalDataComponent
 	],
 	imports: [
 		CommonModule,
@@ -61,7 +70,10 @@ import {RouterLink} from "@angular/router";
 		MatChipsModule,
 		MatPaginatorModule,
 		MatProgressBarModule,
-		RouterLink
+		RouterLink,
+		MatDividerModule,
+		MatExpansionModule,
+		MatListModule
 	],
 	exports: [
 		PatentListingComponent,

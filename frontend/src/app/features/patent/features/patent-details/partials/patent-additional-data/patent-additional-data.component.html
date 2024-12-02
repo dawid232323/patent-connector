@@ -1,0 +1,77 @@
+<div class="w-full flex flex-col space-y-6">
+	<mat-card id="description-card" *ngIf="!isDetailEmpty(patent.description)">
+		<mat-card-header>
+			<mat-card-title class="px-8 !text-3xl !font-bold">Opis</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<div class="px-8 py-4 font-light">
+				{{ patent.description }}
+			</div>
+		</mat-card-content>
+	</mat-card>
+	<mat-card id="abstract-card" *ngIf="!isDetailEmpty(patent.abstractField)">
+		<mat-card-header>
+			<mat-card-title class="px-8 !text-3xl !font-bold">Abstrakt</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<div class="px-8 py-4 font-light">
+				{{ patent.abstractField }}
+			</div>
+		</mat-card-content>
+	</mat-card>
+
+	<mat-expansion-panel *ngIf="patent.citations.length">
+		<mat-expansion-panel-header>
+			<mat-panel-title>Cytowania</mat-panel-title>
+			<mat-panel-description>Cytowania patentu</mat-panel-description>
+		</mat-expansion-panel-header>
+		<table class="table-auto w-full border-separate border-spacing-y-3">
+			<thead class="text-left">
+			<tr>
+				<th>Numer dokumentu</th>
+				<th>Nazwa dokumentu</th>
+				<th>Tekst cytatu</th>
+				<th>Data publikacji</th>
+			</tr>
+			</thead>
+			<tbody>
+				@for (citation of patent.citations; track $index) {
+					<tr>
+						<td>{{ getDetail(citation.documentNumber) }}</td>
+						<td>{{ getDetail(citation.documentName) }}</td>
+						<td>{{ getDetail(citation.citationText) }}</td>
+						<td>{{ getDateDetail(citation.publicationDate, 'yyyy-MM-DD') }}</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</mat-expansion-panel>
+
+	<mat-expansion-panel *ngIf="patent.documents.length">
+		<mat-expansion-panel-header>
+			<mat-panel-title>Dodatkowe Dokumenty</mat-panel-title>
+		</mat-expansion-panel-header>
+		<table class="table-auto w-full border-separate border-spacing-y-3">
+			<thead class="text-left">
+			<tr>
+				<th>Kod dokumentu</th>
+				<th>Adres url dokumentu</th>
+			</tr>
+			</thead>
+			<tbody>
+				@for (document of patent.documents; track $index) {
+					<tr>
+						<td>{{ getDetail(document.documentCode) }}</td>
+						<td>
+							<a class="hover:text-tertiary-light dark:hover:text-tertiary-dark"
+							   [href]="document.documentUri" target="_blank">
+								{{ getDetail(document.documentUri) }}
+							</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</mat-expansion-panel>
+
+</div>
