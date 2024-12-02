@@ -15,3 +15,29 @@ export interface PatentSearchResult {
 	statusDescription: string;
 	businessBranches: string[];
 }
+
+
+export interface PatentCitation {
+	documentNumber: string;
+	documentName: string;
+	citationText: string;
+	publicationDate: string;
+}
+
+export interface PatentDocument {
+	documentCode: string;
+	documentUri: string;
+}
+
+export interface Patent {
+	title: string;
+	description: string;
+	abstractField: string;
+	businessBranches: string[];
+	citations: PatentCitation[];
+	beginDate: Date;
+	endDate: Date;
+	statusDescription: string;
+	patentNumber: string;
+	documents: PatentDocument[];
+}

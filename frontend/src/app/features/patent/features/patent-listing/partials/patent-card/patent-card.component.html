@@ -5,7 +5,7 @@
 	</mat-card-header>
 	<mat-card-content>
 		<div class="px-8 py-4">
-			<mat-chip-listbox aria-label="Cutest dog breeds">
+			<mat-chip-listbox>
 				@for (branch of patent.businessBranches; track $index) {
 					<mat-chip-option [selectable]="false" [disableRipple]="true" class="!w-auto">{{ branch }}
 					</mat-chip-option>
@@ -15,7 +15,9 @@
 	</mat-card-content>
 	<mat-card-actions align="end">
 		<div class="px-8">
-			<button mat-raised-button>Szczegóły</button>
+			<button mat-raised-button>
+				<a [routerLink]="['..', 'details', patent.id]">Szczegóły</a>
+			</button>
 		</div>
 	</mat-card-actions>
 </mat-card>

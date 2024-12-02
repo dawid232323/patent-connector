@@ -22,17 +22,21 @@ import {
 	PatentListingParamsService
 } from "app/features/patent/features/patent-listing/service/patent-listing-params.service";
 import {PatentListingService} from "app/features/patent/features/patent-listing/service/patent-listing.service";
-import { PatentCardComponent } from './features/patent-listing/partials/patent-card/patent-card.component';
+import {PatentCardComponent} from './features/patent-listing/partials/patent-card/patent-card.component';
 import {MatChipsModule} from "@angular/material/chips";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {PatentService} from "app/features/patent/service/patent.service";
+import {PatentDetailsComponent} from './features/patent-details/patent-details.component';
+import {RouterLink} from "@angular/router";
 
 
 @NgModule({
 	declarations: [
 		PatentListingComponent,
 		FilterPanelComponent,
-  PatentCardComponent
+		PatentCardComponent,
+		PatentDetailsComponent
 	],
 	imports: [
 		CommonModule,
@@ -56,15 +60,18 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 		MatCardModule,
 		MatChipsModule,
 		MatPaginatorModule,
-		MatProgressBarModule
+		MatProgressBarModule,
+		RouterLink
 	],
 	exports: [
-		PatentListingComponent
+		PatentListingComponent,
+		PatentDetailsComponent
 	],
 	providers: [
 		MatDatepickerModule,
 		PatentListingParamsService,
-		PatentListingService
+		PatentListingService,
+		PatentService
 	]
 })
 export class PatentModule {
