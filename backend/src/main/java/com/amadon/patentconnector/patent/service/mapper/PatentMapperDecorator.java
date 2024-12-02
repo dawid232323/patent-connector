@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Component
 abstract class PatentMapperDecorator implements PatentMapper
@@ -23,6 +24,9 @@ abstract class PatentMapperDecorator implements PatentMapper
 	@Autowired
 	@Qualifier( "delegate" )
 	private PatentMapper mapperDelegate;
+
+	@Autowired
+	private PatentAddressBookMapper addressMapper;
 
 	@Override
 	public Patent fromCreateDto( final CreatePatentDto aCreatePatentDto )
@@ -48,6 +52,9 @@ abstract class PatentMapperDecorator implements PatentMapper
 		resultDto.setDocuments( getPatentDocuments( patent ) );
 		resultDto.setCitations( getPatentCitations( patent ) );
 		resultDto.setPatentNumber( patent.getExtidappli() );
+
+		setParties( patent, resultDto );
+
 		return resultDto;
 	}
 
@@ -99,5 +106,27 @@ abstract class PatentMapperDecorator implements PatentMapper
 						.publicationDate( citation.getDocumentPublicationDate() )
 						.build() )
 				.toList();
+	}
+
+	private void setParties( final Patent aPatent, final PatentDto patentDto )
+	{
+		final PatentBibliographicDatum bibliographicData = aPatent.getBibliographicData();
+
+		patentDto.setAgents( bibliographicData.getAgents()
+									 .stream()
+									 .map( addressMapper::toDtoFromEntity )
+									 .collect( Collectors.toList() ) );
+		patentDto.setApplicants( bibliographicData.getApplicants()
+										 .stream()
+										 .map( addressMapper::toDtoFromEntity )
+										 .collect( Collectors.toList() ) );
+		patentDto.setAssignees( bibliographicData.getAssignees()
+										.stream()
+										.map( addressMapper::toDtoFromEntity )
+										.collect( Collectors.toList() ) );
+		patentDto.setInventors( bibliographicData.getInventors()
+										.stream()
+										.map( addressMapper::toDtoFromEntity )
+										.collect( Collectors.toList() ) );
 	}
 }

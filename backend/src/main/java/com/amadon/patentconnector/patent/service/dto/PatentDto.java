@@ -27,4 +27,8 @@ public class PatentDto implements Serializable
 	private String statusDescription;
 	private String patentNumber;
 	private List< PatentDocumentDto > documents;
+	private List<PatentAddressBookDto> agents;
+	private List<PatentAddressBookDto> applicants;
+	private List<PatentAddressBookDto> assignees;
+	private List<PatentAddressBookDto> inventors;
 }
