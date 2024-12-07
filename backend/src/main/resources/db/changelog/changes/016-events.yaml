@@ -1,0 +1,88 @@
+databaseChangeLog:
+    - changeSet:
+          id: 016-events
+          author: dawid232323
+          changes:
+              - createSequence:
+                    sequenceName: events_id_seq
+                    startValue: 1
+                    incrementBy: 1
+              - createTable:
+                    tableName: events
+                    columns:
+                        - column:
+                              name: id
+                              type: bigint
+                              defaultValueSequenceNext: events_id_seq
+                              constraints:
+                                  primaryKey: true
+                        - column:
+                              name: title
+                              type: varchar(200)
+                              constraints:
+                                  nullable: false
+                        - column:
+                              name: start_date
+                              type: datetime
+                              constraints:
+                                  nullable: false
+                        - column:
+                              name: end_date
+                              type: datetime
+                              constraints:
+                                  nullable: true
+                        - column:
+                              name: localization
+                              type: varchar(300)
+                        - column:
+                              name: caregiver_id
+                              type: bigint
+                              constraints:
+                                  references: users(id)
+                                  nullable: false
+                                  foreignKeyName: events_id_users_id_fk
+                        - column:
+                              name: description
+                              type: text
+                              constraints:
+                                  nullable: false
+                        - column:
+                              name: contact_email
+                              type: varchar(70)
+                        - column:
+                              name: contact_phone
+                              type: varchar(70)
+                        - column:
+                              name: registration_details
+                              type: text
+                              constraints:
+                                  nullable: false
+                        - column:
+                              name: created_at
+                              type: datetime
+                        - column:
+                              name: updated_at
+                              type: datetime
+                        - column:
+                              name: created_by
+                              type: varchar(50)
+                        - column:
+                              name: updated_by
+                              type: varchar(50)
+              - createTable:
+                    tableName: events_business_branches_ids
+                    columns:
+                        - column:
+                              name: event_id
+                              type: bigint
+                              constraints:
+                                  nullable: false
+                                  references: events(id)
+                                  foreignKeyName: events_business_branches_ids_events_fk
+                        - column:
+                              name: business_branch_id
+                              type: bigint
+                              constraints:
+                                  nullable: false
+                                  references: business_branches(id)
+                                  foreignKeyName: business_branches_events_ids_fk

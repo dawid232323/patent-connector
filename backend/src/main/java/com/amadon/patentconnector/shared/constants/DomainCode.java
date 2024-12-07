@@ -9,7 +9,8 @@ public enum DomainCode
 	VALIDATION( "VAL" ),
 	LOGIN( "LOGIN" ),
 	ENTITY( "ENTITY" ),
-	UNRECOGNISED( "UNRECOGNISED" );
+	UNRECOGNISED( "UNRECOGNISED" ),
+	AUTHORIZATION( "AUTHORIZATION" );
 
 	private final String code;
 
@@ -23,4 +24,4 @@ public enum DomainCode
 	{
 		return code;
 	}
-}
+	}

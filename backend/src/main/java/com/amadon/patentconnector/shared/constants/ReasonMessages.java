@@ -8,4 +8,5 @@ public record ReasonMessages( )
 	public static final String ROLE_MISMATCH = "User does not have necessary role to perform this operation";
 	public static final String UNEXPECTED_ERROR = "Unexpected server error occurred";
 	public static final String ENTITY_NOT_FOUND = "Requested entity could not be found";
+	public static final String FORBIDDEN = "Access for current user is forbidden";
 }

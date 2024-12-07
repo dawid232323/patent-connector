@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -61,6 +62,23 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler
 				.domainCode( DomainCode.ENTITY )
 				.errorCause( ReasonMessages.ENTITY_NOT_FOUND )
 				.status( HttpStatus.NOT_FOUND )
+				.message( e.getMessage() )
+				.uuid( uuid )
+				.build();
+	}
+
+	@ResponseBody
+	@ResponseStatus( HttpStatus.FORBIDDEN )
+	@ExceptionHandler( AuthorizationDeniedException.class )
+	public AppErrorResponse handleAuthorizationDeniedException( final AuthorizationDeniedException e )
+	{
+		final String uuid = UUID.randomUUID()
+				.toString();
+		log.error( "Could not access resource with message, {} and uuid {}", e.getMessage(),  uuid, e );
+		return AppErrorResponse.builder()
+				.domainCode( DomainCode.AUTHORIZATION )
+				.errorCause( ReasonMessages.FORBIDDEN )
+				.status( HttpStatus.FORBIDDEN )
 				.message( e.getMessage() )
 				.uuid( uuid )
 				.build();

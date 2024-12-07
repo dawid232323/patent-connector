@@ -46,6 +46,11 @@ public record AppEndpoints( )
 		public static final String inventionDemandBase = base + "/invention-demands";
 	}
 
+	public record EventEndpoints( ) {
+		public static final String eventBase = base + "/events";
+		public static final String eventFind = "/search";
+	}
+
 	public static List< String > getExcludedEndpoints()
 	{
 		return List.of(
@@ -58,7 +63,8 @@ public record AppEndpoints( )
 				ResearchInstitutionEndpoints.resInstitutionBase.concat( ResearchInstitutionEndpoints.resInstitutionFind.concat( "/**" ) ),
 				PatentEndpoints.patentBase.concat( PatentEndpoints.uploadPatents ),
 				PatentEndpoints.patentBase.concat( PatentEndpoints.patentFind ),
-				PatentEndpoints.patentBase.concat( "/**" )
+				PatentEndpoints.patentBase.concat( "/**" ),
+				EventEndpoints.eventBase.concat( "/**" )
 					  );
 	}
 }
