@@ -26,4 +26,9 @@ public interface SpecificationProvider<T, K>
 		}
 		return "%" + aQueryValue.toLowerCase().trim() + "%";
 	}
+
+	default boolean atrNotEmpty( final Object aAttribute )
+	{
+		return Objects.nonNull( aAttribute );
+	}
 }

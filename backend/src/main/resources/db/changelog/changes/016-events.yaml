@@ -69,6 +69,12 @@ databaseChangeLog:
                         - column:
                               name: updated_by
                               type: varchar(50)
+                        - column:
+                              name: deleted_on
+                              type: datetime
+                        - column:
+                              name: deleted_by
+                              type: varchar(100)
               - createTable:
                     tableName: events_business_branches_ids
                     columns:

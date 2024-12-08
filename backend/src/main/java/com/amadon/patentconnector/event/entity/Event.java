@@ -65,6 +65,12 @@ public class Event implements Auditable
 	@Column( name = "updated_by", length = 50 )
 	private String updatedBy;
 
+	@Column( name = "deleted_on" )
+	private LocalDateTime deletedOn;
+
+	@Column( name = "deleted_by" )
+	private String deletedBy;
+
 	@ManyToMany( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
 	@JoinTable( name = "events_business_branches_ids",
 			joinColumns = @JoinColumn( name = "event_id" ),
