@@ -27,6 +27,14 @@ public class BusinessBranchService
 				.collect( Collectors.toList() );
 	}
 
+	public List< BusinessBranchDto > getAllSpecificBusinessBranches()
+	{
+		return businessBranchRepository.resolveAllSpecificBusinessBranches()
+				.stream()
+				.map( businessBranchMapper::toDto )
+				.collect( Collectors.toList() );
+	}
+
 	public List< BusinessBranch > getBusinessBranchesByIdIn( final List< Long > aIds )
 	{
 		return businessBranchRepository.findAllByIdIn( aIds );

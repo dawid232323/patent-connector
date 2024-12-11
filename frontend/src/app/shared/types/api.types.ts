@@ -40,11 +40,16 @@ export class AppEndpoints {
 	public static BusinessBranchEndpoints = class {
 		public static readonly businessBranchBase: string = `${AppEndpoints.base}/business-branches`;
 		public static readonly sectionBusinessBranches: string = `${this.businessBranchBase}/section-business-branches`;
+		public static readonly specificBusinessBranches: string = `${this.businessBranchBase}/specific-business-branches`;
 	};
 
 	public static PatentEndpoints = class {
 		public static readonly patentsBase: string = `${AppEndpoints.base}/patents`;
 		public static readonly patentsSearch: string = `${this.patentsBase}/search`;
+	}
+
+	public static EventEndpoints = class {
+		public static readonly eventsBase: string = `${AppEndpoints.base}/events`;
 	}
 
 	public static getExcludedEndpoints(): string[] {

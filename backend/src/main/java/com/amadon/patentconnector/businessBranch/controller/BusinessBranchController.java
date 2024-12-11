@@ -28,4 +28,11 @@ public class BusinessBranchController
 	{
 		return businessBranchService.getAllSectionBusinessBranches();
 	}
+
+	@ResponseBody
+	@GetMapping( AppEndpoints.BusinessBranchEndpoints.sectionBusinessBranches )
+	public List< BusinessBranchDto > getAllSpecificBusinessBranches()
+	{
+		return businessBranchService.getAllSpecificBusinessBranches();
+	}
 }

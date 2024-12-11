@@ -34,6 +34,7 @@ public record AppEndpoints( )
 	{
 		public static final String businessBranchBase = base + "/business-branches";
 		public static final String sectionBusinessBranches = "/section-business-branches";
+		public static final String specificBusinessBranches = "/specific-business-branches";
 	}
 
 	public record PatentEndpoints() {
@@ -60,6 +61,7 @@ public record AppEndpoints( )
 				SecurityEndpoints.securityBase.concat( SecurityEndpoints.login ),
 				SecurityEndpoints.securityBase.concat( SecurityEndpoints.refreshToken.concat( "/**" ) ),
 				BusinessBranchEndpoints.businessBranchBase.concat( BusinessBranchEndpoints.sectionBusinessBranches ),
+				BusinessBranchEndpoints.businessBranchBase.concat( BusinessBranchEndpoints.specificBusinessBranches ),
 				ResearchInstitutionEndpoints.resInstitutionBase.concat( ResearchInstitutionEndpoints.resInstitutionFind.concat( "/**" ) ),
 				PatentEndpoints.patentBase.concat( PatentEndpoints.uploadPatents ),
 				PatentEndpoints.patentBase.concat( PatentEndpoints.patentFind ),
