@@ -1,0 +1,13 @@
+<div class="flex flex-col w-full justify-center p-10 space-y-6">
+
+	<h1 class="text-5xl font-bold text-center">{{formTitle}}</h1>
+
+	<ng-container *ngIf="usageMode === formUsageMode.CREATE; else editEventForm">
+		<app-event-form (eventSubmit)="handleEventDataSubmit($event)"></app-event-form>
+	</ng-container>
+
+	<ng-template #editEventForm>
+
+	</ng-template>
+
+</div>

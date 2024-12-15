@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
-import {ActivatedRoute, Router, RouterLink, UrlTree} from "@angular/router";
+import {Component} from '@angular/core';
+import {Router, RouterLink, UrlTree} from "@angular/router";
 import {SecurityService} from "app/shared/service/security.service";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {AsyncPipe, NgIf} from "@angular/common";
+import {UserService} from "app/shared/service/user.service";
+import {isNil} from "lodash";
+import {UserRole} from "app/shared/types/user.types";
 
 @Component({
   selector: 'app-nav-bar',
@@ -13,7 +16,9 @@ import {AsyncPipe, NgIf} from "@angular/common";
 })
 export class NavBarComponent {
 
-	constructor(private securityService: SecurityService, private router: Router) {
+	constructor(private securityService: SecurityService,
+				private router: Router,
+				private userService: UserService) {
 	}
 
 	logout() {
@@ -26,5 +31,15 @@ export class NavBarComponent {
 
 	get isUserLoggedIn$(): Observable<boolean> {
 		return this.securityService.isUserLoggedIn;
+	}
+
+	get isUserResearchWorker$(): Observable<boolean> {
+		return this.userService.getLoggedUserDetails()
+			.pipe(map(user => {
+				if (isNil(user)) {
+					return false;
+				}
+				return user.roles.includes(UserRole.RESEARCH_WORKER);
+			}));
 	}
 }

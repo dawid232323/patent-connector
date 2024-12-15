@@ -3,6 +3,13 @@
 	<div class="flex flex-row w-1/2 gap-x-2 items-end pb-1">
 		<span class="px-4 py-2 text-3xl">PatentConnector</span>
 		<a class="nav-item" routerLink="patents/listing">Wyszukiwarka Patentów</a>
+		<a class="nav-item" routerLink="events/listing">Wyszukiwarka Wydarzeń</a>
+
+<!--		Research worker actions section-->
+		<ng-container *ngIf="isUserResearchWorker$ | async">
+			<a class="nav-item" routerLink="events/add">Dodaj Wydarzenie</a>
+		</ng-container>
+
 	</div>
 
 	<div class="flex flex-row w-1/2 gap-x-2 items-end pb-1 justify-end">

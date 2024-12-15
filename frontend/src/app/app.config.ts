@@ -14,9 +14,11 @@ import {httpInterceptor} from "app/shared/interceptor/http.interceptor";
 import {globalErrorHandler} from "app/shared/handler/error.handler";
 import {HttpErrorInterceptor} from "app/shared/interceptor/http-error.interceptor";
 import {PatentModule} from "app/features/patent/patent.module";
+import {EventModule} from "app/features/event/event.module";
 
 const appModules: ImportProvidersSource[] = [
-	PatentModule
+	PatentModule,
+	EventModule
 ];
 
 export const appConfig: ApplicationConfig = {

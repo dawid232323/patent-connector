@@ -51,6 +51,9 @@ export class ValidationService {
 		if (control.hasError(ErrorCode.EXACT_LENGTH)) {
 			return ErrorCode.EXACT_LENGTH;
 		}
+		if (control.hasError(ErrorCode.FUTURE_DATE)) {
+			return ErrorCode.FUTURE_DATE;
+		}
 		return null;
 	}
 

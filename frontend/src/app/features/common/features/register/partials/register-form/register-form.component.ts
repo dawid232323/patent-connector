@@ -11,13 +11,14 @@ import {
 } from "app/shared/utils/validation/validators.fn";
 import {CreateEntrepreneurDto} from "app/features/common/features/register/types/registration.types";
 import {recommendationAgreementMessage} from "app/features/common/features/register/types/registration-messages.types";
+import {ValidatedForm} from "app/shared/types/util.types";
 
 @Component({
 	selector: 'app-register-form',
 	templateUrl: './register-form.component.html',
 	styleUrl: './register-form.component.scss',
 })
-export class RegisterFormComponent implements OnInit, OnDestroy {
+export class RegisterFormComponent implements OnInit, OnDestroy, ValidatedForm {
 
 	@Input() isLoadingData: boolean = false;
 

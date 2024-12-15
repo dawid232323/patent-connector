@@ -30,7 +30,7 @@ public class BusinessBranchController
 	}
 
 	@ResponseBody
-	@GetMapping( AppEndpoints.BusinessBranchEndpoints.sectionBusinessBranches )
+	@GetMapping( AppEndpoints.BusinessBranchEndpoints.specificBusinessBranches )
 	public List< BusinessBranchDto > getAllSpecificBusinessBranches()
 	{
 		return businessBranchService.getAllSpecificBusinessBranches();

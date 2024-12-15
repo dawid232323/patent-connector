@@ -1,0 +1,162 @@
+<div class="flex flex-col w-full justify-center items-center">
+	<!--	TODO add icons to inputs-->
+	<form class="grid grid-cols-2 w-3/4 gap-6" [formGroup]="eventForm">
+
+		<div class="col-span-2">
+			<mat-form-field class="w-full">
+				<mat-label>Nazwa wydarzenia</mat-label>
+				<input matInput formControlName="title"/>
+				<mat-icon matPrefix>title</mat-icon>
+				<ng-container [ngSwitch]="getControlErrorType(titleControl)">
+					<mat-error *ngSwitchCase="errorCode.REQUIRED">Pole jest wymagane</mat-error>
+					<mat-error
+						*ngSwitchCase="errorCode.MAX_LENGTH">{{ validationService.getMaxLengthMessage(titleControl) }}
+					</mat-error>
+					<mat-error
+						*ngSwitchCase="errorCode.MIN_LENGTH">{{ validationService.getMinLengthMessage(titleControl) }}
+					</mat-error>
+				</ng-container>
+			</mat-form-field>
+		</div>
+
+		<div class="flex flex-col">
+			<mat-form-field class="w-full">
+				<mat-label>Data rozpoczęcia wydarzenia</mat-label>
+				<mat-icon matPrefix>event</mat-icon>
+				<input matInput [matDatepicker]="startDatePicker" formControlName="startDate">
+				<mat-datepicker-toggle matIconSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+				<mat-datepicker #startDatePicker></mat-datepicker>
+				<ng-container [ngSwitch]="getControlErrorType(startDateControl)">
+					<mat-error *ngSwitchCase="errorCode.REQUIRED">Pole jest wymagane</mat-error>
+					<mat-error *ngSwitchCase="errorCode.FUTURE_DATE">Podaj przyszłą datę</mat-error>
+				</ng-container>
+			</mat-form-field>
+			<mat-checkbox formControlName="singleDayEvent">Wydarzenie jednodniowe</mat-checkbox>
+		</div>
+
+		<div>
+			<mat-form-field class="w-full">
+				<mat-label>Data zakończenia wydarzenia</mat-label>
+				<mat-icon matPrefix>event</mat-icon>
+				<input matInput [matDatepicker]="endDatePicker" formControlName="endDate">
+				<mat-datepicker-toggle matIconSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+				<mat-datepicker #endDatePicker></mat-datepicker>
+				<ng-container [ngSwitch]="getControlErrorType(endDateControl)">
+					<mat-error *ngSwitchCase="errorCode.REQUIRED">Pole jest wymagane</mat-error>
+					<mat-error *ngSwitchCase="errorCode.FUTURE_DATE">Podaj przyszłą datę</mat-error>
+				</ng-container>
+			</mat-form-field>
+		</div>
+
+		<div class="col-span-2">
+			<mat-form-field class="w-full">
+				<mat-label>Lokalizacja wydarzenia</mat-label>
+				<mat-icon matPrefix>location_on</mat-icon>
+				<input matInput formControlName="localization"/>
+				<mat-hint>Jeżeli wydarzenie jest zdalne, wklej link do spotkania</mat-hint>
+				<ng-container [ngSwitch]="getControlErrorType(localizationControl)">
+					<mat-error
+						*ngSwitchCase="errorCode.MAX_LENGTH">{{ validationService.getMaxLengthMessage(contactEmailControl) }}
+					</mat-error>
+				</ng-container>
+			</mat-form-field>
+		</div>
+
+		<div class="col-span-2">
+			<label class="dark:text-tertiary-dark text-tertiary-light" for="description-input">Opis wydarzenia</label>
+			<div class="NgxEditor__Wrapper">
+				<ngx-editor-menu [toolbar]="toolbarOptions" [editor]="descriptionEditor"></ngx-editor-menu>
+				<ngx-editor
+					formControlName="description"
+					id="description-input" [editor]="descriptionEditor"
+					[placeholder]="'Podaj szczegółowy opis wydarzenia'">
+				</ngx-editor>
+			</div>
+		</div>
+
+		<div class="col-span-2">
+			<label class="dark:text-tertiary-dark text-tertiary-light" for="registration-details-input">Sposób zapisu na
+				wydarzenie</label>
+			<div class="NgxEditor__Wrapper">
+				<ngx-editor-menu [toolbar]="toolbarOptions" [editor]="registrationDetailsEditor"></ngx-editor-menu>
+				<ngx-editor
+					formControlName="registrationDetails"
+					id="registration-details-input" [editor]="registrationDetailsEditor"
+					[placeholder]="'Podaj szczegóły, w jaki sposób można się zarejestrować'">
+				</ngx-editor>
+			</div>
+		</div>
+
+		<div>
+			<mat-form-field class="w-full">
+				<mat-label>Email kontaktowy</mat-label>
+				<mat-icon matPrefix>alternate_email</mat-icon>
+				<input matInput formControlName="contactEmail">
+				<ng-container [ngSwitch]="getControlErrorType(contactEmailControl)">
+					<mat-error *ngSwitchCase="errorCode.REQUIRED">Pole jest wymagane</mat-error>
+					<mat-error *ngSwitchCase="errorCode.EMAIL">Proszę podaj poprawny adres email</mat-error>
+					<mat-error
+						*ngSwitchCase="errorCode.MAX_LENGTH">{{ validationService.getMaxLengthMessage(contactEmailControl) }}
+					</mat-error>
+					<mat-error
+						*ngSwitchCase="errorCode.MIN_LENGTH">{{ validationService.getMinLengthMessage(contactEmailControl) }}
+					</mat-error>
+				</ng-container>
+			</mat-form-field>
+		</div>
+
+		<div>
+			<mat-form-field class="w-full">
+				<mat-label>Telefon kontaktowy</mat-label>
+				<mat-icon matPrefix>call</mat-icon>
+				<input matInput formControlName="contactPhone">
+				<ng-container [ngSwitch]="getControlErrorType(contactPhoneControl)">
+					<mat-error
+						*ngSwitchCase="errorCode.MAX_LENGTH">{{ validationService.getMaxLengthMessage(contactEmailControl) }}
+					</mat-error>
+				</ng-container>
+			</mat-form-field>
+		</div>
+
+		<div class="col-span-2 flex flex-col space-y-3">
+			<mat-form-field class="w-full">
+				<mat-label>Gałęzie przemysłu</mat-label>
+				<mat-icon matPrefix>work</mat-icon>
+				<input type="text"
+					   placeholder="Zacznij wpisywać nazwę lub kod branży"
+					   matInput
+					   formControlName="businessBranchInput"
+					   [matAutocomplete]="auto">
+				<mat-autocomplete #auto="matAutocomplete">
+					@for (branch of filteredBranches$ | async; track $index) {
+						<mat-option (click)="addBusinessBranchOption(branch)"
+									(keyup.enter)="addBusinessBranchOption(branch)"
+									[value]="branch.id">{{ getBranchDisplayName(branch) }}
+						</mat-option>
+					}
+				</mat-autocomplete>
+				<mat-hint>Podaj gałęzie przemysłu odpowiadające wydarzeniu. Wybierz kilka opcji dostępnych na liście
+				</mat-hint>
+			</mat-form-field>
+			<mat-error *ngIf="shouldDisplayBranchesError()">Podaj przynajmniej jedną gałąź przemysłu</mat-error>
+
+			<mat-chip-set>
+				@for (selectedBranch of selectedBranches; track $index) {
+					<mat-chip [disableRipple]="true" [contentEditable]="true">
+						{{ getBranchDisplayName(selectedBranch) }}
+						<button matChipRemove (click)="removeBranch(selectedBranch)">
+							<mat-icon>cancel</mat-icon>
+						</button>
+					</mat-chip>
+				}
+			</mat-chip-set>
+
+		</div>
+
+		<ng-container>
+			<button routerLink="../" class="w-full" mat-raised-button>Anuluj</button>
+			<button class="w-full button-tertiary" mat-raised-button (click)="validateAndSubmit()">Zapisz</button>
+		</ng-container>
+
+	</form>
+</div>
