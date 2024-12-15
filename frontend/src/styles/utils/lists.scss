@@ -1,0 +1,12 @@
+.details-list {
+
+	@apply list-disc;
+
+	li {
+		@apply ml-6 mb-3;
+	}
+
+	h3 {
+		@apply mb-3;
+	}
+}

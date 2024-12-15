@@ -27,6 +27,10 @@ export class ApiService {
 		return <Observable<K>>this.httpClient.put<K>(url, body, options);
 	}
 
+	delete(resourcePath: string): Observable<any> {
+		return this.httpClient.delete(resourcePath);
+	}
+
 	private getFinalUrl(resourcePath: string): string {
 		return resourcePath;
 	}

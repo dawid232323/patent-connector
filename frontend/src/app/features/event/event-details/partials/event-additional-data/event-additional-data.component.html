@@ -1,0 +1,23 @@
+<div class="w-full flex flex-col space-y-6">
+	<mat-card>
+		<mat-card-header>
+			<mat-card-title class="px-8 !text-3xl !font-bold">Opis</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<div class="px-8 py-4 font-light">
+				<div [innerHTML]="event.description"></div>
+			</div>
+		</mat-card-content>
+	</mat-card>
+
+	<mat-card>
+		<mat-card-header>
+			<mat-card-title class="px-8 !text-3xl !font-bold">Sposób rejestracji na wydarzenie</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<div class="px-8 py-4 font-light">
+				<div [innerHTML]="event.registrationDetails"></div>
+			</div>
+		</mat-card-content>
+	</mat-card>
+</div>

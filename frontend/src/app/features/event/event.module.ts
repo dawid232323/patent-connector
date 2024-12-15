@@ -14,12 +14,22 @@ import {MatChipsModule} from "@angular/material/chips";
 import {MatButtonModule} from "@angular/material/button";
 import {RouterLink} from "@angular/router";
 import {EventService} from "app/features/event/service/event.service";
+import {EventDetailsComponent} from './event-details/event-details.component';
+import {
+	EventBasicDataComponent
+} from "app/features/event/event-details/partials/event-basic-data/event-basic-data.component";
+import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
+import {MatDivider} from "@angular/material/divider";
+import { EventAdditionalDataComponent } from './event-details/partials/event-additional-data/event-additional-data.component';
 
 
 @NgModule({
 	declarations: [
 		AddEditEventComponent,
-		EventFormComponent
+		EventFormComponent,
+		EventDetailsComponent,
+		EventBasicDataComponent,
+  EventAdditionalDataComponent
 	],
 	imports: [
 		CommonModule,
@@ -33,11 +43,17 @@ import {EventService} from "app/features/event/service/event.service";
 		MatIconModule,
 		MatChipsModule,
 		MatButtonModule,
-		RouterLink
+		RouterLink,
+		MatCard,
+		MatCardContent,
+		MatCardHeader,
+		MatCardTitle,
+		MatDivider
 	],
 	providers: [EventService],
 	exports: [
-		AddEditEventComponent
+		AddEditEventComponent,
+		EventDetailsComponent
 	]
 })
 export class EventModule {

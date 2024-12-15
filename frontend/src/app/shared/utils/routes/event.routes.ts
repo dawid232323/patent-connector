@@ -6,6 +6,7 @@ import {eventResolver} from "app/features/event/resolver/event.resolver";
 import {authenticatedGuard} from "app/shared/guard/authenticated.guard";
 import {FormUsageMode} from "app/shared/types/util.types";
 import {specificBusinessBranchesResolver} from "app/features/event/resolver/specific-business-branches.resolver";
+import {EventDetailsComponent} from "app/features/event/event-details/event-details.component";
 
 export const EVENT_ROUTES: Routes = [
 	{
@@ -31,6 +32,14 @@ export const EVENT_ROUTES: Routes = [
 					roles: [UserRole.RESEARCH_WORKER],
 					mode: FormUsageMode.EDIT
 				},
+				resolve: {
+					event: eventResolver,
+					businessBranches: specificBusinessBranchesResolver
+				}
+			},
+			{
+				path: ':id',
+				component: EventDetailsComponent,
 				resolve: {
 					event: eventResolver
 				}

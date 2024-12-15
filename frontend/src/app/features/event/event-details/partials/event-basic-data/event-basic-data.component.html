@@ -1,0 +1,40 @@
+<mat-card class="w-full">
+	<mat-card-header>
+		<mat-card-title class="px-8 !text-4xl !font-bold">{{event.title}}</mat-card-title>
+	</mat-card-header>
+	<mat-card-content>
+		<div class="px-8 py-4">
+
+			<ul class="details-list">
+				<h3>Dane podstawowe</h3>
+				<li>
+					<span>Data rozpoczęcia: </span>
+					<span class="font-bold">{{event.startDate | date : 'dd-MM-yyyy'}}</span>
+				</li>
+				<li>
+					<span>Data zakończenia: </span>
+					<span class="font-bold">{{event.endDate | date : 'dd-MM-yyyy'}}</span>
+				</li>
+				<li>
+					<span>Opiekun wydarzenia: </span>
+					<span class="font-bold">{{getDetail(event.caregiver.firstName.concat(' ', event.caregiver.lastName))}}</span>
+				</li>
+				<li>
+					<span>Instytucja patronująca wydarzeniu: </span>
+					<span class="font-bold">{{getDetail(event.caregiver.researchInstitution!.name)}}</span>
+				</li>
+			</ul>
+
+			<mat-divider class="!mb-4 !mt-6"></mat-divider>
+
+			<ul class="details-list">
+				<h3>Gałęzie przemysłu</h3>
+				@for (businessBranch of event.businessBranches; track $index) {
+					<li>
+						<span>{{businessBranch.displayName | titlecase}}</span>
+					</li>
+				}
+			</ul>
+		</div>
+	</mat-card-content>
+</mat-card>

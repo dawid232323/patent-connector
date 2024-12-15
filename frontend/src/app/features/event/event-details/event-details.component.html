@@ -1,0 +1,40 @@
+<div class="flex flex-col w-full justify-center p-10 space-y-6">
+
+	<div class="flex space-x-2 w-1/6 hover:text-tertiary-light dark:hover:text-tertiary-dark">
+		<mat-icon class="hover:text-tertiary-light dark:hover:text-tertiary-dark" routerLink="/events/listing">
+			arrow_back
+		</mat-icon>
+		<a routerLink="/events/listing" class="hover:text-tertiary-light dark:hover:text-tertiary-dark">Powrót do
+			wyszukiwarki</a>
+	</div>
+
+	<div *ngIf="canEditEvent$ | async" class="grid grid-cols-3 w-full space-x-3">
+		<div class="flex flex-row space-x-2 col-span-1">
+			<button mat-raised-button class="w-full" (click)="deleteEvent()">
+				<mat-icon matPrefix>delete</mat-icon>
+				Usuń
+			</button>
+			<button mat-raised-button class="w-full" [routerLink]="['/events', 'edit', event.id]">
+				<mat-icon matPrefix>edit</mat-icon>
+				Edytuj
+			</button>
+		</div>
+	</div>
+
+	<div class="grid grid-cols-3 w-full space-x-3">
+
+		<div id="basic-data" class="col-span-1">
+
+			<app-event-basic-data [event]="event"></app-event-basic-data>
+
+		</div>
+
+		<div id="additional-data" class="col-span-2">
+
+			<app-event-additional-data [event]="event"></app-event-additional-data>
+
+		</div>
+
+	</div>
+
+</div>
