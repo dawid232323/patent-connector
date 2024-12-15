@@ -6,5 +6,9 @@ import {EVENT_ROUTES} from "app/shared/utils/routes/event.routes";
 export const routes: Routes = [
 	...COMMON_ROUTES,
 	...PATENT_ROUTES,
-	...EVENT_ROUTES
+	...EVENT_ROUTES,
+	{
+		path: '**',
+		redirectTo: 'patents/listing'
+	}
 ];

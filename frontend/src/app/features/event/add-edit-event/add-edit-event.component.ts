@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {FormUsageMode} from "app/shared/types/util.types";
 import {Event, PersistEvent} from "app/shared/types/event.types";
 import {EventService} from "app/features/event/service/event.service";
@@ -21,11 +21,12 @@ export class AddEditEventComponent implements OnInit, OnDestroy {
 
 	constructor(private activatedRoute: ActivatedRoute,
 				private eventService: EventService,
+				private router: Router,
 				private errorDialogService: ErrorDialogService) {
 	}
 
 	ngOnInit() {
-		this.determineUsageMode();
+		this.determineUsageModeAndSetData();
 	}
 
 	ngOnDestroy() {
@@ -41,21 +42,27 @@ export class AddEditEventComponent implements OnInit, OnDestroy {
 
 	private createEvent(data: PersistEvent) {
 		this.eventService.createEvent(data).subscribe({
-			next: (createdEvent) => console.log(createdEvent),
+			next: (createdEvent) => this.router.navigate(['/events', createdEvent.id]),
 			error: (err) => this.handleError(err)
 		});
 	}
 
 	private editEvent(data: PersistEvent) {
-
+		this.eventService.editEvent(data, this.event!.id).subscribe({
+			next: (editedEvent) => this.router.navigate(['/events', editedEvent.id]),
+			error: (err) => this.handleError(err)
+		});
 	}
 
 	private handleError(error: HttpErrorResponse) {
 		this.errorDialogService.openDefaultErrorResponse(error);
 	}
 
-	private determineUsageMode() {
-		 this.usageMode = <FormUsageMode>this.activatedRoute.snapshot.data['mode']
+	private determineUsageModeAndSetData() {
+		 this.usageMode = <FormUsageMode>this.activatedRoute.snapshot.data['mode'];
+		 if (this.usageMode === FormUsageMode.EDIT) {
+			 this.event = this.activatedRoute.snapshot.data['event'];
+		 }
 	}
 
 	get formTitle(): string {

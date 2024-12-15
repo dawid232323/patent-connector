@@ -1,14 +1,14 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Event, PersistEvent} from "app/shared/types/event.types";
 import {isNil} from "lodash";
 import {BehaviorSubject, debounceTime, distinctUntilChanged, Observable, Subscription, take} from "rxjs";
-import {Editor, toHTML} from "ngx-editor";
+import {Editor, toHTML, toDoc} from "ngx-editor";
 import {RichTextEditorToolbarOptions, ValidatedForm} from "app/shared/types/util.types";
 import {ValidationService} from "app/shared/utils/validation/validation.service";
 import {ErrorCode} from "app/shared/utils/validation/error.types";
-import {futureDateValidator, nonEmptyArrayValidator} from "app/shared/utils/validation/validators.fn";
-import {ActivatedRoute} from "@angular/router";
+import {futureDateValidator} from "app/shared/utils/validation/validators.fn";
+import {ActivatedRoute, Router} from "@angular/router";
 import {BusinessBranch} from "app/shared/types/business-branch.types";
 
 @Component({
@@ -18,10 +18,11 @@ import {BusinessBranch} from "app/shared/types/business-branch.types";
 })
 export class EventFormComponent implements OnInit, OnDestroy, ValidatedForm {
 
+	@Input() editedEvent?: Event;
+
 	@Output() eventSubmit = new EventEmitter<PersistEvent>();
 
 	eventForm!: FormGroup;
-	editedEvent?: Event;
 	descriptionEditor!: Editor;
 	registrationDetailsEditor!: Editor;
 	isFormSubmitted = false;
@@ -34,7 +35,10 @@ export class EventFormComponent implements OnInit, OnDestroy, ValidatedForm {
 	private _baseBusinessBranches: BusinessBranch[] = [];
 	private _filteredBranches = new BehaviorSubject<BusinessBranch[]>([]);
 
-	constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, public validationService: ValidationService) {
+	constructor(private formBuilder: FormBuilder,
+				private route: ActivatedRoute,
+				private router: Router,
+				public validationService: ValidationService) {
 	}
 
 	ngOnInit() {
@@ -81,6 +85,13 @@ export class EventFormComponent implements OnInit, OnDestroy, ValidatedForm {
 		return this.selectedBranches.length === 0 && this.isFormSubmitted;
 	}
 
+	cancel() {
+		if (isNil(this.editedEvent)) {
+			return this.router.navigate(['/events', 'listing']);
+		}
+		return this.router.navigate(['/events', this.editedEvent!.id]);
+	}
+
 	private initBusinessBranches() {
 		this._baseBusinessBranches = this.route.snapshot.data['businessBranches'];
 	}
@@ -101,7 +112,6 @@ export class EventFormComponent implements OnInit, OnDestroy, ValidatedForm {
 			contactEmail: [null, [Validators.email, Validators.maxLength(70)]],
 			contactPhone: [null, [Validators.maxLength(9)]],
 			registrationDetails: [null, [Validators.required]],
-			businessBranchesIds: [[], [nonEmptyArrayValidator()]],
 			businessBranchInput: [null]
 		});
 	}
@@ -115,13 +125,22 @@ export class EventFormComponent implements OnInit, OnDestroy, ValidatedForm {
 	}
 
 	private setFormInitialValues() {
-		if (!isNil(this.editedEvent)) {
-			this.eventForm.patchValue({...this.editedEvent}, {emitEvent: false});
-			if (isNil(this.editedEvent.endDate)) {
-				this.eventForm.patchValue({singleDayEvent: true});
-			}
-			this.eventForm.updateValueAndValidity();
+		if (isNil(this.editedEvent)) {
+			return;
 		}
+		const isSingleDay = this.editedEvent.startDate === this.editedEvent.endDate || isNil(this.editedEvent.endDate);
+		this.selectedBranches = [...this.editedEvent.businessBranches];
+		this.eventForm.patchValue({
+			title: this.editedEvent.title,
+			startDate: this.editedEvent.startDate,
+			singleDayEvent: isSingleDay,
+			endDate: isSingleDay ? null : this.editedEvent.endDate,
+			localization: this.editedEvent.localization,
+			contactEmail: this.editedEvent.contactEmail,
+			contactPhone: this.editedEvent.contactPhone,
+			description: toDoc(this.editedEvent.description),
+			registrationDetails: toDoc(this.editedEvent.registrationDetails)
+		});
 	}
 
 	private handleSingleDayEventChange(isSingleDay: boolean) {

@@ -7,7 +7,7 @@
 	</ng-container>
 
 	<ng-template #editEventForm>
-
+		<app-event-form [editedEvent]="event!" (eventSubmit)="handleEventDataSubmit($event)"></app-event-form>
 	</ng-template>
 
 </div>

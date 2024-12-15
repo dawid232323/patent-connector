@@ -21,4 +21,8 @@ export class EventService {
 	deleteEvent(eventId: number): Observable<any> {
 		return this.apiService.delete(AppEndpoints.EventEndpoints.eventsBase.concat(`/${eventId}`));
 	}
+
+	editEvent(body: PersistEvent, eventId: number): Observable<Event> {
+		return this.apiService.put<PersistEvent, Event>(AppEndpoints.EventEndpoints.eventsBase.concat(`/${eventId}`), body);
+	}
 }
