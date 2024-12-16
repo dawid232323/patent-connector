@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {
-	Router, Resolve,
+	Resolve,
 	RouterStateSnapshot,
 	ActivatedRouteSnapshot
 } from '@angular/router';
@@ -11,7 +11,7 @@ import {BusinessBranch} from "app/shared/types/business-branch.types";
 @Injectable({
 	providedIn: 'root'
 })
-export class PatentListingResolver implements Resolve<BusinessBranch[]> {
+export class SectionBusinessBranchesResolver implements Resolve<BusinessBranch[]> {
 
 	constructor(private businessBranchService: BusinessBranchService) {
 	}
