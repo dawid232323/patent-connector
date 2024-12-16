@@ -36,10 +36,10 @@ public class EventSpecificationProvider implements SpecificationProvider< EventS
 		{
 			specification = specification.and( withEndDateTo( searchQuery.getDateTo() ) );
 		}
-		if ( atrNotEmpty( searchQuery.getBusinessBranchesIds() ) && !searchQuery.getBusinessBranchesIds()
+		if ( atrNotEmpty( searchQuery.getSectionBranchesCodes() ) && !searchQuery.getSectionBranchesCodes()
 				.isEmpty() )
 		{
-			specification = specification.and( withBusinessBranchesIn( searchQuery.getBusinessBranchesIds() ) );
+			specification = specification.and( withBusinessBranchesIn( searchQuery.getSectionBranchesCodes() ) );
 		}
 		return specification;
 	}
@@ -76,12 +76,12 @@ public class EventSpecificationProvider implements SpecificationProvider< EventS
 																			  aEndDate ) );
 	}
 
-	private Specification< Event > withBusinessBranchesIn( final List< Long > aBusinessBranchesIds )
+	private Specification< Event > withBusinessBranchesIn( final List< String > aBusinessBranchesIds )
 	{
 		return ( ( root, query, criteriaBuilder ) ->
 		{
 			final Join< Event, BusinessBranch > bbJoin = root.join( "businessBranches" );
-			return bbJoin.get( "id" )
+			return bbJoin.get( "section" )
 					.in( aBusinessBranchesIds );
 		} );
 	}

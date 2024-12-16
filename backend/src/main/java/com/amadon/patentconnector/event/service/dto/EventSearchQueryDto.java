@@ -13,6 +13,6 @@ public class EventSearchQueryDto
 	private String title;
 	private LocalDateTime dateFrom;
 	private LocalDateTime dateTo;
-	private List< Long > businessBranchesIds;
+	private List< String > sectionBranchesCodes;
 	private Long caregiverId;
 }

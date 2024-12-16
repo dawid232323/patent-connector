@@ -28,3 +28,13 @@ export interface Event {
 	contactEmail?: string;
 	contactPhone?: string;
 }
+
+export interface EventSearchQuery {
+	number: number;
+	size: number;
+	title?: string;
+	dateFrom?: Date;
+	dateTo?: Date;
+	sectionBranchesCodes?: string[];
+	caregiverId?: number;
+}
