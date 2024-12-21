@@ -1,5 +1,8 @@
 package com.amadon.patentconnector.user.service;
 
+import com.amadon.patentconnector.mail.dto.UserRegistrationEmailDto;
+import com.amadon.patentconnector.mail.service.MailSender;
+import com.amadon.patentconnector.shared.exception.EmailFailureException;
 import com.amadon.patentconnector.shared.util.hash.HashGenerator;
 import com.amadon.patentconnector.shared.util.token.JWTService;
 import com.amadon.patentconnector.user.entity.User;
@@ -9,6 +12,7 @@ import com.amadon.patentconnector.user.service.dto.UserDto;
 import com.amadon.patentconnector.user.service.mapper.UserMapper;
 import com.amadon.patentconnector.user.service.registrationPerformer.RegistrationPerformer;
 import com.amadon.patentconnector.user.service.registrationPerformer.RegistrationType;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,6 +35,7 @@ public class UserRegistrationService
 	private final PasswordEncoder passwordEncoder;
 	private final UserPersistenceService userPersistenceService;
 	private final UserMapper userMapper;
+	private final MailSender< UserRegistrationEmailDto > mailSender;
 
 	@Transactional
 	public UserDto registerUser( final CreateUser aCreateUserDto, final RegistrationType aRegistrationType )
@@ -78,11 +83,16 @@ public class UserRegistrationService
 		log.info( "Generated secret key for user {}", aUser.getEmail() );
 	}
 
-	// TODO when email service is introduced mailing should be implemented
 	private void createAndSendMessageWithToken( final User aRegisteredUser )
 	{
 		final String userRegistrationToken = jwtService.generateTokenForUserRegistration( aRegisteredUser.getEmail()
 				, aRegisteredUser.getSecretKey() );
+		final UserRegistrationEmailDto emailDto = UserRegistrationEmailDto.builder()
+				.token( userRegistrationToken )
+				.user( aRegisteredUser )
+				.build();
+		mailSender.send( emailDto );
+
 		log.warn( "[TEMP] until email messaging is resolved, user registration token is {}", userRegistrationToken );
 	}
 

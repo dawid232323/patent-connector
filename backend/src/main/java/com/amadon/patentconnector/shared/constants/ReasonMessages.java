@@ -9,4 +9,5 @@ public record ReasonMessages( )
 	public static final String UNEXPECTED_ERROR = "Unexpected server error occurred";
 	public static final String ENTITY_NOT_FOUND = "Requested entity could not be found";
 	public static final String FORBIDDEN = "Access for current user is forbidden";
+	public static final String EMAIL_FAILURE = "Email could not be sent. PLease refer logs for more details";
 }

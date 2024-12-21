@@ -102,6 +102,23 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler
 				.build();
 	}
 
+	@ResponseBody
+	@ResponseStatus( HttpStatus.INTERNAL_SERVER_ERROR )
+	@ExceptionHandler( EmailFailureException.class )
+	public AppErrorResponse handleEmailFailureException( final EmailFailureException aE )
+	{
+		final String uuid = UUID.randomUUID()
+				.toString();
+		log.error( "Could not send email to {}, with subject {} and uuid {}", aE.getMailRecipient(), aE.getMailSubject(),  uuid, aE );
+		return AppErrorResponse.builder()
+				.domainCode( DomainCode.MAIL )
+				.errorCause( ReasonMessages.EMAIL_FAILURE )
+				.status( HttpStatus.INTERNAL_SERVER_ERROR )
+				.message( aE.getMessage() )
+				.uuid( uuid )
+				.build();
+	}
+
 	@Override
 	protected ResponseEntity< Object > handleMethodArgumentNotValid( final MethodArgumentNotValidException ex,
 																	 final HttpHeaders headers,
