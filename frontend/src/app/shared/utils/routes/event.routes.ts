@@ -7,6 +7,8 @@ import {authenticatedGuard} from "app/shared/guard/authenticated.guard";
 import {FormUsageMode} from "app/shared/types/util.types";
 import {specificBusinessBranchesResolver} from "app/features/event/resolver/specific-business-branches.resolver";
 import {EventDetailsComponent} from "app/features/event/event-details/event-details.component";
+import {EventListingComponent} from "app/features/event/event-listing/event-listing.component";
+import {SectionBusinessBranchesResolver} from "app/shared/resolver/section-business-branches.resolver";
 
 export const EVENT_ROUTES: Routes = [
 	{
@@ -35,6 +37,13 @@ export const EVENT_ROUTES: Routes = [
 				resolve: {
 					event: eventResolver,
 					businessBranches: specificBusinessBranchesResolver
+				}
+			},
+			{
+				path: 'listing',
+				component: EventListingComponent,
+				resolve: {
+					businessBranches: SectionBusinessBranchesResolver
 				}
 			},
 			{

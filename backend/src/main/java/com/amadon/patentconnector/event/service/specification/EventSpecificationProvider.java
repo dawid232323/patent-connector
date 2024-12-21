@@ -22,7 +22,7 @@ public class EventSpecificationProvider implements SpecificationProvider< EventS
 	public Specification< Event > getSpecification( final EventSearchQueryDto searchQuery )
 	{
 		Specification< Event > specification = noSpec();
-		if ( atrNotEmpty( searchQuery.getTitle() ) )
+		if ( strNotBlank( searchQuery.getTitle() ) )
 		{
 			specification = specification.and( withTitleLike( searchQuery.getTitle() ) );
 		}
@@ -52,7 +52,7 @@ public class EventSpecificationProvider implements SpecificationProvider< EventS
 
 	private Specification< Event > withTitleLike( final String aTitle )
 	{
-		return ( root, query, cb ) -> cb.like( root.get( "title" ), getSearchLikeString( aTitle ) );
+		return ( root, query, cb ) -> cb.like( cb.trim( cb.lower( root.get( "title" ) ) ), getSearchLikeString( aTitle ) );
 	}
 
 	private Specification< Event > withFutureDate()
@@ -81,7 +81,7 @@ public class EventSpecificationProvider implements SpecificationProvider< EventS
 		return ( ( root, query, criteriaBuilder ) ->
 		{
 			final Join< Event, BusinessBranch > bbJoin = root.join( "businessBranches" );
-			return bbJoin.get( "section" )
+			return criteriaBuilder.trim( bbJoin.get( "section" ) )
 					.in( aBusinessBranchesIds );
 		} );
 	}

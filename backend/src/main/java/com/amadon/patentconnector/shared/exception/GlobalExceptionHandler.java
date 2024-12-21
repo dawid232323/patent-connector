@@ -2,6 +2,7 @@ package com.amadon.patentconnector.shared.exception;
 
 import com.amadon.patentconnector.shared.constants.DomainCode;
 import com.amadon.patentconnector.shared.constants.ReasonMessages;
+import io.jsonwebtoken.JwtException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -80,6 +81,23 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler
 				.errorCause( ReasonMessages.FORBIDDEN )
 				.status( HttpStatus.FORBIDDEN )
 				.message( e.getMessage() )
+				.uuid( uuid )
+				.build();
+	}
+
+	@ResponseBody
+	@ResponseStatus( HttpStatus.UNAUTHORIZED )
+	@ExceptionHandler( JwtException.class )
+	public AppErrorResponse handleJwtException( final JwtException aE )
+	{
+		final String uuid = UUID.randomUUID()
+				.toString();
+		log.error( "Could not authorize, {} and uuid {}", aE.getMessage(),  uuid, aE );
+		return AppErrorResponse.builder()
+				.domainCode( DomainCode.AUTHORIZATION )
+				.errorCause( ReasonMessages.FORBIDDEN )
+				.status( HttpStatus.FORBIDDEN )
+				.message( aE.getMessage() )
 				.uuid( uuid )
 				.build();
 	}

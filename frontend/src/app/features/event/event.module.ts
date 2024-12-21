@@ -18,9 +18,24 @@ import {EventDetailsComponent} from './event-details/event-details.component';
 import {
 	EventBasicDataComponent
 } from "app/features/event/event-details/partials/event-basic-data/event-basic-data.component";
-import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
+import {
+	MatCard,
+	MatCardActions,
+	MatCardContent,
+	MatCardHeader,
+	MatCardSubtitle,
+	MatCardTitle
+} from "@angular/material/card";
 import {MatDivider} from "@angular/material/divider";
-import { EventAdditionalDataComponent } from './event-details/partials/event-additional-data/event-additional-data.component';
+import {
+	EventAdditionalDataComponent
+} from './event-details/partials/event-additional-data/event-additional-data.component';
+import {EventListingComponent} from "app/features/event/event-listing/event-listing.component";
+import {EventListingParamsService} from "app/features/event/event-listing/service/event-listing-params.service";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatProgressBar} from "@angular/material/progress-bar";
+import { EventCardComponent } from './event-listing/partials/event-card/event-card.component';
+import { EventFilterPanelComponent } from './event-listing/partials/event-filter-panel/event-filter-panel.component';
 
 
 @NgModule({
@@ -29,7 +44,10 @@ import { EventAdditionalDataComponent } from './event-details/partials/event-add
 		EventFormComponent,
 		EventDetailsComponent,
 		EventBasicDataComponent,
-  EventAdditionalDataComponent
+		EventAdditionalDataComponent,
+		EventListingComponent,
+  EventCardComponent,
+  EventFilterPanelComponent
 	],
 	imports: [
 		CommonModule,
@@ -48,12 +66,20 @@ import { EventAdditionalDataComponent } from './event-details/partials/event-add
 		MatCardContent,
 		MatCardHeader,
 		MatCardTitle,
-		MatDivider
+		MatDivider,
+		MatPaginator,
+		MatProgressBar,
+		MatCardActions,
+		MatCardSubtitle
 	],
-	providers: [EventService],
+	providers: [
+		EventService,
+		EventListingParamsService
+	],
 	exports: [
 		AddEditEventComponent,
-		EventDetailsComponent
+		EventDetailsComponent,
+		EventListingComponent
 	]
 })
 export class EventModule {

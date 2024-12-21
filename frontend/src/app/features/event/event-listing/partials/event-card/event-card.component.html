@@ -1,0 +1,23 @@
+<mat-card appearance="outlined">
+	<mat-card-header>
+		<mat-card-title class="px-8">{{ event.title }}</mat-card-title>
+		<mat-card-subtitle class="px-8">Data rozpoczęcia: {{ event.startDate | date: 'dd-MM-yyyy' }}</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content>
+		<div class="px-8 py-4">
+			<mat-chip-listbox>
+				@for (branch of event.businessBranches; track $index) {
+					<mat-chip-option [selectable]="false" [disableRipple]="true" class="!w-auto">{{ branch.displayName }}
+					</mat-chip-option>
+				}
+			</mat-chip-listbox>
+		</div>
+	</mat-card-content>
+	<mat-card-actions align="end">
+		<div class="px-8">
+			<button mat-raised-button>
+				<a [routerLink]="['..', event.id]">Szczegóły</a>
+			</button>
+		</div>
+	</mat-card-actions>
+</mat-card>

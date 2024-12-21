@@ -102,7 +102,10 @@ class JWTValidator
 		{
 			parsedClaims = aParser.parseSignedClaims( aToken )
 					.getPayload();
-		} catch ( Exception aE )
+		} catch ( JwtException e ) {
+			throw new JwtException( e.getMessage() );
+		}
+		catch ( Exception aE )
 		{
 			log.error( "Exception occurred during parsing JWT. Original cause is", aE );
 			throw new RuntimeException( aE );

@@ -1,13 +1,17 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from "app/shared/service/api.service";
-import {Event, PersistEvent} from "app/shared/types/event.types";
+import {Event, EventSearchQuery, PersistEvent} from "app/shared/types/event.types";
 import {Observable} from "rxjs";
-import {AppEndpoints} from "app/shared/types/api.types";
+import {AppEndpoints, PagedResult} from "app/shared/types/api.types";
 
 @Injectable()
 export class EventService {
 
 	constructor(private apiService: ApiService) {
+	}
+
+	searchEvents(params: EventSearchQuery): Observable<PagedResult<Event>> {
+		return this.apiService.get<Event>(AppEndpoints.EventEndpoints.eventsSearch, {params: params});
 	}
 
 	getEvent(eventId: number): Observable<Event> {

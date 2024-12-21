@@ -1,5 +1,6 @@
 package com.amadon.patentconnector.shared.service.specification;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -30,5 +31,10 @@ public interface SpecificationProvider<T, K>
 	default boolean atrNotEmpty( final Object aAttribute )
 	{
 		return Objects.nonNull( aAttribute );
+	}
+
+	default boolean strNotBlank( final String aString )
+	{
+		return atrNotEmpty( aString ) && ObjectUtils.isNotEmpty( aString );
 	}
 }

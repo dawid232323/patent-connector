@@ -50,6 +50,7 @@ export class AppEndpoints {
 
 	public static EventEndpoints = class {
 		public static readonly eventsBase: string = `${AppEndpoints.base}/events`;
+		public static readonly eventsSearch: string = `${this.eventsBase}/listing`;
 	}
 
 	public static getExcludedEndpoints(): string[] {

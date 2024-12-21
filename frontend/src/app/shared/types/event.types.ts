@@ -30,11 +30,11 @@ export interface Event {
 }
 
 export interface EventSearchQuery {
-	number: number;
+	page: number;
 	size: number;
 	title?: string;
-	dateFrom?: Date;
-	dateTo?: Date;
+	dateFrom?: Date | number | string;
+	dateTo?: Date | number | string;
 	sectionBranchesCodes?: string[];
 	caregiverId?: number;
 }
