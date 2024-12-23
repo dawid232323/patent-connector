@@ -5,9 +5,14 @@
 		<a class="nav-item" routerLink="patents/listing">Wyszukiwarka Patentów</a>
 		<a class="nav-item" routerLink="events/listing">Wyszukiwarka Wydarzeń</a>
 
-<!--		Research worker actions section-->
+		<!--		Research worker actions section-->
 		<ng-container *ngIf="isUserResearchWorker$ | async">
 			<a class="nav-item" routerLink="events/add">Dodaj Wydarzenie</a>
+		</ng-container>
+
+		<!--		Entrepreneur's actions section-->
+		<ng-container *ngIf="isUserEntrepreneur$ | async">
+			<a class="nav-item" routerLink="/add-invention-demand">Zapotrzebowanie na Patent</a>
 		</ng-container>
 
 	</div>

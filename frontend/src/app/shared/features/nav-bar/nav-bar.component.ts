@@ -42,4 +42,14 @@ export class NavBarComponent {
 				return user.roles.includes(UserRole.RESEARCH_WORKER);
 			}));
 	}
+
+	get isUserEntrepreneur$(): Observable<boolean> {
+		return this.userService.getLoggedUserDetails()
+			.pipe(map(user => {
+				if (isNil(user)) {
+					return false;
+				}
+				return user.roles.includes(UserRole.ENTREPRENEUR);
+			}));
+	}
 }
