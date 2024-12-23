@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -75,6 +76,14 @@ public class UserService implements UserDetailsService
 		userToUpdate.getEntrepreneursData()
 				.setInterestedBusinessBranches( businessBranches );
 		return userMapper.toDto( userRepository.save( userToUpdate ) );
+	}
+
+	public List< UserDto > getResearchInstitutionWorkers()
+	{
+		return userRepository.getInstitutionWorkers()
+				.stream()
+				.map( userMapper::toDto )
+				.collect( Collectors.toList() );
 	}
 
 	private void checkIfUserHasDesiredRoles( final User aUser, final UserRole... aUserRoles )

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Zapotrzebowanie na patent</title>
+	<style>
+
+		.container {
+			display: flex;
+			flex-direction: column;
+		}
+
+        .invention-content-description {
+			font-style: italic;
+            margin-left: 2rem;
+        }
+
+	</style>
+</head>
+<body>
+	<h1>
+		Pojawiło się nowe zapotrzebowanie na patent
+	</h1>
+	<div class="container">
+		<h3>Dane składającego zapotrzebowanie:</h3>
+		<div>
+			Zapotrzebowanie złożone zostało przez <span th:text="${name}"></span>.
+			Przedsiębiorca ten prowadzi firmę <span th:text="${companyName}"></span>
+			<div th:if="${hasRegon == true}">
+				O numerze REGON <span th:text="${regon}"></span>
+			</div>
+			<div th:unless="${hasRegon == false}">
+				O numerze NIP <span th:text="${nip}"></span>
+			</div>
+		</div>
+		<div>
+			<span>Gałęzie przemysłu którymi zajmuje się przedsiębiorstwo:</span>
+			<ul>
+				<li th:each="branch: ${enterpriseBusinessBranches}">
+					<span th:text="${branch}"></span>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="container">
+		<h3>Szczegóły wnioskowanego patentu</h3>
+		<div>
+			<span>Gałęzie przemysłu których dotyczy zapotrzebowanie:</span>
+			<ul>
+				<li th:each="branch: ${inventionBusinessBranches}">
+					<span th:text="${branch}"></span>
+				</li>
+			</ul>
+		</div>
+		<div>
+			<span>Opis wymagania dostarczony przez zgłaszającego:</span>
+			<span class="invention-content-description" th:utext="${inventionContent}"></span>
+		</div>
+	</div>
+	<div>
+		<b>Aby odpowiedzieć na to zapotrzebowanie, wyślij maila na adres rzedsiębiorcy zawarty w kopii tej wiadomości.</b>
+	</div>
+</body>
+</html>

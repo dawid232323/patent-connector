@@ -5,6 +5,7 @@ import com.amadon.patentconnector.businessBranch.service.BusinessBranchService;
 import com.amadon.patentconnector.inventionDemand.entity.InventionDemand;
 import com.amadon.patentconnector.inventionDemand.service.dto.InventionDemandDto;
 import com.amadon.patentconnector.inventionDemand.service.repository.InventionDemandRepository;
+import com.amadon.patentconnector.mail.service.MailSender;
 import com.amadon.patentconnector.user.entity.User;
 import com.amadon.patentconnector.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class InventionDemandService
 	private final InventionDemandRepository demandRepository;
 	private final BusinessBranchService businessBranchService;
 	private final UserService userService;
+	private final MailSender< InventionDemand > mailSender;
 
 	@Transactional
 	public void createInventionDemand( final InventionDemandDto aInventionDemandDto )
@@ -47,9 +49,8 @@ public class InventionDemandService
 				.build();
 	}
 
-	// TODO create email send
 	private void sendInventionDemandEmail( final InventionDemand inventionDemand )
 	{
-
+		mailSender.send( inventionDemand );
 	}
 }

@@ -63,4 +63,11 @@ public class UserController
 	{
 		return userService.updateUserBusinessBranches( aBusinessBranchesIds, aUserId );
 	}
+
+	@ResponseBody
+	@GetMapping( AppEndpoints.UserEndpoints.researchInstitutionWorkers )
+	public List< UserDto > getResearchInstitutionWorkers()
+	{
+		return userService.getResearchInstitutionWorkers();
+	}
 }
