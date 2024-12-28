@@ -12,8 +12,6 @@ public interface PatentRepository extends JpaRepository< Patent, Long >, JpaSpec
 {
 	@Query( "select p from Patent p " +
 			"right join fetch p.bibliographicData pb " +
-//			"join fetch pb.applicationReference pba " +
-//			"join fetch pba.otherPatentDocuments " +
 			"right join fetch p.searchReportData ps " +
 			"left join fetch ps.patentCitations " +
 			"where p.id = ?1" )
