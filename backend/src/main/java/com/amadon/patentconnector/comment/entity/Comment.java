@@ -6,14 +6,18 @@ import com.amadon.patentconnector.shared.util.entity.AuditableEntityListener;
 import com.amadon.patentconnector.user.entity.User;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table( name = "comments" )
 @EntityListeners( AuditableEntityListener.class )
 public class Comment
@@ -28,6 +32,9 @@ public class Comment
 	@JoinColumn( name = "parent_id", nullable = true )
 	private Comment parent;
 
+	@OneToMany( mappedBy = "parentComment", cascade = CascadeType.ALL, orphanRemoval = true )
+	private List< Comment > replies = new ArrayList<>();
+
 	@ManyToOne( fetch = FetchType.LAZY, optional = false )
 	@JoinColumn( name = "author_id", nullable = false )
 	private User author;
@@ -36,8 +43,8 @@ public class Comment
 	@Nullable
 	@JoinTable(
 			name = "patent_comments",
-			joinColumns = @JoinColumn(name = "comment_id"),
-			inverseJoinColumns = @JoinColumn(name = "patent_id")
+			joinColumns = @JoinColumn( name = "comment_id" ),
+			inverseJoinColumns = @JoinColumn( name = "patent_id" )
 	)
 	private Patent patent;
 
@@ -45,8 +52,8 @@ public class Comment
 	@Nullable
 	@JoinTable(
 			name = "event_comments",
-			joinColumns = @JoinColumn(name = "comment_id"),
-			inverseJoinColumns = @JoinColumn(name = "event_id")
+			joinColumns = @JoinColumn( name = "comment_id" ),
+			inverseJoinColumns = @JoinColumn( name = "event_id" )
 	)
 	private Event event;
 

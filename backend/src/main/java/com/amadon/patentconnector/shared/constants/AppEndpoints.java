@@ -53,6 +53,12 @@ public record AppEndpoints( )
 		public static final String eventFind = "/search";
 	}
 
+	public record CommentEndpoints( ) {
+		public static final String commentBase = base + "/comments";
+		public static final String patentComments = "/patent-comments";
+		public static final String eventComments = "/event-comments";
+	}
+
 	public static List< String > getExcludedEndpoints()
 	{
 		return List.of(
@@ -67,7 +73,8 @@ public record AppEndpoints( )
 				PatentEndpoints.patentBase.concat( PatentEndpoints.uploadPatents ),
 				PatentEndpoints.patentBase.concat( PatentEndpoints.patentFind ),
 				PatentEndpoints.patentBase.concat( "/**" ),
-				EventEndpoints.eventBase.concat( "/**" )
+				EventEndpoints.eventBase.concat( "/**" ),
+				CommentEndpoints.commentBase.concat( "/**" )
 					  );
 	}
 }
