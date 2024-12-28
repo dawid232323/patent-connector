@@ -94,7 +94,7 @@ html {
 		@include mat.fab-theme($light-theme);
 		@include mat.button-base($light-theme);
 
-		@apply bg-white;
+		@apply bg-primary-light bg-opacity-15;
 		@apply text-black;
 	}
 }
