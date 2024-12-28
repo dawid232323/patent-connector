@@ -1,0 +1,114 @@
+databaseChangeLog:
+    - changeSet:
+          id: 017-comments
+          author: dawid232323
+          changes:
+              - createSequence:
+                    sequenceName: comments_id_seq
+                    incrementBy: 1
+                    startValue: 1
+              - createTable:
+                    tableName: comments
+                    columns:
+                        - column:
+                              name: id
+                              type: bigint
+                              defaultValueSequenceNext: comments_id_seq
+                              constraints:
+                                  primaryKey: true
+                        - column:
+                              name: parent_id
+                              type: bigint
+                              constraints:
+                                  nullable: true
+                                  references: comments(id)
+                                  foreignKeyName: comments_parent_comments_fk
+                        - column:
+                              name: author_id
+                              type: bigint
+                              constraints:
+                                  nullable: false
+                                  references: users(id)
+                                  foreignKeyName: comments_users_fk
+                        - column:
+                              name: type
+                              type: varchar(20)
+                              constraints:
+                                  nullable: false
+                        - column:
+                              name: content
+                              type: text
+                              constraints:
+                                  nullable: false
+                        -   column:
+                                name: created_at
+                                type: datetime
+                        -   column:
+                                name: updated_at
+                                type: datetime
+                        -   column:
+                                name: created_by
+                                type: varchar(50)
+                        -   column:
+                                name: updated_by
+                                type: varchar(50)
+                        -   column:
+                                name: deleted_on
+                                type: datetime
+                        -   column:
+                                name: deleted_by
+                                type: varchar(100)
+              - createTable:
+                    tableName: patent_comments
+                    columns:
+                        - column:
+                              name: patent_id
+                              type: bigint
+                              constraints:
+                                  nullable: false
+                                  references: patents(id)
+                                  foreignKeyName: patent_comments_patents_fk
+                        - column:
+                              name: comment_id
+                              type: bigint
+                              constraints:
+                                  nullable: false
+                                  unique: true
+                                  references: comments(id)
+                                  foreignKeyName: patent_comments_comments_fk
+              - createTable:
+                    tableName: event_comments
+                    columns:
+                        - column:
+                            name: event_id
+                            type: bigint
+                            constraints:
+                                nullable: false
+                                references: events(id)
+                                foreignKeyName: event_comments_events_fk
+                        - column:
+                            name: comment_id
+                            type: bigint
+                            constraints:
+                                nullable: false
+                                unique: true
+                                references: comments(id)
+                                foreignKeyName: event_comments_comments_fk
+              - createIndex:
+                    indexName: comments_idx
+                    tableName: comments
+                    columns:
+                        - column:
+                              name: parent_id
+              - createIndex:
+                    indexName: patent_comments_idx
+                    tableName: patent_comments
+                    columns:
+                        - column:
+                              name: patent_id
+              - createIndex:
+                    indexName: event_comments_idx
+                    tableName: event_comments
+                    columns:
+                        - column:
+                              name: event_id
