@@ -3,7 +3,6 @@ import {MatButton} from "@angular/material/button";
 import {
 	MAT_DIALOG_DATA,
 	MatDialogActions,
-	MatDialogClose,
 	MatDialogContent,
 	MatDialogRef
 } from "@angular/material/dialog";
@@ -20,9 +19,7 @@ import {isNil} from "lodash";
 	imports: [
 		MatButton,
 		MatDialogActions,
-		MatDialogClose,
 		MatDialogContent,
-		NgIf,
 		NgOptimizedImage
 	],
 	templateUrl: './confirmation-dialog.component.html',
