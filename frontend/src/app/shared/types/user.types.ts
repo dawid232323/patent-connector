@@ -22,3 +22,8 @@ export interface User {
 	entrepreneursData?: EntrepreneursDataDto;
 	researchInstitution?: ResearchInstitution;
 }
+
+export interface UserResearchInstitutionGroup {
+	institution: string;
+	users: User[];
+}

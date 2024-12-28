@@ -1,7 +1,9 @@
 .NgxEditor {
 	background-color: #47464b !important;
+	color: white !important;
 	@media (prefers-color-scheme: light) {
 		background-color: #f4ded9 !important;
+		color: black !important;
 	}
 }
 

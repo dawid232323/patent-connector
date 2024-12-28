@@ -30,6 +30,7 @@ export class AppEndpoints {
 		public static readonly setInitialPassword: string = `${this.userBase}/set-initial-password`;
 		public static readonly myDetails: string = `${this.userBase}/me`;
 		public static readonly updateBusinessBranches = `${this.userBase}/update-business-branches`;
+		public static readonly researchInstitutionWorkers = `${this.userBase}/research-institution-workers`;
 	};
 
 	public static ResearchInstitutionEndpoints = class {

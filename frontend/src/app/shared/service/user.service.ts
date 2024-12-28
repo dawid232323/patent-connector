@@ -47,6 +47,10 @@ export class UserService {
 		return this.apiService.put<number[], User>(url, selectedBranches);
 	}
 
+	getResearchInstitutionWorkers(): Observable<User[]> {
+		return this.apiService.get<User[]>(AppEndpoints.UserEndpoints.researchInstitutionWorkers);
+	}
+
 	private resolveUserDetails(): Observable<User> {
 		if (!isNil(this._loggedUserDetails)) {
 			return of(this._loggedUserDetails);

@@ -54,6 +54,9 @@ export class ValidationService {
 		if (control.hasError(ErrorCode.FUTURE_DATE)) {
 			return ErrorCode.FUTURE_DATE;
 		}
+		if (control.hasError(ErrorCode.ARRAY_PRESENT)) {
+			return ErrorCode.ARRAY_PRESENT;
+		}
 		return null;
 	}
 

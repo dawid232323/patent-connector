@@ -15,10 +15,12 @@ import {globalErrorHandler} from "app/shared/handler/error.handler";
 import {HttpErrorInterceptor} from "app/shared/interceptor/http-error.interceptor";
 import {PatentModule} from "app/features/patent/patent.module";
 import {EventModule} from "app/features/event/event.module";
+import {InventionDemandModule} from "app/features/invention-demand/invention-demand.module";
 
 const appModules: ImportProvidersSource[] = [
 	PatentModule,
-	EventModule
+	EventModule,
+	InventionDemandModule
 ];
 
 export const appConfig: ApplicationConfig = {

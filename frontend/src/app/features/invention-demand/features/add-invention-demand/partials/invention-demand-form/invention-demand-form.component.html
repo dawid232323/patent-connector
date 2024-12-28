@@ -1,0 +1,90 @@
+<div class="flex flex-col w-full justify-center items-center">
+	<form class="grid grid-cols-2 w-3/4 gap-6" [formGroup]="demandForm">
+
+		<div class="col-span-2">
+			<h3>Zgłaszający: {{issuerDisplayName}}</h3>
+		</div>
+
+		<div class="col-span-2">
+			<mat-form-field class="w-full">
+				<mat-label>Adresat zapotrzebowania</mat-label>
+				<input type="text"
+					   matInput
+					   formControlName="recipientInput"
+					   required
+					   [matAutocomplete]="autoGroup">
+				<mat-icon matSuffix (click)="deleteUser()">cancel</mat-icon>
+				<mat-autocomplete #autoGroup="matAutocomplete">
+					@for (group of filteredUsers$ | async; track group) {
+						<mat-optgroup [label]="group.institution">
+							@for (user of group.users; track $index) {
+								<mat-option [value]="getUserDisplayName(user)" (click)="selectUser(user)">
+									{{getUserDisplayName(user)}}
+								</mat-option>
+							}
+						</mat-optgroup>
+					}
+				</mat-autocomplete>
+				<mat-hint *ngIf="!isFormSubmitted">Zacznij wpisywać imię, nazwisko, adres email lub nazwę instytucji</mat-hint>
+			</mat-form-field>
+			<mat-error *ngIf="isFormSubmitted && getControlErrorType(recipientIdCtrl) === errorCode.ARRAY_PRESENT">Upewnij się, że podany adresat znajduje się na liście</mat-error>
+		</div>
+
+		<div class="col-span-2">
+			<label class="dark:text-tertiary-dark text-tertiary-light" for="demand-content-input">Szczegóły wnioskowanego patentu</label>
+			<div class="NgxEditor__Wrapper">
+				<ngx-editor-menu [toolbar]="toolbarOptions" [editor]="contentEditor"></ngx-editor-menu>
+				<ngx-editor
+					formControlName="content"
+					id="demand-content-input" [editor]="contentEditor"
+					[placeholder]="'Podaj szczegółowy opis wnioskowanego patentu'">
+				</ngx-editor>
+			</div>
+		</div>
+
+		<div class="col-span-2 flex flex-col space-y-3">
+			<mat-form-field class="w-full">
+				<mat-label>Gałęzie przemysłu</mat-label>
+				<mat-icon matPrefix>work</mat-icon>
+				<input type="text"
+					   placeholder="Zacznij wpisywać nazwę lub kod branży"
+					   matInput
+					   formControlName="businessBranchInput"
+					   [matAutocomplete]="auto">
+				<mat-autocomplete #auto="matAutocomplete">
+					@for (branch of filteredBranches$ | async; track $index) {
+						<mat-option (click)="addBusinessBranchOption(branch)"
+									(keyup.enter)="addBusinessBranchOption(branch)"
+									[value]="branch.id">{{ getBranchDisplayName(branch) }}
+						</mat-option>
+					}
+				</mat-autocomplete>
+				<mat-hint>Podaj gałęzie przemysłu odpowiadające wnioskowanem patentowi. Wybierz kilka opcji dostępnych na liście
+				</mat-hint>
+			</mat-form-field>
+			<mat-error *ngIf="shouldDisplayBranchesError()">Podaj przynajmniej jedną gałąź przemysłu</mat-error>
+
+			<mat-chip-set>
+				@for (selectedBranch of selectedBranches; track $index) {
+					<mat-chip [disableRipple]="true" [contentEditable]="true">
+						{{ getBranchDisplayName(selectedBranch) }}
+						<button matChipRemove (click)="removeBranch(selectedBranch)">
+							<mat-icon>cancel</mat-icon>
+						</button>
+					</mat-chip>
+				}
+			</mat-chip-set>
+		</div>
+
+		<button mat-raised-button routerLink="/patents/listing">
+			Anuluj
+			<mat-icon matPrefix>cancel</mat-icon>
+		</button>
+
+		<button mat-raised-button (click)="validateAndSubmit()">
+			Zatwierdź
+			<mat-icon matPrefix>save</mat-icon>
+		</button>
+
+	</form>
+</div>

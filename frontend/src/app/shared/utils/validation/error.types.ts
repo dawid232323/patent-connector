@@ -8,7 +8,8 @@ export enum ErrorCode {
 	EXACT_LENGTH = 'exactLength',
 	AT_LEAST_ONE_REQUIRED = 'oneRequired',
 	FUTURE_DATE = 'futureDate',
-	NON_EMPTY_ARRAY = 'nonEmptyArray'
+	NON_EMPTY_ARRAY = 'nonEmptyArray',
+	ARRAY_PRESENT = 'arrayPresent',
 }
 
 export interface TextualValidationOptions {

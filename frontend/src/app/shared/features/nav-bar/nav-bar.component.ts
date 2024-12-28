@@ -23,6 +23,7 @@ export class NavBarComponent {
 
 	logout() {
 		this.securityService.logoutUser();
+		this.router.navigate(['patents', 'listing']);
 	}
 
 	resolveLoginLink(): UrlTree {

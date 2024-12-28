@@ -85,3 +85,17 @@ export function nonEmptyArrayValidator() {
 		return null;
 	};
 }
+
+export function valuePresentValidator<T>(valueSet: Set<T>): ValidatorFn {
+	return (control: AbstractControl): ValidationErrors | null => {
+		const value =  control.value as T;
+		if (isNil(value) || value === '') {
+			return {[ErrorCode.ARRAY_PRESENT]: true};
+		}
+		const containsValue = valueSet.has(value);
+		if (containsValue) {
+			return null;
+		}
+		return {[ErrorCode.ARRAY_PRESENT]: true};
+	}
+}

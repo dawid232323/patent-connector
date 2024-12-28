@@ -54,6 +54,8 @@ export class SecurityService {
 	private resetTokenPair() {
 		this._token = null;
 		this._refreshToken = null;
+		sessionStorage.removeItem(this.TOKEN_KEY);
+		sessionStorage.removeItem(this.REFRESH_TOKEN_KEY);
 	}
 
 	get token(): string | null {
