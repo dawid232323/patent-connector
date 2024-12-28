@@ -15,6 +15,8 @@ import {MatInput} from "@angular/material/input";
 import {NgxEditorModule} from "ngx-editor";
 import {RouterLink} from "@angular/router";
 import {MatButton} from "@angular/material/button";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {LoadingCoverComponent} from "app/shared/features/loading-cover/loading-cover.component";
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import {MatButton} from "@angular/material/button";
 		MatOptgroup,
 		MatSuffix,
 		RouterLink,
-		MatButton
+		MatButton,
+		MatProgressSpinner,
+		LoadingCoverComponent
 	],
 	exports: [
 		AddInventionDemandComponent,

@@ -54,6 +54,10 @@ export class AppEndpoints {
 		public static readonly eventsSearch: string = `${this.eventsBase}/listing`;
 	}
 
+	public static InventionDemands = class {
+		public static readonly inventionDemandsBase: string = `${AppEndpoints.base}/invention-demands`;
+	}
+
 	public static getExcludedEndpoints(): string[] {
 		return [
 			AppEndpoints.UserEndpoints.entrepreneurRegister,

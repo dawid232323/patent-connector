@@ -1,4 +1,7 @@
-<div class="flex flex-col w-full justify-center p-10 space-y-6">
-	<h1 class="text-5xl font-bold text-center">Zgłoś zapotrzebowanie na patent</h1>
-	<app-invention-demand-form></app-invention-demand-form>
+<div class="flex flex-col w-full justify-center min-h-screen">
+	<app-loading-cover *ngIf="isLoadingData"></app-loading-cover>
+	<div class="flex flex-col w-full justify-center p-10 space-y-6">
+		<h1 class="text-5xl font-bold text-center">Zgłoś zapotrzebowanie na patent</h1>
+		<app-invention-demand-form (formSubmit)="handleSubmit($event)"></app-invention-demand-form>
+	</div>
 </div>

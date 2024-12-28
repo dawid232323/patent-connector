@@ -7,7 +7,7 @@ import {InventionDemand} from "app/shared/types/invention-demand.types";
 import {ActivatedRoute} from "@angular/router";
 import {BusinessBranch} from "app/shared/types/business-branch.types";
 import {User, UserResearchInstitutionGroup} from "app/shared/types/user.types";
-import {Editor} from "ngx-editor";
+import {Editor, toHTML} from "ngx-editor";
 import {BehaviorSubject, debounceTime, distinctUntilChanged, Observable, Subscription} from "rxjs";
 import {groupBy, isNil} from "lodash";
 import {valuePresentValidator} from "app/shared/utils/validation/validators.fn";
@@ -164,7 +164,7 @@ export class InventionDemandFormComponent implements OnInit, OnDestroy, Validate
 		return {
 			issuerId: issuerId,
 			recipientId: this.recipientIdCtrl.value,
-			content: formValue['content'],
+			content: toHTML(formValue['content']),
 			businessBranchesIds: branchesIds
 		}
 	}
