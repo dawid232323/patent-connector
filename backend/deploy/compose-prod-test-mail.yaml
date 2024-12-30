@@ -1,4 +1,14 @@
 services:
+  patent-connector-gateway:
+    image: nginx:1.25-alpine
+    restart: always
+    volumes:
+      - ./nginx.conf:/etc/nginx/templates/default.conf.template
+    environment:
+      - APP_DOMAIN=localhost
+    ports:
+      - '80:80'
+      - '443:443'
   patent-connector-db:
     image: 'postgres:latest'
     env_file:
@@ -19,3 +29,12 @@ services:
     build:
       context: ../.
     env_file: '.env'
+  patent-connector-front:
+    image: patent-connector-front:latest
+    restart: always
+    depends_on:
+      - patent-connector-back
+    build:
+      context: ../../frontend
+      args:
+        BUILD_CONF: localProd
