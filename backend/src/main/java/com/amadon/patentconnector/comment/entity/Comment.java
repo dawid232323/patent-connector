@@ -7,6 +7,8 @@ import com.amadon.patentconnector.user.entity.User;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLRestriction;
+import org.hibernate.annotations.Where;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ public class Comment
 	@JoinColumn( name = "parent_id", nullable = true )
 	private Comment parent;
 
+	@SQLRestriction( "deleted_on is null" )
 	@OneToMany( mappedBy = "parentComment", cascade = CascadeType.ALL, orphanRemoval = true )
 	private List< Comment > replies = new ArrayList<>();
 

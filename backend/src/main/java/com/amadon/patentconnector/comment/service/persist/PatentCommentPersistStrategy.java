@@ -8,6 +8,8 @@ import com.amadon.patentconnector.patent.entity.Patent;
 import com.amadon.patentconnector.patent.service.PatentRepository;
 import com.amadon.patentconnector.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -28,6 +30,12 @@ public class PatentCommentPersistStrategy extends AbstractCommentPersistStrategy
 		final Comment createdComment = super.createComment( aCreateCommentDto );
 		setPatent( createdComment, aCreateCommentDto );
 		return createdComment;
+	}
+
+	@Override
+	public Page< Comment > getCommentsForObject( final Long aPatentId, final Pageable aPageable )
+	{
+		return commentRepository.findAllPatentComments( aPatentId, aPageable );
 	}
 
 	@Override

@@ -5,13 +5,15 @@ import com.amadon.patentconnector.comment.service.dto.CreateCommentDto;
 import com.amadon.patentconnector.comment.service.repository.CommentRepository;
 import com.amadon.patentconnector.user.entity.User;
 import com.amadon.patentconnector.user.service.UserService;
+import jakarta.persistence.EntityNotFoundException;
 
+import java.time.Instant;
 import java.util.Objects;
 
 public abstract class AbstractCommentPersistStrategy implements CommentPersistStrategy
 {
-	private final UserService userService;
-	private final CommentRepository commentRepository;
+	protected final UserService userService;
+	protected final CommentRepository commentRepository;
 
 	AbstractCommentPersistStrategy( final UserService aUserService, final CommentRepository aCommentRepository )
 	{
@@ -30,6 +32,23 @@ public abstract class AbstractCommentPersistStrategy implements CommentPersistSt
 		setType( createdComment );
 		setAuthor( createdComment );
 		return createdComment;
+	}
+
+	@Override
+	public void deleteComment( final Long aCommentId )
+	{
+		final String username = userService.getLoggedUser().getUsername();
+		commentRepository.markAsDeletedByPatentId( aCommentId, username );
+	}
+
+	@Override
+	public Comment updateComment( final String aUpdatedContent, final Long aCommentId )
+	{
+		final Comment commentToUpdate = commentRepository.findById( aCommentId ).orElseThrow( EntityNotFoundException::new );
+		commentToUpdate.setContent( aUpdatedContent );
+		commentToUpdate.setUpdatedAt( Instant.now() );
+		commentToUpdate.setUpdatedBy( userService.getLoggedUser().getUsername() );
+		return commentToUpdate;
 	}
 
 	private void setCommonAttributes( final Comment aComment, final CreateCommentDto aCreateCommentDto )

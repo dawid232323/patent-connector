@@ -7,6 +7,8 @@ import com.amadon.patentconnector.comment.service.repository.CommentRepository;
 import com.amadon.patentconnector.event.entity.Event;
 import com.amadon.patentconnector.event.service.repository.EventRepository;
 import com.amadon.patentconnector.user.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -29,6 +31,12 @@ public class EventCommentPersistStrategy extends AbstractCommentPersistStrategy
 		final Comment createdComment = super.createComment( aCreateCommentDto );
 		setEvent( createdComment, aCreateCommentDto );
 		return createdComment;
+	}
+
+	@Override
+	public Page< Comment > getCommentsForObject( final Long aObjectId, final Pageable aPageable )
+	{
+		return commentRepository.findAllEventComments( aObjectId, aPageable );
 	}
 
 	@Override
