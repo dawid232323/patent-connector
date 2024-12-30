@@ -38,7 +38,7 @@ public class Comment
 	@OneToMany( mappedBy = "parentComment", cascade = CascadeType.ALL, orphanRemoval = true )
 	private List< Comment > replies = new ArrayList<>();
 
-	@ManyToOne( fetch = FetchType.LAZY, optional = false )
+	@ManyToOne( fetch = FetchType.EAGER, optional = false )
 	@JoinColumn( name = "author_id", nullable = false )
 	private User author;
 

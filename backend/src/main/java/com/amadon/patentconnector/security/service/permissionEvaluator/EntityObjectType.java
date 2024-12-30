@@ -2,5 +2,6 @@ package com.amadon.patentconnector.security.service.permissionEvaluator;
 
 public enum EntityObjectType
 {
-	EVENT;
+	EVENT,
+	COMMENT;
 }
