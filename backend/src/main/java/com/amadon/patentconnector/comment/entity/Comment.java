@@ -35,7 +35,7 @@ public class Comment
 	private Comment parent;
 
 	@SQLRestriction( "deleted_on is null" )
-	@OneToMany( mappedBy = "parentComment", cascade = CascadeType.ALL, orphanRemoval = true )
+	@OneToMany( mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true )
 	private List< Comment > replies = new ArrayList<>();
 
 	@ManyToOne( fetch = FetchType.EAGER, optional = false )
