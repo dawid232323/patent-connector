@@ -1,8 +1,8 @@
 services:
-  postgres:
+  patent-connector-db:
     image: 'postgres:latest'
     env_file:
-      - .env
+      - .env_local
     ports:
       - '59227:5432'
   mailhog:
