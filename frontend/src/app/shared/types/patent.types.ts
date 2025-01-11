@@ -3,7 +3,7 @@ export interface PatentSearchQuery {
 	size: number;
 	title?: string;
 	businessBranchesIds?: number[];
-	dateCreated?: Date;
+	dateCreated?: Date | number | string;
 }
 
 export interface PatentSearchResult {

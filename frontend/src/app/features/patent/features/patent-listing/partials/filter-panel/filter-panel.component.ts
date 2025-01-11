@@ -5,6 +5,7 @@ import {
 	PatentListingParamsService
 } from "app/features/patent/features/patent-listing/service/patent-listing-params.service";
 import {PatentSearchQuery} from "app/shared/types/patent.types";
+import moment from "moment";
 
 @Component({
   selector: 'app-filter-panel',
@@ -68,11 +69,18 @@ export class FilterPanelComponent implements OnInit {
 		const selectedBranches: number[] = Object.keys(this.filterForm.value)
 			.filter(valueKey => this.isBusinessBranchValue(valueKey) && this.filterForm.value[valueKey] === true)
 			.map(valueKey => +valueKey);
+		const formValue = this.filterForm.value;
 
 		const params: Partial<PatentSearchQuery> = {
-			title: this.filterForm.value['title'] || null,
-			dateCreated: this.filterForm.value['dateFrom'] || null,
 			businessBranchesIds: selectedBranches
+		}
+		if (formValue['dateFrom']) {
+			const dateFrom = moment(formValue['dateFrom']);
+			this.clearMoment(dateFrom);
+			params.dateCreated = dateFrom.format('YYYY-MM-DD');
+		}
+		if (formValue['title']) {
+			params.title = formValue['title'];
 		}
 		this.paramsService.updateSearchParams(params);
 		return params;
@@ -80,5 +88,9 @@ export class FilterPanelComponent implements OnInit {
 
 	private isBusinessBranchValue(key: string): boolean {
 		return key !== 'title' && key !== 'dateFrom';
+	}
+
+	private clearMoment(moment: moment.Moment) {
+		moment.set({hours: 0, minutes: 0, seconds: 0});
 	}
 }
