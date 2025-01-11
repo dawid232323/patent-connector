@@ -1,5 +1,6 @@
 import {isNil} from "lodash";
 import moment, {Moment} from "moment";
+import {PatentUsageDescriptions} from "app/shared/types/patent.types";
 
 
 const defaultValue = '-';
@@ -25,6 +26,10 @@ export const getDateDetail = (detail: any, expectedDateFormat: string): string =
 		return parseDateWithInvalidFormat(detail, expectedDateFormat);
 	}
 	return parseToDefault(date);
+}
+
+export const isUsageDescEmpty = (descriptions: PatentUsageDescriptions): boolean => {
+	return isNil(descriptions) || Object.keys(descriptions).length === 0;
 }
 
 const parseDateWithInvalidFormat = (dateDetail: any, format: string): string => {

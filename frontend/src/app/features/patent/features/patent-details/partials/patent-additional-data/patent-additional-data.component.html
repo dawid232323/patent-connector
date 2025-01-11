@@ -98,4 +98,33 @@
 		</table>
 	</mat-expansion-panel>
 
+	<mat-expansion-panel *ngIf="!isUsageEmpty(patent.usageDescriptions)">
+		<mat-expansion-panel-header>
+			<mat-panel-title>Przykłady użycia</mat-panel-title>
+			<mat-panel-description>Możliwości wykorzystania patentu z podziałem na gałęzie przemysłu
+			</mat-panel-description>
+		</mat-expansion-panel-header>
+		<table class="table-fixed w-full border-separate border-spacing-y-3">
+			<thead class="text-left">
+			<tr>
+				<th class="w-1/3">Gałąź przemysłu</th>
+				<th class="w-2/3">Przykłady wykorzystania</th>
+			</tr>
+			</thead>
+			@for (businessBranch of object.keys(patent.usageDescriptions); track $index) {
+				@if (patent.usageDescriptions[businessBranch]?.length) {
+					<tr>
+						<td>{{ businessBranch }}</td>
+						<td>
+							<ul class="list-disc pl-8">
+								@for (usage of patent.usageDescriptions[businessBranch]; track $index) {
+									<li>{{ usage }}</li>
+								}
+							</ul>
+						</td>
+					</tr>
+				}
+			}
+		</table>
+	</mat-expansion-panel>
 </div>

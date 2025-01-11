@@ -1,3 +1,5 @@
+export type PatentUsageDescriptions = { [branchCode: string]: string[] };
+
 export interface PatentSearchQuery {
 	number: number;
 	size: number;
@@ -55,4 +57,5 @@ export interface Patent {
 	applicants: PatentAddressBook[];
 	assignees: PatentAddressBook[];
 	inventors: PatentAddressBook[];
+	usageDescriptions: PatentUsageDescriptions;
 }

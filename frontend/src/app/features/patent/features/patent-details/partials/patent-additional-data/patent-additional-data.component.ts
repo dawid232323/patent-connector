@@ -3,7 +3,7 @@ import {Patent} from "app/shared/types/patent.types";
 import {
 	getDetail,
 	getDateDetail,
-	isPatentDetailEmpty
+	isPatentDetailEmpty, isUsageDescEmpty
 } from "app/features/patent/features/patent-details/utils/patent.fn";
 
 @Component({
@@ -18,4 +18,6 @@ export class PatentAdditionalDataComponent {
 	readonly isDetailEmpty = isPatentDetailEmpty;
 	readonly getDetail = getDetail;
 	readonly getDateDetail = getDateDetail;
+	readonly isUsageEmpty = isUsageDescEmpty;
+	readonly object = Object;
 }
