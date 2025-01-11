@@ -3,6 +3,9 @@
 	<form class="flex flex-col w-full gap-y-3 justify-center items-center" *ngIf="registerForm"
 		  [formGroup]="registerForm">
 		<h3 class="font-bold">Zarejestruj się!</h3>
+		<p>Jesteś pracownikiem naukowym? Zarejestruj się
+			<a class="underline hover:text-secondary-light dark:hover:text-secondary-dark" routerLink="/register-research-institution-worker">tutaj</a>
+		</p>
 		<div class="form-input-row">
 			<mat-form-field class="primary-form-field">
 				<mat-label>Adres email</mat-label>
