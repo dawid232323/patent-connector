@@ -1,0 +1,50 @@
+databaseChangeLog:
+    - changeSet:
+          id: 018-patent-usage-description
+          author: dawid232323
+          changes:
+              - createSequence:
+                    sequenceName: patent_usage_descriptions_id_seq
+                    startValue: 1
+                    minValue: 1
+                    incrementBy: 1
+              - createTable:
+                    tableName: patent_usage_descriptions
+                    columns:
+                        - column:
+                              name: id
+                              type: bigint
+                              defaultValueSequenceNext: patent_usage_descriptions_id_seq
+                              constraints:
+                                  primaryKey: true
+                        - column:
+                              name: patent_analysis_id
+                              type: bigint
+                              constraints:
+                                  nullable: false
+                                  references: patent_analysis_data(id)
+                                  foreignKeyName: patent_usage_descriptions_patent_analysis_data_id_fk
+                        - column:
+                              name: business_branch_id
+                              type: bigint
+                              constraints:
+                                  nullable: false
+                                  references: business_branches(id)
+                                  foreignKeyName: patent_usage_descriptions_business_branches_id_fk
+                        - column:
+                              name: description
+                              type: text
+                              constraints:
+                                  nullable: false
+                        -   column:
+                                name: created_at
+                                type: datetime
+                        -   column:
+                                name: updated_at
+                                type: datetime
+                        -   column:
+                                name: created_by
+                                type: varchar(50)
+                        -   column:
+                                name: updated_by
+                                type: varchar(50)

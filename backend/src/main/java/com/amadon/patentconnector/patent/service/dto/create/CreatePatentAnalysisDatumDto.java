@@ -17,4 +17,5 @@ import java.util.Set;
 public class CreatePatentAnalysisDatumDto implements Serializable
 {
 	private Set< String > businessBranchesCodes;
+	private Set< CreatePatentUsageDescriptionDto > usageDescriptions;
 }

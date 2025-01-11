@@ -28,5 +28,6 @@ public interface PatentMapper
 	@Mapping( target = "citations", ignore = true )
 	@Mapping( target = "patentNumber", ignore = true )
 	@Mapping( target = "documents", ignore = true )
+	@Mapping( target = "usageDescriptions", ignore = true )
 	PatentDto fromEntityToDto( Patent patent );
 }

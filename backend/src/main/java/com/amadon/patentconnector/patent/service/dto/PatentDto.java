@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @Builder
@@ -26,6 +27,7 @@ public class PatentDto implements Serializable
 	private LocalDate endDate;
 	private String statusDescription;
 	private String patentNumber;
+	private Map< String, List< String > > usageDescriptions;
 	private List< PatentDocumentDto > documents;
 	private List<PatentAddressBookDto> agents;
 	private List<PatentAddressBookDto> applicants;

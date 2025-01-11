@@ -4,6 +4,7 @@ import com.amadon.patentconnector.businessBranch.entity.BusinessBranch;
 import com.amadon.patentconnector.patent.entity.Patent;
 import com.amadon.patentconnector.patent.entity.PatentAnalysisDatum;
 import com.amadon.patentconnector.patent.entity.PatentBibliographicDatum;
+import com.amadon.patentconnector.patent.entity.PatentUsageDescription;
 import com.amadon.patentconnector.patent.service.dto.PatentDto;
 import com.amadon.patentconnector.patent.service.dto.PatentSearchResultDto;
 import com.amadon.patentconnector.patent.service.dto.create.CreatePatentDto;
@@ -14,7 +15,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -54,6 +57,7 @@ abstract class PatentMapperDecorator implements PatentMapper
 		resultDto.setPatentNumber( patent.getExtidappli() );
 
 		setParties( patent, resultDto );
+		setUsageDescriptions( patent, resultDto );
 
 		return resultDto;
 	}
@@ -128,5 +132,15 @@ abstract class PatentMapperDecorator implements PatentMapper
 										.stream()
 										.map( addressMapper::toDtoFromEntity )
 										.collect( Collectors.toList() ) );
+	}
+
+	private void setUsageDescriptions( final Patent aPatent, final PatentDto patentDto )
+	{
+		final Set< PatentUsageDescription > patentUsageDescriptions = aPatent.getPatentAnalysisData()
+				.getPatentUsageDescriptions();
+		final Map< String, List< String > > usageDescriptions = patentUsageDescriptions.stream()
+				.collect( Collectors.toMap( usage -> usage.getBusinessBranch()
+						.getDisplayName(), PatentUsageDescription::getDescriptions ) );
+		patentDto.setUsageDescriptions( usageDescriptions );
 	}
 }

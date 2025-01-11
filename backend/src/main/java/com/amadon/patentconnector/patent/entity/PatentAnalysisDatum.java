@@ -34,4 +34,6 @@ public class PatentAnalysisDatum
 			inverseJoinColumns = @JoinColumn( name = "business_branch_id" ) )
 	private Set< BusinessBranch > businessBranches = new LinkedHashSet<>();
 
+	@OneToMany( mappedBy = "patentAnalysis", fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+	private Set< PatentUsageDescription > patentUsageDescriptions = new LinkedHashSet<>();
 }
