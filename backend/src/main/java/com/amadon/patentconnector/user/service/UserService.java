@@ -86,6 +86,11 @@ public class UserService implements UserDetailsService
 				.collect( Collectors.toList() );
 	}
 
+	public List< User > getUsersToNotifyAboutNewPatents( final Set< String > sectionBBCOdes  )
+	{
+		return userRepository.getUsersToNotifyAboutNewPatents( sectionBBCOdes );
+	}
+
 	private void checkIfUserHasDesiredRoles( final User aUser, final UserRole... aUserRoles )
 	{
 		final Set< UserRole > userRoles = Set.copyOf( aUser.getAuthorities() );

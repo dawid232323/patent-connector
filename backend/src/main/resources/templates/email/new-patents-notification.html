@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Nowe Patenty do Sprawdzenia</title>
+		<style>
+	        body {
+	            margin-left: 10px;
+	        }
+
+	        .container {
+	            display: flex;
+	            flex-direction: column;
+	        }
+
+	        .unordered-list {
+	            list-style: disc;
+	            padding-left: 30px;
+	        }
+
+	        .ordered-list {
+	            list-style: decimal;
+	            padding-inline-start: 10px;
+	        }
+
+	        .patent-link {
+	            font-weight: bold;
+
+	        }
+
+	        .patent-link:hover {
+	            cursor: pointer;
+	            color: cornflowerblue;
+	            text-decoration: underline;
+	        }
+
+	        .patent-list-item {
+	            display: flex;
+	            flex-direction: column;
+	            padding: 10px 0;
+	        }
+
+	        .patent-details-container {
+	            padding-left: 10px;
+	            font-style: italic;
+	        }
+		</style>
+	</head>
+	<body>
+
+		<h1>Pojawiły się nowe patenty!</h1>
+		<h3>Od ostatniego czasu w serwisie pojawiły się nowe patenty które mogą Cię zainteresować</h3>
+		<div class="container">
+			<span>Na podstawie twoich zainteresowań dobraliśmy nowe patenty, które mogą wydać Ci się ciekawe.</span>
+			<ul class="ordered-list">
+				<li class="patent-list-item" th:each="patent: ${patents}">
+					<span>&#x25AA <a class="patent-link" th:text="${patent.name}" th:href="${patent.link}"></a></span>
+					<div class="patent-details-container">
+						<span>Gałęzie przemysłu patentu:</span>
+						<ul class="unordered-list">
+							<li class="branch-list" th:each="businessBranch: ${patent.businessBranches}">
+								<span th:text="${businessBranch}"></span>
+							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>

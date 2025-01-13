@@ -4,10 +4,11 @@ import com.amadon.patentconnector.shared.entity.Auditable;
 import com.amadon.patentconnector.shared.util.entity.AuditableEntityListener;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.proxy.HibernateProxy;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -116,5 +117,36 @@ public class Patent implements Auditable
 	public void setUpdatedBy( final String aUpdatedBy )
 	{
 
+	}
+
+	@Override
+	public final boolean equals( final Object aO )
+	{
+		if ( this == aO )
+		{
+			return true;
+		}
+		if ( aO == null )
+		{
+			return false;
+		}
+		Class< ? > oEffectiveClass = aO instanceof HibernateProxy ? ( (HibernateProxy) aO ).getHibernateLazyInitializer()
+				.getPersistentClass() : aO.getClass();
+		Class< ? > thisEffectiveClass = this instanceof HibernateProxy ? ( (HibernateProxy) this ).getHibernateLazyInitializer()
+				.getPersistentClass() : this.getClass();
+		if ( thisEffectiveClass != oEffectiveClass )
+		{
+			return false;
+		}
+		Patent patent = (Patent) aO;
+		return getId() != null && Objects.equals( getId(), patent.getId() );
+	}
+
+	@Override
+	public final int hashCode()
+	{
+		return this instanceof HibernateProxy ? ( (HibernateProxy) this ).getHibernateLazyInitializer()
+				.getPersistentClass()
+				.hashCode() : getClass().hashCode();
 	}
 }

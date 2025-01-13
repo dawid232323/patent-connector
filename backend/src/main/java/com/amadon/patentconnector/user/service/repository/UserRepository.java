@@ -1,12 +1,13 @@
 package com.amadon.patentconnector.user.service.repository;
 
 import com.amadon.patentconnector.user.entity.User;
-import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface UserRepository extends JpaRepository< User, Long >
 {
@@ -17,4 +18,13 @@ public interface UserRepository extends JpaRepository< User, Long >
 			"and u.isActive = true " +
 			"order by u.researchInstitution.name" )
 	List< User > getInstitutionWorkers();
+
+	@Query("select distinct u from User u " +
+			"join fetch u.entrepreneursData ed " +
+			"join fetch ed.interestedBusinessBranches bb " +
+			"where u.isActive = true " +
+			"and u.entrepreneursData.recommendationAgreement = true " +
+			"and trim(bb.section) in :codes")
+	List<User> getUsersToNotifyAboutNewPatents( @Param("codes") Set<String> sectionBBCodes );
+
 }

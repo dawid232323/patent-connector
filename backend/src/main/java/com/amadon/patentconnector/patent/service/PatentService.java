@@ -37,6 +37,7 @@ public class PatentService
 	private final PatentComponentCreator< CreatePatentBibliographicDatumDto, PatentBibliographicDatum > bibliographicCreator;
 	private final PatentComponentCreator< CretaePatentSearchReportDatumDto, PatentSearchReportDatum > searchReportCreator;
 	private final SpecificationProvider< PatentSearchQueryDto, Patent > specificationProvider;
+	private final PatentNotifierService notifierService;
 
 	public List< PatentDto > createPatents( final List< CreatePatentDto > aCreatePatentDtos )
 	{
@@ -62,6 +63,7 @@ public class PatentService
 			log.warn( "Missed {} entries. Please refer to earlier logs for more details",
 					  aCreatePatentDtos.size() - createdPatents.size() );
 		}
+		notifierService.notifyAboutNewPatents( createdPatents );
 		return createdPatents.stream()
 				.map( patentMapper::fromEntityToDto )
 				.collect( Collectors.toList() );
