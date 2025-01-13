@@ -1,0 +1,14 @@
+.user-avatar {
+	background-image: url("public/icons/avatar-dark.svg");
+	background-size: cover;
+	width: 50px;
+	height: 50px;
+
+	@media (prefers-color-scheme: light) {
+		background-image: url("public/icons/avatar-light.svg");
+		background-size: cover;
+		background-blend-mode: darken;
+		width: 50px;
+		height: 50px;
+	}
+}
