@@ -1,3 +1,5 @@
+import {FormUsageMode} from "app/shared/types/util.types";
+
 export enum CommentType {
 	PATENT, EVENT
 }
@@ -12,4 +14,9 @@ export interface Comment {
 	content: string;
 	createdAt: Date;
 	replies: Comment[];
+}
+
+export interface CommentFormInitialData {
+	mode: FormUsageMode;
+	content?: string;
 }

@@ -1,12 +1,18 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {MatButton, MatMiniFabButton} from "@angular/material/button";
+import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
-import {MatPrefix, MatSuffix} from "@angular/material/form-field";
+import {MatPrefix} from "@angular/material/form-field";
 import {halfRotateRightAnimation} from "app/shared/utils/animations/rotate.animations";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {fastAppearAnimation} from "app/shared/utils/animations/appear.animation";
 import {MatTooltip} from "@angular/material/tooltip";
-import {Observable, of} from "rxjs";
+import {map, Observable, of} from "rxjs";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {FormUsageMode} from "app/shared/types/util.types";
+import {CommentFormComponent} from "app/shared/features/comments-panel/partials/comment-form/comment-form.component";
+import {isNil} from "lodash";
+import {ConfirmationDialogService} from "app/shared/dialog/confirmation-dialog/service/confirmation-dialog.service";
+import {ConfirmationDialogAction} from "app/shared/dialog/confirmation-dialog/types/confirmation-dialog.types";
 
 @Component({
 	selector: 'app-comment',
@@ -14,10 +20,8 @@ import {Observable, of} from "rxjs";
 	imports: [
 		MatButton,
 		MatIcon,
-		MatSuffix,
 		MatPrefix,
 		NgIf,
-		MatMiniFabButton,
 		MatTooltip,
 		AsyncPipe
 	],
@@ -36,6 +40,9 @@ export class CommentComponent {
 
 	repliesShown = false;
 
+	constructor(private dialog: MatDialog, private confirmationService: ConfirmationDialogService) {
+	}
+
 	showRepliesSection(): boolean {
 		if (this.isReply) {
 			return false;
@@ -49,15 +56,46 @@ export class CommentComponent {
 	}
 
 	handleReply() {
-
+		const dialogRef = this.openFormDialog(FormUsageMode.CREATE);
+		dialogRef.afterClosed().subscribe(result => {
+			if (isNil(result)) {
+				return;
+			}
+			this.commentReply.emit(result);
+		});
 	}
 
 	handleEdit() {
-
+		const dialogRef = this.openFormDialog(FormUsageMode.EDIT);
+		dialogRef.afterClosed().subscribe(result => {
+			if (isNil(result)) {
+				return;
+			}
+			this.commentEdit.emit(result);
+		});
 	}
 
 	handleDelete() {
+		this.confirmDelete().subscribe(isConfirmed => {
+			if (isConfirmed) {
+				this.commentDelete.emit();
+			}
+		});
+	}
 
+	private openFormDialog(mode: FormUsageMode, content?: string): MatDialogRef<CommentFormComponent> {
+		return this.dialog.open(CommentFormComponent, {
+			data: {mode, content}, minHeight: '10vh',
+			minWidth: '70vh'
+		})
+	}
+
+	private confirmDelete(): Observable<boolean> {
+		return this.confirmationService.openDialog({title: 'Czy na pewno?', message: 'Usunięcie komentarza jest nieodwracalne'})
+			.afterClosed()
+			.pipe(
+				map(confirmResult => confirmResult === ConfirmationDialogAction.ACCEPT)
+			);
 	}
 
 	get repliesButtonLabel(): string {

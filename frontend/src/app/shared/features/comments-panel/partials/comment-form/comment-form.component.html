@@ -1,0 +1,32 @@
+<span>
+  <span class="flex flex-row items-center space-x-3">
+    <img
+		class="dark:block hidden m-4"
+		ngSrc="/icons/comment_dark.svg"
+		alt="Image that shows writing an online comment"
+		height="100"
+		width="100" />
+	  <img
+		  class="dark:hidden block m-4"
+		  ngSrc="/icons/comment_light.svg"
+		  alt="Image that shows writing an online comment"
+		  height="100"
+		  width="100" />
+    <span class="font-bold text-2xl">{{ title }}</span>
+  </span>
+</span>
+<mat-dialog-content>
+
+	<div class="flex flex-col space-y-3">
+		<form *ngIf="commentForm" [formGroup]="commentForm">
+			<mat-form-field class="primary-form-field">
+				<mat-label>Treść Komentarza</mat-label>
+				<textarea matInput formControlName="content" cdkTextareaAutosize></textarea>
+			</mat-form-field>
+		</form>
+	</div>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+	<button mat-button (click)="submitForm()" [disabled]="commentForm?.invalid">Zapisz</button>
+</mat-dialog-actions>
