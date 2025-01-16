@@ -47,7 +47,7 @@ public class PatentController
 
 	@ResponseBody
 	@GetMapping( "/{patentId}" )
-	public PatentDto getPatent( @PathVariable final Long patentId )
+	public PatentDto getPatent( @PathVariable( "patentId" ) final Long patentId )
 	{
 		return patentService.getPatent( patentId );
 	}
