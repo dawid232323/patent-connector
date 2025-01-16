@@ -1,10 +1,12 @@
-import {Component, Input} from '@angular/core';
-import {MatButton} from "@angular/material/button";
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {MatButton, MatMiniFabButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatPrefix, MatSuffix} from "@angular/material/form-field";
 import {halfRotateRightAnimation} from "app/shared/utils/animations/rotate.animations";
-import {NgIf} from "@angular/common";
+import {AsyncPipe, NgIf} from "@angular/common";
 import {fastAppearAnimation} from "app/shared/utils/animations/appear.animation";
+import {MatTooltip} from "@angular/material/tooltip";
+import {Observable, of} from "rxjs";
 
 @Component({
 	selector: 'app-comment',
@@ -14,7 +16,10 @@ import {fastAppearAnimation} from "app/shared/utils/animations/appear.animation"
 		MatIcon,
 		MatSuffix,
 		MatPrefix,
-		NgIf
+		NgIf,
+		MatMiniFabButton,
+		MatTooltip,
+		AsyncPipe
 	],
 	templateUrl: './comment.component.html',
 	styleUrl: './comment.component.scss',
@@ -22,14 +27,40 @@ import {fastAppearAnimation} from "app/shared/utils/animations/appear.animation"
 })
 export class CommentComponent {
 
-	@Input() isReplay: boolean = false;
+	@Input() isReply: boolean = false;
+	@Input() comment!: Comment;
+
+	@Output() commentReply = new EventEmitter<string>();
+	@Output() commentEdit = new EventEmitter<string>();
+	@Output() commentDelete = new EventEmitter<void>();
 
 	repliesShown = false;
 
 	showRepliesSection(): boolean {
-		if (this.isReplay) {
+		if (this.isReply) {
 			return false;
 		}
 		return true;
+		// return this.comment.length > 0;
+	}
+
+	isCommentAuthor$(): Observable<boolean> {
+		return of(true);
+	}
+
+	handleReply() {
+
+	}
+
+	handleEdit() {
+
+	}
+
+	handleDelete() {
+
+	}
+
+	get repliesButtonLabel(): string {
+		return this.repliesShown ? 'Ukryj odpowiedzi' : 'Pokaż odpowiedzi';
 	}
 }

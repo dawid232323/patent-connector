@@ -11,6 +11,21 @@
 				<span>13.01.2021</span>
 			</div>
 		</div>
+		<div class="flex flex-row-reverse w-full px-4">
+			@if (!isReply) {
+				<button mat-button matTooltip="Odpowiedz" (click)="handleReply()">
+					<mat-icon matButtonIcon>reply</mat-icon>
+				</button>
+			}
+			@if (isCommentAuthor$() | async) {
+				<button mat-button matTooltip="Usuń" (click)="handleDelete()">
+					<mat-icon matButtonIcon>delete</mat-icon>
+				</button>
+				<button mat-button matTooltip="Edytuj" (click)="handleEdit()">
+					<mat-icon matButtonIcon>edit</mat-icon>
+				</button>
+			}
+		</div>
 	</div>
 	<div id="content-section">
 		<p class="py-6">
@@ -32,13 +47,13 @@
 		</p>
 	</div>
 	<div class="flex flex-col w-full items-start pb-4" id="replies-section" *ngIf="showRepliesSection()">
-		<button mat-button (click)="repliesShown = !repliesShown">Pokaż odpowiedzi
+		<button mat-button (click)="repliesShown = !repliesShown">{{repliesButtonLabel}}
 			<mat-icon matPrefix [@halfRotateAnimation]="repliesShown ? 'rotate' : 'default'">arrow_upward</mat-icon>
 		</button>
 		<div *ngIf="repliesShown" [@fastAppearAnimation] class="flex flex-col space-y-3 pt-4 px-4">
-			<app-comment [isReplay]="true"></app-comment>
-			<app-comment [isReplay]="true"></app-comment>
-			<app-comment [isReplay]="true"></app-comment>
+			<app-comment [isReply]="true"></app-comment>
+			<app-comment [isReply]="true"></app-comment>
+			<app-comment [isReply]="true"></app-comment>
 		</div>
 	</div>
 </div>
