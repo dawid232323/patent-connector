@@ -8,6 +8,7 @@ import com.amadon.patentconnector.user.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public abstract class AbstractCommentPersistStrategy implements CommentPersistStrategy
@@ -46,14 +47,14 @@ public abstract class AbstractCommentPersistStrategy implements CommentPersistSt
 	{
 		final Comment commentToUpdate = commentRepository.findById( aCommentId ).orElseThrow( EntityNotFoundException::new );
 		commentToUpdate.setContent( aUpdatedContent );
-		commentToUpdate.setUpdatedAt( Instant.now() );
+		commentToUpdate.setUpdatedAt( LocalDateTime.now() );
 		commentToUpdate.setUpdatedBy( userService.getLoggedUser().getUsername() );
 		return commentToUpdate;
 	}
 
 	private void setCommonAttributes( final Comment aComment, final CreateCommentDto aCreateCommentDto )
 	{
-		aComment.setContent( aComment.getContent() );
+		aComment.setContent( aCreateCommentDto.getContent() );
 	}
 
 	private void setParentComment( final Comment aComment, final CreateCommentDto aCreateCommentDto )

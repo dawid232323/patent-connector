@@ -18,30 +18,30 @@ public interface CommentRepository extends JpaRepository< Comment, Long >, JpaSp
 					left join fetch c.replies
 						where c.parent is null
 							and c.deletedOn is null
-							and c.type = com.amadon.patentconnector.comment.entity.CommentType.PATENT
+							and c.type = 'PATENT'
 										and c.patent.id = :patentId
 			""",
 			countQuery = """
 					select count(c) from Comment c
-					where c.parent is null and c.type = com.amadon.patentconnector.comment.entity.CommentType.PATENT and c.patent.id = :patentId
+					where c.parent is null and c.type = 'PATENT' and c.patent.id = :patentId and c.deletedOn is null
 					""" )
-	Page< Comment > findAllPatentComments( final Long patentId, final Pageable pageable );
+	Page< Comment > findAllPatentComments( @Param( "patentId" ) final Long patentId, final Pageable pageable );
 
 	@Query( value = """
 				select distinct c from Comment c
 					left join fetch c.replies
 						where c.parent is null
 							and c.deletedOn is null
-							and c.type = com.amadon.patentconnector.comment.entity.CommentType.EVENT
+							and c.type = 'EVENT'
 										and c.event.id = :eventId
 			""",
 			countQuery = """
 					select count(c) from Comment c
-					where c.parent is null and c.type = com.amadon.patentconnector.comment.entity.CommentType.EVENT and c.event.id = :eventId
+					where c.parent is null and c.type = 'EVENT' and c.event.id = :eventId and c.deletedOn is null
 					""" )
-	Page< Comment > findAllEventComments( final Long eventId, final Pageable pageable );
+	Page< Comment > findAllEventComments( @Param( "eventId" ) final Long eventId, final Pageable pageable );
 
 	@Modifying
-	@Query( "update Comment c set c.deletedOn = CURRENT TIMESTAMP, c.deletedBy = :username where c.id = :commentId" )
+	@Query( "update Comment c set c.deletedOn = CURRENT TIMESTAMP, c.deletedBy = :username where c.id = :commentId or c.parent.id = :commentId" )
 	void markAsDeletedByPatentId( @Param( "commentId" ) Long commentId, @Param( "username" ) String aUsername );
 }

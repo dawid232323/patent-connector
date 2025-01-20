@@ -8,6 +8,7 @@ import com.amadon.patentconnector.comment.service.mapper.CommentMapper;
 import com.amadon.patentconnector.comment.service.persist.CommentPersistStrategy;
 import com.amadon.patentconnector.comment.service.repository.CommentRepository;
 import com.amadon.patentconnector.comment.service.validation.CommentValidationRuleEngine;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -43,6 +44,7 @@ public class CommentService
 				.map( commentMapper::toDto );
 	}
 
+	@Transactional
 	public void deleteComment( final Long aCommentId, final CommentType aCommentType )
 	{
 		final CommentPersistStrategy strategy = resolvePersistStrategy( aCommentType );

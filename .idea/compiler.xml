@@ -23,11 +23,13 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.6.0/mapstruct-1.6.0.jar" />
         </processorPath>
         <module name="backend" />
+        <module name="PatentConnector.server" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="PatentConnector.server" options="-parameters -Amapstruct.defaultComponentModel=spring -parameters" />
       <module name="backend" options="-parameters -Amapstruct.defaultComponentModel=spring" />
     </option>
   </component>

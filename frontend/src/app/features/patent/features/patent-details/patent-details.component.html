@@ -24,8 +24,8 @@
 
 		</div>
 
-		<div class="col-span-3">
-			<app-comments-panel></app-comments-panel>
+		<div class="col-span-3" *ngIf="patentId">
+			<app-comments-panel [commentType]="commentType.PATENT" [objectId]="patentId"></app-comments-panel>
 		</div>
 	</div>
 </div>

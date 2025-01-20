@@ -8,6 +8,7 @@ import {isNil} from "lodash";
 import {ConfirmationDialogService} from "app/shared/dialog/confirmation-dialog/service/confirmation-dialog.service";
 import {ConfirmationDialogAction} from "app/shared/dialog/confirmation-dialog/types/confirmation-dialog.types";
 import {EventService} from "app/features/event/service/event.service";
+import {CommentType} from "app/shared/types/comment.types";
 
 @Component({
 	selector: 'app-event-details',
@@ -17,6 +18,8 @@ import {EventService} from "app/features/event/service/event.service";
 export class EventDetailsComponent implements OnInit {
 
 	event!: Event;
+
+	readonly commentType: typeof CommentType = CommentType;
 
 	constructor(private activatedRoute: ActivatedRoute,
 				private userService: UserService,

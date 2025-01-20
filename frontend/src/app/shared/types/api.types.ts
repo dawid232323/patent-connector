@@ -14,6 +14,11 @@ export interface PagedResult <T> {
 	content: T[]
 }
 
+export interface PageOptions {
+	page: number; // page number
+	size: number; // page size
+}
+
 export class AppEndpoints {
 	private static readonly base: string = environment.apiUrl;
 
@@ -52,6 +57,12 @@ export class AppEndpoints {
 	public static EventEndpoints = class {
 		public static readonly eventsBase: string = `${AppEndpoints.base}/events`;
 		public static readonly eventsSearch: string = `${this.eventsBase}/listing`;
+	}
+
+	public static CommentEndpoints = class {
+		public static readonly commentsBase: string = `${AppEndpoints.base}/comments`;
+		public static readonly patentComments: string = `${this.commentsBase}/patent-comments`;
+		public static readonly eventComments: string = `${this.commentsBase}/event-comments`;
 	}
 
 	public static InventionDemands = class {

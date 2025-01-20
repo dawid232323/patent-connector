@@ -11,6 +11,7 @@ public interface CommentMapper
 	@Mapping( target = "parentId", source = "parent.id" )
 	@Mapping( target = "authorName", source = "author.name" )
 	@Mapping( target = "authorLastName", source = "author.lastName" )
+	@Mapping( target = "authorEmail", source = "author.email" )
 	@Mapping( target = "authorAffiliation", ignore = true )
 		// set in decorator
 	CommentDto toDto( Comment comment );

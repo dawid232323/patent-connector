@@ -139,6 +139,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.11.0</version>
 				<configuration>
+					<source>22</source>
+					<target>22</target>
 					<annotationProcessorPaths>
 						<path>
 							<groupId>org.projectlombok</groupId>
@@ -159,6 +161,9 @@
 					<compilerArgs>
 						<compilerArg>
 							-Amapstruct.defaultComponentModel=spring
+						</compilerArg>
+						<compilerArg>
+							-parameters
 						</compilerArg>
 					</compilerArgs>
 				</configuration>

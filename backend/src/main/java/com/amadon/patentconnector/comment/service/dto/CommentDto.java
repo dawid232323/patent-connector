@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -17,6 +18,6 @@ public class CommentDto
 	private String authorLastName;
 	private String authorAffiliation;
 	private String content;
-	private Instant createdAt;
+	private LocalDateTime createdAt;
 	private List< CommentDto > replies;
 }

@@ -6,7 +6,7 @@ export enum CommentType {
 
 export interface Comment {
 	id: number;
-	parentId: number;
+	parentId: number | null;
 	authorName: string;
 	authorEmail: string;
 	authorLastName: string;
@@ -19,4 +19,11 @@ export interface Comment {
 export interface CommentFormInitialData {
 	mode: FormUsageMode;
 	content?: string;
+}
+
+export interface CreateComment {
+	content: string;
+	parentId: number | null;
+	patentId: number | null;
+	eventId: number | null;
 }

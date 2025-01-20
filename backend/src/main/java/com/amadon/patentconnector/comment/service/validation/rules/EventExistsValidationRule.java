@@ -15,7 +15,7 @@ import java.util.Objects;
 public class EventExistsValidationRule implements CommentValidationRule
 {
 
-	private EventRepository eventRepository;
+	private final EventRepository eventRepository;
 
 	@Override
 	public void validateCreate( final CreateCommentDto aCreateCommentDto )

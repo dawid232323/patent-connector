@@ -74,10 +74,10 @@ public class CommentController
 	}
 
 	@DeleteMapping( AppEndpoints.CommentEndpoints.patentComments + "/{commentId}" )
-	@PreAuthorize( "hasAnyAuthority( 'RESEARCH_WORKER', 'ADMIN', 'ENTREPRENEUR' ) and hasPermission(#commentId, 'COMMENT', null)" )
-	public ResponseEntity< ? > deletePatentComment( @PathVariable( "commentId" ) final Long commentId )
+	@PreAuthorize( "hasAnyAuthority( 'RESEARCH_WORKER', 'ADMIN', 'ENTREPRENEUR' ) and hasPermission(#aCommentId, 'COMMENT', null)" )
+	public ResponseEntity< ? > deletePatentComment( @PathVariable( "commentId" ) final Long aCommentId )
 	{
-		commentService.deleteComment( commentId, CommentType.PATENT );
+		commentService.deleteComment( aCommentId, CommentType.PATENT );
 		return ResponseEntity.ok().build();
 	}
 

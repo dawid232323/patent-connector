@@ -3,7 +3,7 @@ import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatPrefix} from "@angular/material/form-field";
 import {halfRotateRightAnimation} from "app/shared/utils/animations/rotate.animations";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {AsyncPipe, DatePipe, NgIf, TitleCasePipe} from "@angular/common";
 import {fastAppearAnimation} from "app/shared/utils/animations/appear.animation";
 import {MatTooltip} from "@angular/material/tooltip";
 import {map, Observable, of} from "rxjs";
@@ -13,6 +13,10 @@ import {CommentFormComponent} from "app/shared/features/comments-panel/partials/
 import {isNil} from "lodash";
 import {ConfirmationDialogService} from "app/shared/dialog/confirmation-dialog/service/confirmation-dialog.service";
 import {ConfirmationDialogAction} from "app/shared/dialog/confirmation-dialog/types/confirmation-dialog.types";
+import {Comment} from "app/shared/types/comment.types";
+import moment from "moment";
+import {SecurityService} from "app/shared/service/security.service";
+import {UserService} from "app/shared/service/user.service";
 
 @Component({
 	selector: 'app-comment',
@@ -23,7 +27,9 @@ import {ConfirmationDialogAction} from "app/shared/dialog/confirmation-dialog/ty
 		MatPrefix,
 		NgIf,
 		MatTooltip,
-		AsyncPipe
+		AsyncPipe,
+		TitleCasePipe,
+		DatePipe
 	],
 	templateUrl: './comment.component.html',
 	styleUrl: './comment.component.scss',
@@ -40,19 +46,26 @@ export class CommentComponent {
 
 	repliesShown = false;
 
-	constructor(private dialog: MatDialog, private confirmationService: ConfirmationDialogService) {
+	constructor(private dialog: MatDialog,
+				private userService: UserService,
+				private confirmationService: ConfirmationDialogService) {
 	}
 
 	showRepliesSection(): boolean {
 		if (this.isReply) {
 			return false;
 		}
-		return true;
-		// return this.comment.length > 0;
+		return this.comment.replies.length > 0;
 	}
 
 	isCommentAuthor$(): Observable<boolean> {
-		return of(true);
+		return this.userService.getLoggedUserDetails()
+			.pipe(map(details => {
+				if (isNil(details)) {
+					return false;
+				}
+				return this.comment.authorEmail === details.email;
+			}));
 	}
 
 	handleReply() {
@@ -66,7 +79,7 @@ export class CommentComponent {
 	}
 
 	handleEdit() {
-		const dialogRef = this.openFormDialog(FormUsageMode.EDIT);
+		const dialogRef = this.openFormDialog(FormUsageMode.EDIT, this.comment.content);
 		dialogRef.afterClosed().subscribe(result => {
 			if (isNil(result)) {
 				return;
@@ -83,6 +96,18 @@ export class CommentComponent {
 		});
 	}
 
+	getAuthorName(): string {
+		return this.comment.authorName.concat(' ', this.comment.authorLastName);
+	}
+
+	isCommentFromToday(): boolean {
+		const commentDate = moment(this.comment.createdAt);
+		commentDate.set({hours: 0, minutes: 0, seconds: 0, milliseconds: 0});
+		const today = moment();
+		today.set({hours: 0, minutes: 0, seconds: 0, milliseconds: 0});
+		return today.isSame(commentDate);
+	}
+
 	private openFormDialog(mode: FormUsageMode, content?: string): MatDialogRef<CommentFormComponent> {
 		return this.dialog.open(CommentFormComponent, {
 			data: {mode, content}, minHeight: '10vh',
@@ -91,7 +116,10 @@ export class CommentComponent {
 	}
 
 	private confirmDelete(): Observable<boolean> {
-		return this.confirmationService.openDialog({title: 'Czy na pewno?', message: 'Usunięcie komentarza jest nieodwracalne'})
+		return this.confirmationService.openDialog({
+			title: 'Czy na pewno?',
+			message: 'Usunięcie komentarza jest nieodwracalne'
+		})
 			.afterClosed()
 			.pipe(
 				map(confirmResult => confirmResult === ConfirmationDialogAction.ACCEPT)
@@ -100,5 +128,10 @@ export class CommentComponent {
 
 	get repliesButtonLabel(): string {
 		return this.repliesShown ? 'Ukryj odpowiedzi' : 'Pokaż odpowiedzi';
+	}
+
+	get isUserLoggedIn$(): Observable<boolean> {
+		return this.userService.getLoggedUserDetails()
+			.pipe(map(details => !isNil(details)));
 	}
 }

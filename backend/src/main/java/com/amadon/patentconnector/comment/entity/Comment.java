@@ -2,6 +2,7 @@ package com.amadon.patentconnector.comment.entity;
 
 import com.amadon.patentconnector.event.entity.Event;
 import com.amadon.patentconnector.patent.entity.Patent;
+import com.amadon.patentconnector.shared.entity.Auditable;
 import com.amadon.patentconnector.shared.util.entity.AuditableEntityListener;
 import com.amadon.patentconnector.user.entity.User;
 import jakarta.annotation.Nullable;
@@ -11,6 +12,7 @@ import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.annotations.Where;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,7 @@ import java.util.List;
 @AllArgsConstructor
 @Table( name = "comments" )
 @EntityListeners( AuditableEntityListener.class )
-public class Comment
+public class Comment implements Auditable
 {
 	@Id
 	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "comments_id_gen" )
@@ -42,35 +44,37 @@ public class Comment
 	@JoinColumn( name = "author_id", nullable = false )
 	private User author;
 
-	@ManyToOne
 	@Nullable
 	@JoinTable(
 			name = "patent_comments",
 			joinColumns = @JoinColumn( name = "comment_id" ),
 			inverseJoinColumns = @JoinColumn( name = "patent_id" )
 	)
+	@ManyToOne( cascade = CascadeType.ALL )
 	private Patent patent;
 
-	@ManyToOne
 	@Nullable
 	@JoinTable(
 			name = "event_comments",
 			joinColumns = @JoinColumn( name = "comment_id" ),
 			inverseJoinColumns = @JoinColumn( name = "event_id" )
 	)
+	@ManyToOne( cascade = CascadeType.ALL )
 	private Event event;
 
+	@Getter( AccessLevel.NONE )
+	@Setter( AccessLevel.NONE )
 	@Column( name = "type", nullable = false, length = 20 )
-	private CommentType type;
+	private String type;
 
 	@Column( name = "content", nullable = false, length = Integer.MAX_VALUE )
 	private String content;
 
 	@Column( name = "created_at" )
-	private Instant createdAt;
+	private LocalDateTime createdAt;
 
 	@Column( name = "updated_at" )
-	private Instant updatedAt;
+	private LocalDateTime updatedAt;
 
 	@Column( name = "created_by", length = 50 )
 	private String createdBy;
@@ -79,9 +83,18 @@ public class Comment
 	private String updatedBy;
 
 	@Column( name = "deleted_on" )
-	private Instant deletedOn;
+	private LocalDateTime deletedOn;
 
 	@Column( name = "deleted_by", length = 100 )
 	private String deletedBy;
 
+	public CommentType getType()
+	{
+		return CommentType.valueOf( type );
+	}
+
+	public void setType( CommentType type )
+	{
+		this.type = type.name();
+	}
 }

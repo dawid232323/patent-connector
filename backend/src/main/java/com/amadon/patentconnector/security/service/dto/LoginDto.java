@@ -2,6 +2,7 @@ package com.amadon.patentconnector.security.service.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 
@@ -9,6 +10,7 @@ import static com.amadon.patentconnector.shared.constants.ValidationMessages.Com
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class LoginDto
 {
 	@NotBlank( message = NOT_BLANK )

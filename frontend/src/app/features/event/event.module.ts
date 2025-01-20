@@ -36,6 +36,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatProgressBar} from "@angular/material/progress-bar";
 import { EventCardComponent } from './event-listing/partials/event-card/event-card.component';
 import { EventFilterPanelComponent } from './event-listing/partials/event-filter-panel/event-filter-panel.component';
+import {CommentsPanelComponent} from "app/shared/features/comments-panel/comments-panel.component";
 
 
 @NgModule({
@@ -49,29 +50,30 @@ import { EventFilterPanelComponent } from './event-listing/partials/event-filter
   EventCardComponent,
   EventFilterPanelComponent
 	],
-	imports: [
-		CommonModule,
-		ReactiveFormsModule,
-		MatFormFieldModule,
-		MatInputModule,
-		MatCheckboxModule,
-		NgxEditorModule,
-		MatDatepickerModule,
-		MatAutocompleteModule,
-		MatIconModule,
-		MatChipsModule,
-		MatButtonModule,
-		RouterLink,
-		MatCard,
-		MatCardContent,
-		MatCardHeader,
-		MatCardTitle,
-		MatDivider,
-		MatPaginator,
-		MatProgressBar,
-		MatCardActions,
-		MatCardSubtitle
-	],
+  imports: [
+	CommonModule,
+	ReactiveFormsModule,
+	MatFormFieldModule,
+	MatInputModule,
+	MatCheckboxModule,
+	NgxEditorModule,
+	MatDatepickerModule,
+	MatAutocompleteModule,
+	MatIconModule,
+	MatChipsModule,
+	MatButtonModule,
+	RouterLink,
+	MatCard,
+	MatCardContent,
+	MatCardHeader,
+	MatCardTitle,
+	MatDivider,
+	MatPaginator,
+	MatProgressBar,
+	MatCardActions,
+	MatCardSubtitle,
+	CommentsPanelComponent
+  ],
 	providers: [
 		EventService,
 		EventListingParamsService

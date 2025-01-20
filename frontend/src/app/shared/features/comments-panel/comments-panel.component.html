@@ -1,19 +1,37 @@
 <mat-card class="w-full">
 
 	<mat-card-header>
-		<h3 mat-card-title class="!font-bold !text-3xl">Komentarze</h3>
+		<div class="flex flex-row justify-between w-full p-4">
+			<h3 mat-card-title class="!font-bold !text-3xl">Komentarze</h3>
+			<button mat-icon-button (click)="addComment()" *ngIf="!isLoading && (isUSerLoggedIn$ | async)">
+				<mat-icon matButtonIcon>add</mat-icon>
+			</button>
+		</div>
 	</mat-card-header>
 
 	<mat-card-content>
-		<div class="flex flex-col mt-8 space-y-4">
-			<app-comment></app-comment>
-			<app-comment></app-comment>
-			<app-comment></app-comment>
-			<app-comment></app-comment>
+		<div class="flex flex-col mt-8 space-y-4" *ngIf="!isLoading" [@fastAppearAnimation]>
+			@for (comment of comments; track $index) {
+				<app-comment [comment]="comment"
+							 (commentReply)="replyComment($event, comment.id)"
+							 (commentDelete)="deleteComment(comment.id)"
+							 (commentEdit)="editComment(comment.id, $event)">
+				</app-comment>
+			}
+		</div>
+		<div class="flex flex-col p-4 space-y-4" *ngIf="!isLoading && comments.length === 0" [@fastAppearAnimation]>
+			<p class="!text-2xl">Nie ma jeszcze żadnych komentarzy</p>
+		</div>
+		<div *ngIf="isLoading" class="flex w-full justify-center p-4" [@fastAppearAnimation]>
+			<mat-spinner mode="indeterminate"></mat-spinner>
 		</div>
 	</mat-card-content>
 
-	<mat-card-actions align="end">
-		<mat-paginator></mat-paginator>
+	<mat-card-actions align="end" *ngIf="!isLoading">
+		<mat-paginator [length]="totalElements"
+					   [pageSize]="currentPageSize"
+					   [pageSizeOptions]="availablePageSizes"
+					   [pageIndex]="currentPage"
+					   (page)="handlePageEvent($event)"></mat-paginator>
 	</mat-card-actions>
 </mat-card>
