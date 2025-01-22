@@ -1,28 +1,41 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router, RouterLink, UrlTree} from "@angular/router";
 import {SecurityService} from "app/shared/service/security.service";
-import {map, Observable} from "rxjs";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {Subscription} from "rxjs";
+import {NgIf} from "@angular/common";
 import {UserService} from "app/shared/service/user.service";
 import {isNil} from "lodash";
-import {UserRole} from "app/shared/types/user.types";
+import {User, UserRole} from "app/shared/types/user.types";
 
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-	imports: [RouterLink, AsyncPipe, NgIf],
+	imports: [RouterLink, NgIf],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss'
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnInit, OnDestroy {
+
+	private _user: User | null = null;
+	private _userLoggedIn = false;
+	private _subscription: Subscription = new Subscription();
 
 	constructor(private securityService: SecurityService,
 				private router: Router,
 				private userService: UserService) {
 	}
 
+	ngOnInit() {
+		this._subscription.add(this.securityService.isUserLoggedIn.subscribe(this.handleUserLoginChange.bind(this)));
+		// this.loadUserData();
+	}
+
+	ngOnDestroy(): void {
+		this._subscription.unsubscribe();
+	}
+
 	logout() {
-		this.securityService.logoutUser();
+		this.userService.logoutUser();
 		this.router.navigate(['patents', 'listing']);
 	}
 
@@ -30,27 +43,36 @@ export class NavBarComponent {
 		return this.router.createUrlTree(['login'], {queryParams: {next: this.router.url}});
 	}
 
-	get isUserLoggedIn$(): Observable<boolean> {
-		return this.securityService.isUserLoggedIn;
+	private loadUserData() {
+		this.userService.getLoggedUserDetails().subscribe(user => {
+			this._user = user;
+		});
 	}
 
-	get isUserResearchWorker$(): Observable<boolean> {
-		return this.userService.getLoggedUserDetails()
-			.pipe(map(user => {
-				if (isNil(user)) {
-					return false;
-				}
-				return user.roles.includes(UserRole.RESEARCH_WORKER);
-			}));
+	private handleUserLoginChange(isUserLoggedIn: boolean) {
+		this._userLoggedIn = isUserLoggedIn;
+		if (!isUserLoggedIn) {
+			this._user = null;
+		} else {
+			this.loadUserData();
+		}
 	}
 
-	get isUserEntrepreneur$(): Observable<boolean> {
-		return this.userService.getLoggedUserDetails()
-			.pipe(map(user => {
-				if (isNil(user)) {
-					return false;
-				}
-				return user.roles.includes(UserRole.ENTREPRENEUR);
-			}));
+	get isUserLoggedIn(): boolean {
+		return this._userLoggedIn;
+	}
+
+	get isUserResearchWorker(): boolean {
+		if (isNil(this._user)) {
+			return false;
+		}
+		return this._user.roles.includes(UserRole.RESEARCH_WORKER);
+	}
+
+	get isUserEntrepreneur(): boolean {
+		if (isNil(this._user)) {
+			return false;
+		}
+		return this._user.roles.includes(UserRole.ENTREPRENEUR);
 	}
 }

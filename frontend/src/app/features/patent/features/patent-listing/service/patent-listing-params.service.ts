@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {UserService} from "app/shared/service/user.service";
 import {PatentSearchQuery} from "app/shared/types/patent.types";
-import {Observable, of, switchMap} from "rxjs";
+import {Observable, of} from "rxjs";
 import {isNil} from "lodash";
 import {User} from "app/shared/types/user.types";
 
@@ -36,8 +36,7 @@ export class PatentListingParamsService {
 	}
 
 	private retrieveForInitial(): Observable<PatentSearchQuery> {
-		return this.userService.getLoggedUserDetails()
-			.pipe(switchMap(loggedUser => isNil(loggedUser) ? of(this._defaultState) : this.resolveForLoggedUser(loggedUser)));
+		return of(this._defaultState);
 	}
 
 	private retrieveExisting(): Observable<PatentSearchQuery> {

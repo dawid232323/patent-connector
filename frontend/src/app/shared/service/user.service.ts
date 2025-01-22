@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from "app/shared/service/api.service";
 import {SecurityService} from "app/shared/service/security.service";
-import {map, Observable, of, switchMap, tap} from "rxjs";
+import {map, Observable, of, switchMap, take, tap} from "rxjs";
 import {User} from "app/shared/types/user.types";
 import {LoginDto, TokenDto} from "app/shared/types/security.types";
 import {AppEndpoints} from "app/shared/types/api.types";
@@ -38,6 +38,7 @@ export class UserService {
 	getLoggedUserDetails(): Observable<User | null> {
 		return this.securityService.isUserLoggedIn
 			.pipe(
+				take(1),
 				switchMap((isUserLoggedIn) => isUserLoggedIn ? this.resolveUserDetails() : of(null))
 			);
 	}
@@ -49,6 +50,11 @@ export class UserService {
 
 	getResearchInstitutionWorkers(): Observable<User[]> {
 		return this.apiService.get<User[]>(AppEndpoints.UserEndpoints.researchInstitutionWorkers);
+	}
+
+	logoutUser(): void {
+		this.securityService.logoutUser();
+		this._loggedUserDetails = null;
 	}
 
 	private resolveUserDetails(): Observable<User> {

@@ -6,19 +6,19 @@
 		<a class="nav-item" routerLink="events/listing">Wyszukiwarka Wydarzeń</a>
 
 		<!--		Research worker actions section-->
-		<ng-container *ngIf="isUserResearchWorker$ | async">
+		<ng-container *ngIf="isUserResearchWorker">
 			<a class="nav-item" routerLink="events/add">Dodaj Wydarzenie</a>
 		</ng-container>
 
 		<!--		Entrepreneur's actions section-->
-		<ng-container *ngIf="isUserEntrepreneur$ | async">
+		<ng-container *ngIf="isUserEntrepreneur">
 			<a class="nav-item" routerLink="/add-invention-demand">Zapotrzebowanie na Patent</a>
 		</ng-container>
 
 	</div>
 
 	<div class="flex flex-row w-1/2 gap-x-2 items-end pb-1 justify-end">
-		<ng-container *ngIf="!(isUserLoggedIn$ | async); else loggedUser">
+		<ng-container *ngIf="!isUserLoggedIn; else loggedUser">
 			<a class="nav-item" [routerLink]="resolveLoginLink()">Zaloguj się</a>
 			<a class="nav-item" routerLink="register">Zarejestruj się</a>
 		</ng-container>
