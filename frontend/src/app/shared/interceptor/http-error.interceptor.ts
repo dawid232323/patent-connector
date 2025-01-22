@@ -1,5 +1,23 @@
-import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest,} from '@angular/common/http';
-import {catchError, firstValueFrom, map, Observable, Subject, switchMap, take, throwError, withLatestFrom,} from 'rxjs';
+import {
+	HttpErrorResponse,
+	HttpEvent,
+	HttpHandler,
+	HttpInterceptor,
+	HttpRequest,
+	HttpResponse,
+} from '@angular/common/http';
+import {
+	catchError,
+	firstValueFrom,
+	map,
+	Observable,
+	of,
+	Subject,
+	switchMap,
+	take,
+	throwError,
+	withLatestFrom,
+} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {SecurityService} from "app/shared/service/security.service";
@@ -7,7 +25,7 @@ import {AppEndpoints} from "app/shared/types/api.types";
 import {UserService} from "app/shared/service/user.service";
 import {isNil} from "lodash";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class HttpErrorInterceptor implements HttpInterceptor {
 	private isRefreshing = false;
 	private tokenHasBeenRefreshed = new Subject<void>();
@@ -16,13 +34,15 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 		private authService: SecurityService,
 		private userService: UserService,
 		private router: Router
-	) {}
+	) {
+	}
+
 	intercept(
 		req: HttpRequest<any>,
 		next: HttpHandler
 	): Observable<HttpEvent<any>> {
 		return next.handle(req).pipe(
-			catchError( (requestError) => {
+			catchError((requestError) => {
 				const isUserLoggedIn = !isNil(this.authService.token) && !isNil(this.authService.refreshToken);
 				if (
 					requestError instanceof HttpErrorResponse &&
@@ -40,6 +60,14 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 	private handleUnauthorized(req: HttpRequest<any>, next: HttpHandler, isUserLoggedIn: boolean): Observable<HttpEvent<any>> {
 		// when current request is the one to refresh access token
 		if (this.isRefreshing && req.url.includes(AppEndpoints.SecurityEndpoints.refreshToken)) {
+			if (isNil(this.authService.refreshToken) || this.authService.refreshToken.trim() === '') {
+				this.router.navigate(['/login'], {
+					queryParams: {
+						next: this.router.url
+					}
+				});
+				return of(new HttpResponse());
+			}
 			return next.handle(req);
 		}
 		// when it is the first request that fails
@@ -54,11 +82,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 				}),
 				catchError((error, caught) => {
 					this.isRefreshing = false;
-					this.authService.logoutUser();
+					this.userService.logoutUser();
 					this.router.navigate(['/login'], {
-						queryParams: { next: this.router.url },
+						queryParams: {next: this.router.url},
 					});
-					return throwError(error);
+					return caught;
 				})
 			);
 		}
