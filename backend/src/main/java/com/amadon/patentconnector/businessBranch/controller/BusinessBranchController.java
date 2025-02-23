@@ -5,10 +5,7 @@ import com.amadon.patentconnector.businessBranch.service.dto.BusinessBranchDto;
 import com.amadon.patentconnector.shared.constants.AppEndpoints;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,5 +31,12 @@ public class BusinessBranchController
 	public List< BusinessBranchDto > getAllSpecificBusinessBranches()
 	{
 		return businessBranchService.getAllSpecificBusinessBranches();
+	}
+
+	@ResponseBody
+	@GetMapping( AppEndpoints.BusinessBranchEndpoints.findBranchChildren + "/{id}" )
+	public List< BusinessBranchDto > findBranchChildren( @PathVariable Long id )
+	{
+		return businessBranchService.getBusinessBranchChildren( id );
 	}
 }
