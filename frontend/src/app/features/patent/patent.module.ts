@@ -38,6 +38,8 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatListModule} from "@angular/material/list";
 import { PatentAddressBookDetailsComponent } from './features/patent-details/partials/patent-address-book-details/patent-address-book-details.component';
 import {CommentsPanelComponent} from "app/shared/features/comments-panel/comments-panel.component";
+import {Tree, TreeModule} from "primeng/tree";
+import {TreeSelectModule} from "primeng/treeselect";
 
 
 @NgModule({
@@ -50,35 +52,37 @@ import {CommentsPanelComponent} from "app/shared/features/comments-panel/comment
   PatentAdditionalDataComponent,
   PatentAddressBookDetailsComponent
 	],
-  imports: [
-	CommonModule,
-	MatCard,
-	MatCardHeader,
-	MatCardTitle,
-	MatCardContent,
-	MatInputModule,
-	ReactiveFormsModule,
-	MatFormFieldModule,
-	MatDatepickerModule,
-	MatNativeDateModule,
-	MatLabel,
-	MatHint,
-	MatCheckboxModule,
-	MatIcon,
-	MatFabButton,
-	MatMiniFabButton,
-	MatCardActions,
-	MatButton,
-	MatCardModule,
-	MatChipsModule,
-	MatPaginatorModule,
-	MatProgressBarModule,
-	RouterLink,
-	MatDividerModule,
-	MatExpansionModule,
-	MatListModule,
-	CommentsPanelComponent
-  ],
+	imports: [
+		CommonModule,
+		MatCard,
+		MatCardHeader,
+		MatCardTitle,
+		MatCardContent,
+		MatInputModule,
+		ReactiveFormsModule,
+		MatFormFieldModule,
+		MatDatepickerModule,
+		MatNativeDateModule,
+		MatLabel,
+		MatHint,
+		MatCheckboxModule,
+		MatIcon,
+		MatFabButton,
+		MatMiniFabButton,
+		MatCardActions,
+		MatButton,
+		MatCardModule,
+		MatChipsModule,
+		MatPaginatorModule,
+		MatProgressBarModule,
+		RouterLink,
+		MatDividerModule,
+		MatExpansionModule,
+		MatListModule,
+		CommentsPanelComponent,
+		TreeModule,
+		TreeSelectModule
+	],
 	exports: [
 		PatentListingComponent,
 		PatentDetailsComponent

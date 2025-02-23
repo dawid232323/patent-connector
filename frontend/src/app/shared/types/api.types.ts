@@ -47,6 +47,7 @@ export class AppEndpoints {
 		public static readonly businessBranchBase: string = `${AppEndpoints.base}/business-branches`;
 		public static readonly sectionBusinessBranches: string = `${this.businessBranchBase}/section-business-branches`;
 		public static readonly specificBusinessBranches: string = `${this.businessBranchBase}/specific-business-branches`;
+		public static readonly searchBranchChildren: string = `${this.businessBranchBase}/find-branch-children`;
 	};
 
 	public static PatentEndpoints = class {
@@ -77,6 +78,7 @@ export class AppEndpoints {
 			AppEndpoints.SecurityEndpoints.login,
 			AppEndpoints.SecurityEndpoints.refreshToken,
 			AppEndpoints.BusinessBranchEndpoints.sectionBusinessBranches,
+			AppEndpoints.BusinessBranchEndpoints.searchBranchChildren,
 			AppEndpoints.ResearchInstitutionEndpoints.resInstitutionFind,
 			AppEndpoints.PatentEndpoints.patentsSearch
 		];

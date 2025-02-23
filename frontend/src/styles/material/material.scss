@@ -59,3 +59,21 @@
 		@include mat.checkbox-color($light-theme, $color-variant: secondary);
 	}
 }
+
+@media (prefers-color-scheme: light) {
+	.mat-expansion-panel {
+		@apply bg-white #{!important};
+	}
+}
+
+@media (prefers-color-scheme: light) {
+	.mat-mdc-card {
+		@apply bg-white #{!important};
+	}
+}
+
+@media (prefers-color-scheme: light) {
+	.mat-mdc-paginator {
+		@apply bg-white #{!important};
+	}
+}

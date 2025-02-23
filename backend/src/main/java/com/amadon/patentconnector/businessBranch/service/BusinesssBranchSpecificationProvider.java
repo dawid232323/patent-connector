@@ -49,8 +49,7 @@ public class BusinesssBranchSpecificationProvider implements SpecificationProvid
 	private Specification< BusinessBranch > getGroupChildren( final String code )
 	{
 		return codeEquals( BusinessBranchesFieldNames.GROUP, code )
-				.and( codeNotEmpty( BusinessBranchesFieldNames.CLASS ) )
-				.and( codeEmpty( BusinessBranchesFieldNames.CODE ) );
+				.and( codeNotEmpty( BusinessBranchesFieldNames.CLASS ) );
 	}
 
 	private Specification< BusinessBranch > getClassChildren( final String code )

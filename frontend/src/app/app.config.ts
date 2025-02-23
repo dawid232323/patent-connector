@@ -16,6 +16,8 @@ import {HttpErrorInterceptor} from "app/shared/interceptor/http-error.intercepto
 import {PatentModule} from "app/features/patent/patent.module";
 import {EventModule} from "app/features/event/event.module";
 import {InventionDemandModule} from "app/features/invention-demand/invention-demand.module";
+import {providePrimeNG} from "primeng/config";
+import Material from '@primeng/themes/material';
 
 const appModules: ImportProvidersSource[] = [
 	PatentModule,
@@ -28,6 +30,11 @@ export const appConfig: ApplicationConfig = {
 		provideZoneChangeDetection({eventCoalescing: true}),
 		provideRouter(routes),
 		provideAnimationsAsync(),
+		providePrimeNG({
+			theme: {
+				preset: Material
+			}
+		}),
 		provideHttpClient(
 			withInterceptors([
 				httpInterceptor

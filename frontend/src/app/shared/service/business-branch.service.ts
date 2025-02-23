@@ -37,4 +37,8 @@ export class BusinessBranchService {
 				return this._specificBranches!;
 			}));
 	}
+
+	getBusinessBranchChildren(parentId: number): Observable<BusinessBranch[]> {
+		return this.apiService.get<BusinessBranch[]>(AppEndpoints.BusinessBranchEndpoints.searchBranchChildren.concat(`/${parentId}`));
+	}
 }

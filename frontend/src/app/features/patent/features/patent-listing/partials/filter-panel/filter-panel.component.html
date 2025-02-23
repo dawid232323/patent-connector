@@ -20,13 +20,14 @@
 				</mat-form-field>
 			</section>
 			<section class="max-h-[30rem] overflow-y-scroll">
-				@for (branch of businessBranches; track branch.id) {
-					<p>
-						<mat-checkbox [formControlName]="branch.id">
-							{{branch.displayName}}
-						</mat-checkbox>
-					</p>
-				}
+<!--				@for (branch of businessBranches; track branch.id) {-->
+<!--					<p>-->
+<!--						<mat-checkbox [formControlName]="branch.id">-->
+<!--							{{branch.displayName}}-->
+<!--						</mat-checkbox>-->
+<!--					</p>-->
+<!--				}-->
+				<p-tree [value]="treeValues" [lazy]="true" selectionMode="checkbox" loadingMode="icon" (onNodeExpand)="handleNodeExpand($event)"></p-tree>
 			</section>
 		</form>
 	</mat-card-content>
