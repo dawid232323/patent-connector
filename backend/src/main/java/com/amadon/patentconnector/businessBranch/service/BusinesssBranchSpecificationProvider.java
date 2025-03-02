@@ -2,11 +2,9 @@ package com.amadon.patentconnector.businessBranch.service;
 
 import com.amadon.patentconnector.businessBranch.entity.BusinessBranch;
 import com.amadon.patentconnector.businessBranch.entity.BusinessBranchType;
-import com.amadon.patentconnector.businessBranch.service.repository.BusinessBranchRepository;
 import com.amadon.patentconnector.shared.service.specification.SpecificationProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 
 @Component

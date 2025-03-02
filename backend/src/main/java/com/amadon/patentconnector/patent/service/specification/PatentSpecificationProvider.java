@@ -4,6 +4,7 @@ import com.amadon.patentconnector.businessBranch.entity.BusinessBranch;
 import com.amadon.patentconnector.patent.entity.Patent;
 import com.amadon.patentconnector.patent.entity.PatentAnalysisDatum;
 import com.amadon.patentconnector.patent.entity.PatentBibliographicDatum;
+import com.amadon.patentconnector.patent.service.PatentService;
 import com.amadon.patentconnector.patent.service.dto.PatentSearchQueryDto;
 import com.amadon.patentconnector.shared.service.specification.SpecificationProvider;
 import jakarta.annotation.Nullable;
@@ -22,6 +23,8 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class PatentSpecificationProvider implements SpecificationProvider< PatentSearchQueryDto, Patent >
 {
+	private final SpecificationProvider< List< Long >, Patent > relatedBBSpecProvider;
+
 	@Override
 	public Specification< Patent > getSpecification( final PatentSearchQueryDto searchQuery )
 	{
@@ -65,11 +68,7 @@ public class PatentSpecificationProvider implements SpecificationProvider< Paten
 
 	private Specification< Patent > withBusinessBranchesIn( final List< Long > businessBranchesIds )
 	{
-		return ( root, query, cb ) -> {
-			final Join< Patent, PatentAnalysisDatum > analysisDatumJoin = root.join( "patentAnalysisData" );
-			final Join< PatentAnalysisDatum, BusinessBranch > businessBranchJoin = analysisDatumJoin.join( "businessBranches" );
-			return businessBranchJoin.get( "id" ).in( businessBranchesIds );
-		};
+		return relatedBBSpecProvider.getSpecification( businessBranchesIds );
 	}
 
 	private Specification< Patent > withDateCreated( final LocalDate dateCreated )
